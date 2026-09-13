@@ -1,0 +1,372 @@
+/* ==========================================================================
+   RESET Y CONFIGURACIÓN BASE (CLÍNICA ORTOPÉDICA)
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9d2 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #334155;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   BARRA DE NAVEGACIÓN FIJA (SUPERIOR)
+   ========================================================================== */
+#nav-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  height: 80px !important;
+  z-index: 99999 !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+#nav-container nav, 
+#nav-container .navbar {
+  width: 100% !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+
+/* ==========================================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================================== */
+.flex-page-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(80px + 2.5rem);
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 4rem;
+}
+
+/* ==========================================================================
+   FLYER / HERO BANNER (TRANSPARENTE E ELEGANTE)
+   ========================================================================== */
+.hero-banner-horizontal {
+  position: relative;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.137) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-left: 5px solid #b76e79;
+  border-radius: 16px;
+  padding: 2.5rem 3rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 10px 30px rgba(183, 110, 121, 0.05);
+  overflow: hidden;
+  animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(183, 110, 121, 0.08);
+  border: 1px solid rgba(183, 110, 121, 0.842);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  color: #9b4755;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.status-badge ion-icon {
+  font-size: 1.1rem;
+  color: #b76e79;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.glitch-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #4f0b86;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: #f7f8f8;
+  font-size: 1.1rem;
+  margin-top: 0.6rem;
+  max-width: 900px;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   LAYOUT GRID PARA 3 TARJETAS EN FILA
+   ========================================================================== */
+.flex-horizontal-layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  gap: 1.8rem;
+  margin-bottom: 3rem;
+}
+
+.flex-item {
+  display: flex;
+  flex-direction: column;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Retardo progresivo de entrada */
+.flex-item:nth-child(1) { animation-delay: 0.1s; }
+.flex-item:nth-child(2) { animation-delay: 0.2s; }
+.flex-item:nth-child(3) { animation-delay: 0.3s; }
+
+/* ==========================================================================
+   TARJETAS BLANCAS CON TRANSPARENCIA (GLASSMORPHISM)
+   ========================================================================== */
+.card-cyber {
+  position: relative;
+  background: rgba(255, 255, 255, 0.26) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-top: 4px solid #b76e79;
+  border-radius: 16px;
+  padding: 1.8rem;
+  height: 100%;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease,
+              background 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+}
+
+.card-cyber.alt-rose-deep { border-top-color: #8a4853; }
+.card-cyber.alt-rose-copper { border-top-color: #c97a63; }
+.card-cyber.alt-rose-soft { border-top-color: #ecbeb2; }
+
+.card-cyber:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(247, 214, 205, 0.6);
+  box-shadow: 0 16px 35px rgba(183, 110, 121, 0.12);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  padding-bottom: 0.8rem;
+}
+
+.hud-tag {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  color: #8a4853;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.card-icon {
+  font-size: 1.6rem;
+  color: #b76e79;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-cyber:hover .card-icon {
+  transform: scale(1.15) rotate(6deg);
+}
+
+.card-cyber h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.35rem;
+  color: #0f172a;
+  margin: 0.2rem 0 0.8rem 0;
+  font-weight: 700;
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body p {
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.values-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.values-list li {
+  font-size: 0.9rem;
+  color: #475569;
+  border-bottom: 1px dashed rgba(226, 232, 240, 0.8);
+  padding-bottom: 0.6rem;
+  line-height: 1.5;
+}
+
+.values-list li:last-child {
+  border-bottom: none;
+}
+
+.values-list li strong {
+  color: #8a4853;
+  display: block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem;
+  margin-bottom: 0.15rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   REPRODUCTOR DE VIDEO CENTRADO DEBAJO DE LAS 3 TARJETAS
+   ========================================================================== */
+.video-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+video {
+  display: block;
+  width: 100%;
+  max-width: 900px; /* Tamaño profesional centrado */
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-top: 4px solid #b76e79;
+  background-color: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+video:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(183, 110, 121, 0.15);
+}
+
+/* ==========================================================================
+   ANIMACIONES
+   ========================================================================== */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.92); }
+}
+
+/* ==========================================================================
+   ADAPTABILIDAD RESPONSIVA
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .flex-horizontal-layout {
+    grid-template-columns: 1fr; /* Pasa a 1 columna en móviles/tablets */
+  }
+  
+  .glitch-title {
+    font-size: 2rem;
+  }
+  
+  .flex-page-wrapper {
+    padding-top: calc(80px + 1.5rem);
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+  
+  .hero-banner-horizontal {
+    padding: 1.8rem;
+  }
+}
+
+/* ==========================================================================
+   MENÚ DESPLEGABLE (DROPDOWN)
+   ========================================================================== */
+#nav-container .dropdown-menu a,
+#nav-container .dropdown-content a,
+#nav-container .sub-menu a,
+#nav-container ul ul a {
+  color: #1e293b !important;
+  font-weight: 500;
+}
+
+#nav-container .dropdown-menu,
+#nav-container .dropdown-content,
+#nav-container .sub-menu,
+#nav-container ul ul {
+  background-color: rgba(247, 242, 242, 0.911) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+#nav-container .dropdown-menu a:hover,
+#nav-container .dropdown-content a:hover,
+#nav-container .sub-menu a:hover,
+#nav-container ul ul a:hover {
+  color: #b76e79 !important;
+  background-color: rgba(247, 214, 205, 0.2) !important;
+}

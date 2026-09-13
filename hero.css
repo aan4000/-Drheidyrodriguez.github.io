@@ -1,0 +1,369 @@
+/* ==========================================================================
+   HERO — Página principal (index.html)
+   Carga DESPUÉS de style.css. Fondo original del sitio (salmón → navy-soft),
+   con el texto arriba y el video debajo del texto.
+   ========================================================================== */
+
+/* ---- Efecto de revelado por scroll (fade + translateY) ---- */
+main.hero .reveal {
+  opacity: 0;
+  transform: translateY(60%);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+main.hero .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main.hero .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+main.hero {
+  position: relative;
+  overflow: hidden;
+  flex-wrap: wrap;
+  min-height: calc(100vh - 300px);
+  align-items: center;
+  justify-content: flex-start;
+  align-content: center;
+  gap: clamp(40px, 7vw, 90px);
+  background: linear-gradient(90deg, var(--color-salmon) 80px, var(--color-navy-soft) 80%);
+}
+
+/* ---- Carnet / badge médico ---- */
+main.hero .img_section {
+  display: block;
+  padding: 0;
+  width: min(285px, 100%);
+  align-self: center;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 24px 55px rgba(63, 68, 104, 0.28);
+  flex: 0 0 auto;
+  margin: 0;
+  position: relative;
+}
+
+/* Anillo punteado giratorio (igual que la foto del header) */
+main.hero .img_section::before {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  border: 2px dashed rgba(233, 172, 143, 0.7);
+  border-radius: 26px;
+  animation: doctorOrbit 40s linear infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Cabecera del carnet */
+.carnet-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.1rem;
+  background: linear-gradient(120deg, var(--color-navy) 0%, #565c8a 100%);
+  color: #ffffff;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.carnet-head-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--color-terracotta) 0%, #e29578 100%);
+  box-shadow: 0 6px 14px rgba(207, 124, 86, 0.45);
+  flex-shrink: 0;
+}
+
+.carnet-head-icon ion-icon {
+  font-size: 1.3rem;
+}
+
+.carnet-head-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.carnet-head-text span {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.carnet-head-text strong {
+  font-size: 0.98rem;
+  font-weight: 700;
+  font-family: "Mont", sans-serif;
+}
+
+/* Imagen central */
+main.hero .img_section .description_img {
+  width: 100%;
+  max-width: 100%;
+  height: 340px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: static;
+  transform: none;
+  filter: none;
+  border-radius: 0;
+  background: #f4f1fb;
+  animation: none;
+}
+
+/* Pie del carnet */
+.carnet-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem 1.1rem;
+  background: #f6f3ef;
+  border-top: 2px dashed rgba(63, 68, 104, 0.22);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.carnet-foot > span {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: var(--color-navy);
+  text-transform: uppercase;
+}
+
+.carnet-barcode {
+  width: 74px;
+  height: 26px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-navy) 0 2px,
+    transparent 2px 5px,
+    var(--color-navy) 5px 6px,
+    transparent 6px 9px,
+    var(--color-navy) 9px 12px,
+    transparent 12px 14px
+  );
+  border-radius: 4px;
+  opacity: 0.85;
+}
+
+/* ---- Columna derecha: texto ---- */
+.hero-content {
+  flex: 0 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 2vw, 26px);
+}
+
+main.hero .scroll_info {
+  width: auto;
+  max-width: 620px;
+  align-items: flex-start;
+  text-align: left;
+  justify-content: flex-start;
+}
+
+main.hero .scroll_info h2 {
+  color: var(--color-white);
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.55);
+  font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+  line-height: 1.15;
+  border: none;
+  margin-top: 0.15rem;
+  text-align: left;
+}
+
+main.hero .scroll_info h2 span {
+  display: block;
+  font-size: 1em;
+  color: var(--color-terracotta);
+}
+
+main.hero .text-desc {
+  color: rgb(5, 5, 5);
+  margin-left: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  text-align: left;
+}
+
+.hero-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.6rem;
+  margin: 1rem 0 0.4rem;
+  padding: 0;
+}
+
+.hero-chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: var(--color-navy);
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+
+.hero-chips ion-icon {
+  color: var(--color-terracotta);
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+/* ---- Video (fila propia, debajo de todo) — limpio, siempre visible ---- */
+.hero-video-card {
+  position: relative;
+  flex-basis: 100%;
+  width: min(460px, 100%);
+  margin: clamp(10px, 2vw, 28px) auto 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 18px 38px rgba(63, 68, 104, 0.28);
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.hero-video-card video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+}
+
+/* Logo de la doctora que cubre la marca de agua (esquina inferior derecha) */
+.hero-video-card .video-brand {
+  position: absolute;
+  right: 10px;
+  bottom: 84px;
+  width: 22%;
+  max-width: 130px;
+  min-width: 70px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0.85;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  main.hero {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+  }
+
+  main.hero .hero-content,
+  main.hero .scroll_info {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  main.hero .img_section {
+    margin: 0 auto;
+    align-self: center;
+  }
+
+  main.hero .scroll_info,
+  main.hero .text-desc {
+    text-align: center;
+    align-items: center;
+  }
+
+  main.hero .scroll_info,
+  main.hero .scroll_info h2 {
+    text-align: center;
+  }
+
+  .hero-chips {
+    justify-content: center;
+  }
+
+  .hero-video-card {
+    order: 3;
+    flex-basis: auto;
+    width: min(460px, 100%);
+    margin: clamp(14px, 3vw, 24px) auto 0;
+  }
+}
+
+@media (max-width: 480px) {
+  main.hero {
+    display: block;
+  }
+
+  main.hero .hero-content {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  main.hero .scroll_info,
+  main.hero .scroll_info h2,
+  main.hero .text-desc {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  main.hero .img_section {
+    width: min(240px, 100%);
+    margin: 0 auto;
+  }
+
+  .hero-video-card {
+    width: min(285px, 100%);
+    margin: clamp(12px, 3vw, 24px) auto 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-video-card {
+    width: min(245px, 100%);
+  }
+}
+
+/* ---- Efecto al ajustar el tamaño / redimensionar la pantalla ---- */
+@keyframes screenResize {
+  0% { opacity: 0.55; transform: scale(0.98); }
+  70% { opacity: 1; transform: scale(1.005); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+main.hero.is-adjusting {
+  animation: screenResize 0.45s ease-in-out;
+}

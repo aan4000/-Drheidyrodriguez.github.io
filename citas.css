@@ -1,0 +1,750 @@
+/* ==========================================================================
+   1. VARIABLES & ESTILOS BASE
+   ========================================================================== */
+:root {
+    --color-bg-main: #f5f7fb;
+    --color-primary: #2648a5;
+    --color-primary-dark: #133b85;
+    --color-text: #ffffff;
+    --color-card-bg:  #3f44688a;
+    --radius: 10px;
+    --transition: 0.3s ease;
+    --shadow: 0 4px 12px rgba(0,0,0,0.15);
+    --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+
+
+@font-face {
+    font-family: 'Griffiths';
+    src: local('Griffiths Regular'), local('Griffiths-Regular'),
+        url('Griffiths-Regular.woff2') format('woff2'),
+        url('Griffiths-Regular.woff') format('woff'),
+        url('Griffiths-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  
+  @font-face {
+    font-family: 'Mont';
+    src: local('Mont Bold'), local('Mont-Bold'),
+        url('Mont-Bold.woff2') format('woff2'),
+        url('Mont-Bold.woff') format('woff'),
+        url('Mont-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+
+  html, body,main,*,*::before{
+
+    font-family: "mont";
+  }
+
+body {
+    margin: 0;
+    padding: 20px;
+    background: radial-gradient(circle at top, #EABAA5 0%, #4499EE 50%, #000000 100%);
+    font-family: var(--font-body);
+}
+
+/* ==========================================================================
+   2. CONTENEDOR PRINCIPAL
+   ========================================================================== */
+.formulario_citas {
+    position: relative; /* CRUCIAL: Marco de referencia para la posición absoluta de los términos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.75rem;
+    width: 100%;
+    max-width: 1020px;
+    min-height: calc(100vh - 96px);
+    margin: 40px auto;
+    padding: 1.5rem;
+    border-radius: 1rem;
+}
+
+/* ==========================================================================
+   3. SECCIÓN FORMULARIO DE CITAS
+   ========================================================================== */
+.campos {
+    flex: 1;
+}
+
+form {
+    flex: 0 1 470px;
+    width: 100%;
+    margin: 0;
+    background: linear-gradient(150deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.16) 55%, rgba(255, 255, 255, 0.26) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 18px;
+    padding: 1.6rem 1.5rem 1.7rem;
+    box-shadow: 0 18px 40px rgba(20, 26, 58, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    position: relative;
+}
+
+.field {
+    margin-bottom: 0.65rem;
+}
+
+/* ---- Alineación lado a lado en escritorio (mismo diseño/colores) ---- */
+form .field:first-of-type {
+    display: block;
+}
+
+.campo_linea,
+.hora_fecha {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.campo_linea > .field,
+.hora_fecha > .field {
+    flex: 1 1 calc(50% - 0.5rem);
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Igualar alto de inputs para que nombre y correo calcen perfecto */
+form .field:first-of-type input[type="text"],
+form .field:first-of-type input[type="email"],
+form .field:first-of-type input[type="date"],
+form .field:first-of-type input[type="time"] {
+    height: 40px;
+}
+
+form .field:first-of-type label {
+    line-height: 1.3;
+    white-space: nowrap;
+    min-height: 24px;
+    display: flex;
+    align-items: flex-end;
+}
+
+form .field:first-of-type h2 {
+    font-family: "Mont", sans-serif;
+    color: #ffffff;
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.45);
+    letter-spacing: 0.5px;
+    font-size: 1.6rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: none;
+    position: relative;
+    text-align: center;
+}
+form .field:first-of-type h2::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 3px;
+    margin: 0.5rem auto 0;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #e29578, #f0b7a0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* Fecha y hora se integran a la misma fila de nombre/correo */
+.campo_linea {
+    margin-bottom: 0.5rem;
+}
+
+/* Campo de hora unificado: hora + AM/PM dentro del mismo control */
+.time-group {
+    display: flex;
+    align-items: stretch;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #3f4468;
+    box-shadow: 0 1px 3px rgba(20, 26, 58, 0.15);
+}
+
+.time-group input[type="time"] {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+    border: none;
+    border-radius: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.18);
+    background: #ffffff;
+}
+
+.time-group select {
+    flex: 0 0 60px;
+    border: none;
+    border-radius: 0;
+    background: #3f4468;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0 0.3em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.time-group select:focus {
+    outline: none;
+}
+
+label {
+    font-size: 0.95rem;
+    color: #000000;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 0.65em 0.85em;
+    border-radius: var(--radius);
+    border: none;
+    font-size: 0.95rem;
+    color: #000000;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 1px 3px rgba(20, 26, 58, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transition: box-shadow 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+textarea:focus-within {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(38, 72, 165, 0.3), 0 6px 16px rgba(38, 72, 165, 0.18);
+    transform: translateY(-1px);
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+form input:nth-child(2n+2):focus-within {
+
+    background: rgba(255, 255, 255, 0.5);
+    color: #000000;
+}
+
+form textarea:focus{
+    
+    background: rgba(255, 255, 255, 0.5);
+    color: #000000;
+ }
+
+
+h2 {
+    color: var(--color-text);
+    text-align: center;
+    font-size: 2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.4);
+    text-shadow: 1px 1px 2px black;
+    margin-bottom: 1.5rem;
+}
+
+/* Botón Formulario */
+.btn_citas {
+    display: block;
+    margin: 1.2rem auto 0;
+    padding: 12px 28px;
+    border-radius: 12px;
+    width: 50%;
+    max-width: 240px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    background: linear-gradient(135deg, #3f4468, #2648a5);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(38, 72, 165, 0.35);
+    transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.btn_citas:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(38, 72, 165, 0.45);
+}
+
+.btn_citas:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 14px rgba(38, 72, 165, 0.3);
+}
+
+
+select{
+    border: none;
+    padding: .50em;
+    border-radius: 5px;
+    transition: all .60s ease;
+    color: #e08b67;
+    font-size: clamp(21px,20px);
+    color: #494E70;
+    accent-color: green;
+
+}
+
+
+select option{
+
+   
+    padding: .25em;
+    font-family: "Mont";    
+    font-weight: 400;
+    font-size:18px;
+    border-radius: 5px;
+    color: #494E70;
+    text-shadow: 1px 1px 2px black;
+}
+
+
+
+/* ==========================================================================
+   4. MODAL TÉRMINOS Y CONDICIONES (OVERLAY)
+   ========================================================================== */
+#showTerms {
+    position: absolute;
+    transform: translate(-50%, -50%); /* Centra el modal exactamente en el medio */
+    z-index: 100; /* Asegura que quede por encima del formulario y los horarios */
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    max-width: 480px;
+    padding: 2rem;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #333333;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    display: none; /* Oculto inicialmente (actívalo agregando la clase .active con JS) */
+}
+
+/* Estado activo para mostrarlo desde JS */
+#showTerms.active {
+    display: block;
+    animation: fade 0.3s ease;
+}
+
+#showTerms p {
+    margin: 0 0 1.5rem 0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    color: #333333;
+}
+
+#showTerms button {
+    display: block;
+    margin: 0 auto;
+    padding: 0.6rem 1.8rem;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition);
+}
+
+#showTerms button:hover {
+    background-color: var(--color-primary-dark);
+}
+
+/* ==========================================================================
+   5. SECCIÓN HORARIOS & ACORDEÓN
+   ========================================================================== */
+.horarios {
+    flex: 0 1 auto;
+    max-width: 460px;
+    padding: 1rem;
+}
+
+details {
+    margin: 1rem 0;
+    background: var(--color-card-bg);
+    max-width: 420px;
+    margin-inline: auto;
+    padding: 0.7rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/* Eliminar ícono nativo del summary */
+summary::-webkit-details-marker {
+    display: none;
+}
+
+summary {
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    position: relative;
+    padding-right: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-text);
+}
+
+/* Ícono personalizado + / - */
+summary::before {
+    content: "+";
+    position: absolute;
+    right: 0;
+    font-weight: 600;
+    font-size: 1.2rem;
+    transition: transform var(--transition), color var(--transition);
+}
+
+details[open] summary::before {
+    content: "–";
+    color: #fff;
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+}
+
+.accordion-content p {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #fff;
+}
+
+.icon_cita {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+img {
+    width: 70px;
+    max-width: 100%;
+    border-radius: 10px;
+    opacity: 0.75;
+}
+
+/* ANIMACIONES */
+
+@keyframes entrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+}
+
+
+
+
+details p {
+    padding: 0.5rem 0;
+    animation: fade 0.3s ease;
+}
+
+@keyframes fade {
+    from { 
+        opacity: 0; 
+        transform: translateY(-5px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.aterms{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+/* ==========================================================================
+   6. RESPONSIVE DESIGN (DISPOSITIVOS MÓVILES)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 1.5rem;
+    }
+
+    .formulario_citas {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 1.5rem;
+    }
+
+    .campos,
+    .horarios {
+        width: 100%;
+        padding: 0;
+    }
+
+    form .field:first-of-type {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .campo_linea,
+    .hora_fecha {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .campo_linea > .field,
+    .hora_fecha > .field {
+        flex: 1 1 100%;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .campo_linea {
+        margin-bottom: 0;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    .btn_citas {
+        width: 100%;
+    }
+
+    details {
+        max-width: 100%;
+    }
+
+    .accordion-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #showTerms {
+        width: 95%;
+        padding: 1.5rem;
+    }
+}
+
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modal-overlay.active {
+    display: flex;
+}
+
+/* ===== Overlay de modales ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+/* ===== Caja del modal ===== */
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 28px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-20px);
+  transition: transform 0.25s ease;
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
+}
+
+/* ===== Icono ===== */
+.modal-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 16px;
+}
+
+.modal-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== Éxito (check verde) ===== */
+.checkmark-circle {
+  stroke: #4bb543;
+  stroke-width: 2;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: dibujarCirculo 0.5s ease forwards;
+}
+
+.checkmark-check {
+  stroke: #4bb543;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: dibujarCheck 0.3s ease forwards 0.4s;
+}
+
+/* ===== Error (X roja) ===== */
+.errormark-circle {
+  stroke: #e63946;
+  stroke-width: 2;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: dibujarCirculo 0.5s ease forwards;
+}
+
+.errormark-x {
+  stroke: #e63946;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: dibujarCheck 0.3s ease forwards 0.4s;
+}
+
+@keyframes dibujarCirculo {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes dibujarCheck {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ===== Texto ===== */
+.modal-title {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.modal-title.error-title {
+  color: #e63946;
+}
+
+.modal-message {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* ===== Botón ===== */
+.modal-btn {
+  background: #4bb543;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.modal-btn:hover {
+  background: #3f9c39;
+}
+
+.modal-btn.error-btn {
+  background: #e63946;
+}
+
+.modal-btn.error-btn:hover {
+  background: #c62d39;
+}
+
+/* ==========================================================================
+   7. ADICIONES — RECOMENDACIONES Y TIP (mantenidas del rediseño)
+   ========================================================================== */
+.recommendations ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.45rem;
+}
+
+.recommendations li {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+.recommendations li::before {
+    content: "✓";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(207, 124, 86, 0.25);
+    color: #e29578;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.citas-tip {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+    margin-top: 1.2rem;
+}
+
+.citas-tip ion-icon {
+    color: #e29578;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}

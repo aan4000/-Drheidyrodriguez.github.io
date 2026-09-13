@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aan4000.github.io/Drheidyrodriguez.github.io/sitemap.xml

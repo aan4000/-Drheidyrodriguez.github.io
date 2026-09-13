@@ -1,0 +1,448 @@
+/* ==========================================================================
+   DARK MODE GLOBAL — Ortopeda
+   Se activa con la clase "dark" en <html> (manejada por darkmode.js).
+   Al ir DESPUÉS de style.css / citas.css, estas reglas ganan en cascada.
+   ========================================================================== */
+
+html {
+  /* Evita un destello claro al cargar: aplica el tema guardado lo antes posible
+     (default: claro; el JS lo ajusta tras el primer render). */
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+/* ---- Fondo general ---- */
+html.dark body {
+  background: linear-gradient(120deg, #141a3a 0%, #1d2547 60%, #252d58 100%);
+  background-attachment: fixed;
+  color: #e7ebfa;
+}
+
+/* ==========================================================================
+   NAVEGACIÓN
+   ========================================================================== */
+html.dark nav {
+  background: #10152e;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* Botón de cambio de tema */
+#themeToggle {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 5;
+}
+
+#themeToggle:hover {
+  background: var(--color-terracotta);
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 6px 18px rgba(207, 124, 86, 0.4);
+}
+
+.theme-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.icon-dark { display: block; }
+.icon-light { display: none; }
+
+html.dark .icon-dark { display: none; }
+html.dark .icon-light { display: block; }
+
+@media (max-width: 1100px) {
+  #themeToggle {
+    position: absolute;
+    top: 18px;
+    right: 74px;
+    transform: none;
+  }
+
+  #themeToggle:hover {
+    transform: scale(1.08);
+  }
+
+  #respNav {
+    height: 100dvh;
+  }
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+html.dark header {
+  background-image:
+    linear-gradient(90deg, rgba(14, 18, 44, 0.94), rgba(24, 31, 66, 0.88)),
+    url("fondo ortopedista header.png");
+  border-bottom-color: #10152e;
+  border-top-color: rgba(233, 172, 143, 0.75);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+html.dark header h1 {
+  color: var(--color-white);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+
+html.dark header p {
+  color: #ec9c7a;
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+html.dark header .special p {
+  background: rgba(12, 17, 41, 0.62);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #e7ebfa;
+  text-shadow: none;
+}
+
+/* ==========================================================================
+   HERO (main de inicio)
+   ========================================================================== */
+html.dark main.hero {
+  background: linear-gradient(90deg, #3f4468 80px, rgba(12, 17, 41, 0.9) 80%);
+}
+
+html.dark main {
+  background: linear-gradient(90deg, rgba(63, 68, 104, 0.55) 80px, rgba(12, 17, 41, 0.85) 80%);
+}
+
+html.dark main.hero .scroll_info h2,
+html.dark .scroll_info h2 {
+  color: #ffffff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+}
+
+html.dark main.hero .text-desc,
+html.dark .scroll_info p {
+  color: #c9d2ef;
+  border-bottom-color: rgba(255, 255, 255, 0.22);
+}
+
+html.dark main.hero .img_section,
+html.dark .img_section {
+  background: #1d2547;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+}
+
+html.dark .carnet-head {
+  background: linear-gradient(120deg, #10152e 0%, #2b3262 100%);
+}
+
+html.dark main.hero .img_section .description_img,
+html.dark .carnet-foot {
+  background: #151b3d;
+}
+
+html.dark .carnet-foot {
+  border-top-color: rgba(255, 255, 255, 0.18);
+}
+
+html.dark .carnet-foot > span {
+  color: #dfe5f5;
+}
+
+html.dark .carnet-barcode {
+  background: repeating-linear-gradient(
+    90deg,
+    #e7ebfa 0 2px,
+    transparent 2px 5px,
+    #e7ebfa 5px 6px,
+    transparent 6px 9px,
+    #e7ebfa 9px 12px,
+    transparent 12px 14px
+  );
+}
+
+html.dark .hero-chips li {
+  background: rgba(30, 37, 71, 0.75);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #e7ebfa;
+}
+
+html.dark .hero-video-card {
+  background: rgba(30, 37, 71, 0.7);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   GALERÍA (.bottom_section) Y TARJETAS
+   ========================================================================== */
+html.dark .bottom_section {
+  background: linear-gradient(90deg, #171d40 80px, #101636 80%);
+}
+
+html.dark .bottom_section .section_title {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+html.dark footer {
+  background: #0c1129;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+html.dark footer h3 {
+  color: #ffffff;
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+html.dark footer a,
+html.dark .contacto-item,
+html.dark .contacto-item span {
+  color: #c9d2ef;
+}
+
+html.dark footer a:hover {
+  color: var(--color-terracotta);
+}
+
+/* ==========================================================================
+   PÁGINA DE CITAS
+   ========================================================================== */
+html.dark .citas-card,
+html.dark .formulario_citas form,
+html.dark .citas-grid form {
+  background: rgba(36, 44, 84, 0.62);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.4);
+}
+
+html.dark .citas-card h1,
+html.dark .citas-card h2 {
+  color: #ffffff;
+  border-bottom-color: rgba(255, 255, 255, 0.16);
+}
+
+html.dark .citas-card p,
+html.dark .citas-card label,
+html.dark .citas-card li {
+  color: #c9d2ef;
+}
+
+html.dark .citas-card input:not([type="checkbox"]),
+html.dark .citas-card textarea {
+  background: rgba(12, 17, 41, 0.6);
+  color: #e7ebfa;
+}
+
+html.dark .formulario_citas form h2 {
+  color: #ffffff;
+  border-bottom-color: rgba(255, 255, 255, 0.16);
+  text-shadow: none;
+}
+
+html.dark .formulario_citas form label {
+  color: #e7ebfa;
+}
+
+html.dark .formulario_citas form input:not([type="checkbox"]),
+html.dark .formulario_citas form textarea {
+  color: #e7ebfa;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html.dark .formulario_citas form input:focus,
+html.dark .formulario_citas form input:focus-within,
+html.dark .formulario_citas form textarea:focus {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+html.dark .citas-card input::placeholder,
+html.dark .citas-card textarea::placeholder {
+  color: #7d87b0;
+}
+
+html.dark .citas-card summary {
+  color: #ffffff;
+}
+
+html.dark .time-group input[type="time"],
+html.dark .field.fecha input[type="date"] {
+  background: rgba(12, 17, 41, 0.6);
+  color: #e7ebfa;
+}
+
+html.dark .time-group select {
+  background: #10152e;
+  color: #ffffff;
+}
+
+html.dark .citas-card details {
+  background: rgba(12, 17, 41, 0.5);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+html.dark .citas-kicker {
+  color: var(--color-terracotta);
+}
+
+/* ==========================================================================
+   PÁGINA DE CONTACTO
+   ========================================================================== */
+html.dark .contact_section,
+html.dark .form_wrapper {
+  background: rgba(30, 37, 71, 0.55);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+html.dark .contact_form label {
+  color: #e7ebfa;
+}
+
+html.dark .contact_form input:not([type="checkbox"]),
+html.dark .contact_form textarea {
+  background: rgba(12, 17, 41, 0.55);
+  color: #e7ebfa;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+html.dark .contact_form input::placeholder,
+html.dark .contact_form textarea::placeholder {
+  color: #7d87b0;
+}
+
+/* ==========================================================================
+   ACERCA DE / YO  (secciones con fondo claro)
+   ========================================================================== */
+html.dark .about_section,
+html.dark .about_body,
+html.dark .yo_section,
+html.dark .yo_body {
+  background: rgba(30, 37, 71, 0.55);
+  color: #c9d2ef;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+html.dark .about_section h2,
+html.dark .about_body h2,
+html.dark .yo_section h2,
+html.dark .yo_body h2 {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   ACERCA DE MÍ (yo.html — biografía)
+   ========================================================================== */
+html.dark .bio-container {
+  background: rgba(30, 37, 71, 0.55);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+}
+
+html.dark .bio-img-frame {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+html.dark .bio-title {
+  color: #ffffff;
+}
+
+html.dark .bio-role {
+  color: #e29578;
+}
+
+html.dark .bio-description {
+  color: #c9d2ef;
+}
+
+html.dark .bio-highlights li {
+  color: #dfe5f5;
+}
+
+html.dark .bio-kicker {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #e29578;
+}
+
+html.dark .bio-credential-card {
+  background: #1d2547;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+html.dark .bio-credential-card strong {
+  color: #ffffff;
+}
+
+html.dark .bio-credential-card span {
+  color: #9aa3c0;
+}
+
+html.dark .stat-item,
+html.dark .bio-progress {
+  background: rgba(12, 17, 41, 0.5);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+html.dark .stat-item p {
+  color: #9aa3c0;
+}
+
+html.dark .progress-label {
+  color: #ffffff;
+}
+
+html.dark .progress-track {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+html.dark .bio-img-accent {
+  background: linear-gradient(135deg, rgba(207, 124, 86, 0.4), rgba(80, 90, 145, 0.35));
+}
+
+/* ==========================================================================
+   MODALES (éxito / error / términos)
+   ========================================================================== */
+html.dark .modal-content {
+  background: #1d2547;
+  color: #e7ebfa;
+}
+
+html.dark .modal-title {
+  color: #ffffff;
+}
+
+html.dark .modal-message {
+  color: #c9d2ef;
+}
+
+html.dark .terms-card {
+  background: #1d2547;
+  color: #e7ebfa;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+html.dark .terms-card h3 {
+  color: #ffffff;
+}
+
+html.dark .terms-card p {
+  color: #c9d2ef;
+}
+
+html.dark .terms-card a,
+html.dark .aterms {
+  color: var(--color-terracotta);
+}

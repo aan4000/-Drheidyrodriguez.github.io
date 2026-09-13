@@ -1,0 +1,1828 @@
+/* ==========================================================================
+   ÍNDICE DE CONTENIDOS
+   1. VARIABLES & CONFIGURACIÓN BASE
+   2. TIPOGRAFÍAS & FUENTES
+   3. LAYOUT PRINCIPAL (GRID)
+   4. NAVEGACIÓN & MENÚS
+   5. SECCIÓN HEADER
+   6. SECCIÓN MAIN / CONTENIDO PRINCIPAL
+   7. BOTONES PRINCIPALES (CTA)
+   8. SECCIÓN INFERIOR & TARJETAS
+   9. FORMULARIO DE CONTACTO
+   10. FOOTER
+   11. ANIMACIONES
+   12. DISEÑO RESPONSIVO (MEDIA QUERIES)
+   ========================================================================== */
+
+/* ==========================================================================
+   1. VARIABLES & CONFIGURACIÓN BASE
+   --------------------------------------------------------------------------
+   Se centraliza la paleta en variables para que todos los colores del sitio
+   sean consistentes y fáciles de mantener. Se conserva la identidad original
+   (azul-marino / terracota / salmón) pero con tonos menos saturados y mejor
+   contraste, y se elimina el rojo del CTA que rompía con el resto de la
+   paleta.
+   ========================================================================== */
+:root {
+  /* Paleta principal */
+  --color-navy: #3f4468;
+  --color-navy-light: #565c8a;
+  --color-navy-soft: rgba(63, 68, 104, 0.7);
+  --color-blue-accent: #3d7dc9;
+  --color-terracotta: #cf7c56;
+  --color-terracotta-dark: #b5623f;
+  --color-salmon: #e9c6b3;
+
+  /* Neutros y texto */
+  --color-white: #ffffff;
+  --color-text-dark: #1f2937;
+  --color-text-muted: #4b5563;
+  --color-text-soft: #6b7280;
+
+  /* Sombras (un único tono de sombra reutilizado en todo el sitio) */
+  --shadow-color: 222, 25%, 18%;
+  --shadow-sm: 0 2px 8px hsla(var(--shadow-color), 0.25);
+  --shadow-md: 0 8px 20px hsla(var(--shadow-color), 0.2);
+  --shadow-lg: 0 15px 35px hsla(var(--shadow-color), 0.3);
+
+  /* Tipografía fluida (clamp: mínimo, ideal, máximo) */
+  --fs-h1: clamp(2.25rem, 6vw + 1rem, 6.25rem);
+  --fs-h2: clamp(1.5rem, 3vw + 1rem, 2.5rem);
+  --fs-h2-lead: clamp(1.64rem, 4vw + 1rem, 2.4rem);
+  --fs-form-title: clamp(1.5rem, 3vw + 1rem, 2.5rem);
+  --fs-body-lg: clamp(1rem, 0.6vw + 0.85rem, 1.125rem);
+  --fs-body: clamp(0.9rem, 0.4vw + 0.8rem, 1rem);
+  --fs-small: clamp(0.85rem, 0.3vw + 0.78rem, 0.95rem);
+  --fs-caption: clamp(0.95rem, 1vw + 0.8rem, 1.2rem);
+  --fs-footer-title: clamp(1.05rem, 0.6vw + 0.9rem, 1.2rem);
+  --fs-button: clamp(0.85rem, 0.3vw + 0.8rem, 1rem);
+
+  /* Espaciados fluidos reutilizables */
+  --space-section-y: clamp(2.5rem, 8vw, 6rem);
+  --space-section-x: clamp(1rem, 5vw, 5%);
+
+  /* Alto de la barra de navegación fija — se usa tanto en el propio nav
+     como en el espaciador que evita que el contenido quede tapado */
+  --nav-height: 64px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* Estado de foco visible para navegación por teclado — detalle de
+   accesibilidad/profesionalismo que antes no existía en ningún control */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-blue-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+html, body, main, *, *::before, *::after {
+  font-family: "Mont", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(120deg, var(--color-salmon) 10%, var(--color-navy) 100%);
+  background-attachment: fixed;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 800, 'GRAD' 0, 'opsz' 80;
+}
+
+
+
+
+/* ==========================================================================
+   2. TIPOGRAFÍAS & FUENTES
+   ========================================================================== */
+@font-face {
+  font-family: 'Griffiths';
+  src: local('Griffiths Regular'), local('Griffiths-Regular'),
+       url('Griffiths-Regular.woff2') format('woff2'),
+       url('Griffiths-Regular.woff') format('woff'),
+       url('Griffiths-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mont';
+  src: local('Mont Bold'), local('Mont-Bold'),
+       url('Mont-Bold.woff2') format('woff2'),
+       url('Mont-Bold.woff') format('woff'),
+       url('Mont-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.tangerine-regular { font-family: "Tangerine", cursive; font-weight: 400; }
+.tangerine-bold { font-family: "Tangerine", cursive; font-weight: 700; }
+
+/* ==========================================================================
+   3. LAYOUT PRINCIPAL (GRID)
+   ========================================================================== */
+.container {
+  display: grid;
+  width: 100%;
+  min-height: 100vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr auto auto;
+  grid-template-areas:
+    "nav"
+    "header"
+    "main"
+    "bottom"
+    "footer";
+  /* El nav ahora es "position: fixed" (ver sección 4), por lo que sale del
+     flujo del grid y ese renglón colapsaría a 0. Este padding-top reserva
+     el espacio para que el header no quede tapado detrás de la barra. */
+  padding-top: var(--nav-height);
+}
+
+/* ==========================================================================
+   4. NAVEGACIÓN & MENÚS
+   ========================================================================== */
+/* Barra fija arriba en TODAS las páginas (antes era "sticky", que solo se
+   fija dentro de su propio contenedor). "fixed" la saca del flujo del
+   documento por completo y la deja pegada al viewport siempre — por eso
+   .container ahora tiene un padding-top que compensa el espacio (ver
+   sección 3). */
+nav {
+  grid-area: nav;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--nav-height);
+  background: var(--color-navy);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
+  padding: 0 20px;
+}
+
+#nav-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Logo Profesional */
+.logo {
+  position: absolute;
+  left: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 42px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  border-radius: 6px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo:hover {
+  transform: translateY(-50%) scale(1.03);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.menu-principal {
+  display: flex;
+  list-style: none;
+  transition: all 0.65s ease;
+}
+
+.menu-principal li {
+  position: relative;
+}
+
+.menu-principal li a {
+  display: block;
+  padding: 18px 25px;
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  text-decoration: none;
+  background-image: linear-gradient(
+    to left,
+    rgba(7, 7, 43, 0),
+    transparent 60%,
+    var(--color-blue-accent) 150%
+  );
+  background-size: 300% 100%;
+  background-position: right;
+  transition: background-position 0.65s ease, color 0.3s ease;
+}
+
+.menu-principal li a:hover {
+  color: var(--color-white);
+  border-radius: 5px;
+  background-position: left bottom;
+}
+
+/* Submenú Dropdown */
+.submenu {
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  width: 100%;
+  padding: 2.5rem 10%;
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: 0 0 16px 16px;
+  box-shadow: var(--shadow-md);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.35s ease, transform 0.3s ease;
+}
+
+.tiene-submenu:hover .submenu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Flecha del submenú "Servicios": gira hacia arriba al desplegarse y
+   vuelve a apuntar hacia abajo al ocultarse (hover o clic con .open) */
+.chevron {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.tiene-submenu:hover .chevron,
+.tiene-submenu.open .chevron {
+  transform: rotate(180deg);
+}
+
+/* Apertura por clic (toggle): mismo estado visual que el hover */
+.tiene-submenu.open .submenu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Iconos ortopédicos de la cabecera "Detalles" del submenú */
+.submenu-icos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(63, 68, 104, 0.15);
+  color: var(--color-navy);
+}
+
+.submenu-icos svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.submenu,
+.submenu h2,
+.submenu li {
+  color: #000000;
+}
+
+.submenu-columna {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.submenu-titulo {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.submenu-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.submenu-lista a {
+  text-decoration: none;
+  color: var(--color-text-dark);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  display: inline-block;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.submenu-lista a:hover {
+  color: var(--color-blue-accent);
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   5. SECCIÓN HEADER
+   ========================================================================== */
+header {
+  grid-area: header;
+  border: none;
+  border-top: 4px solid var(--color-terracotta);
+  border-bottom: 4px solid var(--color-navy);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: clamp(20px, 4vw, 50px);
+  padding: clamp(50px, 10vw, 120px) 5%;
+  background-image:
+    linear-gradient(135deg, rgba(63, 68, 104, 0.94) 0%, rgba(115, 131, 175, 0.9) 55%, rgba(233, 237, 240, 0.92) 100%),
+    url("fondo ortopedista header.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-weight: 900;
+  color: var(--color-white);
+  text-align: center;
+  position: relative;
+  box-shadow: 0 18px 40px rgba(20, 26, 58, 0.25);
+}
+
+/* Resplandor sutil que se desplaza lentamente sobre el header */
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.14) 42%, transparent 60%);
+  background-size: 250% 100%;
+  animation: headerShine 9s ease-in-out infinite;
+}
+
+@keyframes headerShine {
+  0% { background-position: 110% 0; }
+  60%, 100% { background-position: -110% 0; }
+}
+
+header h1 {
+  font-family: "Griffiths", serif;
+  font-weight: 400;
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  color: var(--color-navy);
+  filter: drop-shadow(1px 1px 2px rgba(138, 135, 135, 0.6));
+  text-align: center;
+  position: relative;
+}
+
+header p {
+  font-size: var(--fs-body-lg);
+  text-align: center;
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.85);
+  color: var(--color-white);
+  font-weight: 600;
+  color: #ec9c7a;
+}
+
+header p span {
+  text-align: center;
+  color: inherit;
+  font-size: var(--fs-caption);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.img_header {
+  width: 310px;
+  height: 310px;
+  object-fit: cover;
+  object-position: center 29.25%;
+  border-radius: 50%;
+  transform: translateX(5%);
+  position: relative;
+  background-image: linear-gradient(128deg, rgba(0, 0, 0, 0.12), rgba(207, 124, 86, 0.15), rgba(255, 255, 255, 0.26));
+  filter: drop-shadow(1px 2px 10px rgba(63, 68, 104, 0.55));
+  border: 4px solid rgba(255, 255, 255, 0.55);
+  transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out, border-color 0.4s ease;
+}
+
+/* Micro-interacción profesional al pasar el mouse por la foto de perfil,
+   sin distorsionar el recorte/tamaño original de la imagen */
+@media (hover: hover) and (pointer: fine) {
+  .img_wrapper_wrap:hover .img_header {
+    transform: translateX(5%) scale(1.04);
+    filter: drop-shadow(1px 4px 18px rgba(63, 68, 104, 0.7));
+    border-color: var(--color-terracotta);
+  }
+}
+
+/* ------------------------------------------------------------------------
+   ESTADÍSTICAS / CREDENCIALES (sección "acerca de mí")
+   --------------------------------------------------------------------------
+   Bloque reutilizable para cifras destacadas (años de experiencia,
+   pacientes atendidos, procedimientos, etc). Texto en blanco o negro
+   sólido —nunca tonos medios— para que se lea bien tanto sobre el fondo
+   oscuro del header como sobre fondos claros.
+   Si tu bloque de estadísticas usa otro nombre de clase en el HTML,
+   avísame el nombre exacto y ajusto el selector.
+   ========================================================================== */
+.estadisticas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.estadisticas .stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 110px;
+  padding: 0.75em 1em;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .estadisticas .stat:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.estadisticas .stat-numero {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-white);
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.estadisticas .stat-label {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--color-white);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Variante para usar sobre fondos claros (tarjetas blancas, secciones sin
+   overlay oscuro): mismo criterio, pero en negro sólido en vez de blanco */
+.estadisticas.estadisticas--claro .stat-numero,
+.estadisticas.estadisticas--claro .stat-label {
+  color: var(--color-text-dark);
+  text-shadow: none;
+}
+
+.estadisticas.estadisticas--claro .stat {
+  background: rgba(63, 68, 104, 0.06);
+  border-color: rgba(63, 68, 104, 0.15);
+}
+
+/* Contenedor principal: necesita posicionamiento relativo */
+.img_wrapper_wrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* Estado normal del texto (oculto) */
+.img_wrapper_wrap::after {
+  content: "¡Bienvenidos!";
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 2px #ccc;
+  font-size: var(--fs-caption);
+  position: absolute;
+  background: var(--color-navy);
+  color: var(--color-white);
+  padding: .60em;
+  border-radius: 0 0 25px 10px;
+  filter: drop-shadow(1px 2px 10px rgba(0, 0, 0, 0.6));
+  font-family: "Mont", sans-serif;
+  top: -30%;
+  left: 20%;
+  transform: translate(-60%, -60%);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+
+/* Estado al hacer hover (visible) — solo en dispositivos con hover real */
+@media (hover: hover) and (pointer: fine) {
+  .img_wrapper_wrap:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* ==========================================================================
+   6. SECCIÓN MAIN / CONTENIDO PRINCIPAL
+   ========================================================================== */
+main {
+  grid-area: main;
+  background: linear-gradient(90deg, var(--color-salmon) 80px, var(--color-navy-soft) 80%);
+  display: flex;
+  justify-content: center;
+  padding: 4em;
+  justify-content: space-around;
+  align-items: center;
+  gap: clamp(20px, 3vw, 48px);
+  padding: var(--space-section-y) 4%;
+  height: auto;
+}
+
+/* Foto principal agrandada y con un marco más cuidado para que tenga más
+   presencia visual, sin alterar el formato/recorte de la imagen en sí */
+.img_section {
+  width: clamp(220px, 34%, 340px);
+
+  padding: 1.25em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: rgba(255, 255, 255, 0.308); */
+  backdrop-filter: blur(8px);
+  border-radius: 24px;
+  /* border: 1px solid rgba(255, 255, 255, 0.45);
+  border-top: 4px solid var(--color-terracotta); */
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.img_cont {
+  position: absolute;
+  top: 5.2px;
+  padding: .60em;
+  z-index: 1;
+  width: 30%;
+  height: 1em;
+  border: 1px solid rgba(250, 250, 250, 0.473);
+  border-radius: 10px;
+}
+
+.img_section {
+  position: relative;
+}
+
+
+.description_img {
+  max-width: 95%;
+  left: 0;
+  right: 0;
+  position: relative;
+  transform: rotateX('180deg');
+  z-index: 2;
+  margin: 10px auto;
+  border-radius: 12px;
+  filter: drop-shadow(1px 8px 25px rgba(63, 68, 104, 0.35));
+  animation: show 1.5s ease-in;
+  animation-timeline: view();
+  animation-range: entry 10% cover 30%;
+  transition: transform 1s ease;
+}
+.scroll_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: .40em;
+  width: 56%;
+}
+
+video {
+  border-radius: 10px;
+  width: 50%;
+  height:auto;
+  padding: 0;
+  margin: auto;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.705));
+  border: none;
+  animation: efecto_specialismos 1.5s;
+  animation-timeline: view();
+  animation-range: entry 10% cover 40%;
+}
+
+.scroll_info h2 {
+  font-size: var(--fs-h2);
+  color: var(--color-white);
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.548);
+  width: 100%;
+  animation: efecto_specialismos 1.5s;
+  animation-timeline: view();
+  animation-range: entry 10% cover 40%;
+}
+
+.scroll_info h2 span{
+  display: inline-block;
+  font-size: var(--fs-h2-lead);
+  color: var(--color-terracotta);
+  text-transform: capitalize;
+}
+
+
+
+
+
+.scroll_info p {
+  line-height: 1.8;
+  background: transparent;
+  border-bottom: solid rgba(255, 255, 255, 0.5) 1px;
+  border-radius: 5px;
+  font-size: var(--fs-body);
+  color: rgb(5, 5, 5);
+  padding: .30em;
+  margin: 10px 5px;
+  filter: drop-shadow(1px 2px 4px rgba(0, 0, 0, 0.25));
+  animation: efecto_specialismos2 1.5s;
+  animation-timeline: view();
+  animation-range: entry 10% cover 40%;
+}
+
+/* ==========================================================================
+   7. BOTONES PRINCIPALES (CTA)
+   --------------------------------------------------------------------------
+   Se reemplaza el rojo original por un degradado en terracota, coherente
+   con el resto de la paleta de la marca.
+   ========================================================================== */
+.button_citas {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: 25px;
+  padding: 14px 31px;
+  min-width: 220px;
+  width: fit-content;
+  font-family: "Mont", sans-serif;
+  font-size: var(--fs-button)\;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-white);
+  background: linear-gradient(135deg, #ff7f50 100%,red 50%);
+  border-radius: 50px;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.button_citas:hover {
+  background: linear-gradient(135deg, #d98a63 0%, var(--color-terracotta) 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(207, 124, 86, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  color: var(--color-white);
+}
+
+.button_citas:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(207, 124, 86, 0.3);
+}
+
+/* ==========================================================================
+   8. SECCIÓN INFERIOR & TARJETAS
+   ========================================================================== */
+.bottom_section {
+  grid-area: bottom;
+  position: relative;
+  border: none;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(90deg, var(--color-salmon) 80px, var(--color-navy-soft) 80%);
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: var(--space-section-y) 5%;
+  border-bottom: solid var(--color-navy) 8px;
+
+  h2 {
+    color: var(--color-white);
+    position: sticky;
+    font-size: var(--fs-h2);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.85);
+    padding: .40em;
+    width: 100%;
+    box-shadow: var(--shadow-sm);
+    border-bottom: 1px solid rgba(36, 35, 82, 0.3);
+    border-left: 1px solid rgba(36, 35, 82, 0.08);
+    border-radius: 20px;
+  }
+}
+
+/* Botones de anterior/siguiente del carrusel — ocultos en desktop, donde
+   la galería no se desplaza (ver sección 12 para su versión móvil).
+   Requieren dos <button> dentro de .bottom_section en el HTML, p. ej.:
+     <button class="carousel-btn carousel-btn--prev" aria-label="Anterior">‹</button>
+     <button class="carousel-btn carousel-btn--next" aria-label="Siguiente">›</button>
+   El acompañante carousel.js hace scrollBy() al hacer clic. */
+.carousel-btn {
+  display: none;
+}
+
+/* NOTA: tamaño de las tarjetas de la galería sin modificar (280x300) en
+   desktop. En móvil (ver sección 12) esta misma galería se convierte en
+   un carrusel horizontal con scroll-snap. */
+.bottom_section .card {
+  position: relative;
+  width: 280px;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  flex: 1 0;
+  filter: drop-shadow(1px 3px 15px rgba(30, 30, 83, 0.5));
+
+  transition:
+    flex-basis .65s ease,
+    flex-grow .65s ease,
+    transform .65s ease,
+    box-shadow .4s ease;
+
+  animation: revealScroll 0.7s linear both;
+  animation-timeline: view();
+  animation-range: entry 10% cover 30%;
+}
+
+.bottom_section .card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 5px solid rgba(255, 255, 255, .185);
+  border-radius: 12px;
+  filter: drop-shadow(1px 5px 8px rgba(5, 14, 100, 0.6));
+  opacity: .85;
+
+  transition:
+    transform .45s ease,
+    opacity .4s ease;
+}
+
+.bottom_section .card .info {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  padding: 20px;
+  text-align: center;
+
+  color: var(--color-white);
+  background: rgba(15, 23, 42, .75);
+  backdrop-filter: blur(4px);
+
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+
+/* El efecto de expansión al pasar el mouse solo se activa en dispositivos
+   con hover real (mouse). En touch/mobile se sustituye por un estado más
+   sobrio para evitar tarjetas "atascadas" abiertas — ver sección 12. */
+@media (hover: hover) and (pointer: fine) {
+  .bottom_section .card:hover {
+    transform: translateY(-5px);
+    flex: 10;
+    flex-basis: 580px;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, .38);
+  }
+
+  .bottom_section .card:hover img {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+
+  .bottom_section .card:hover .info {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   9. FORMULARIO DE CONTACTO
+   ========================================================================== */
+.contact_body {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(8, 0, 0, 0.8)), url("Formulario conto.jpg");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  padding: var(--space-section-y) 0;
+}
+
+.form_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-body);  
+  width: 90%;
+  max-width: 600px;
+  padding: clamp(1.5rem, 5vw, 5rem);
+  margin: auto;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-lg);
+}
+
+.form_wrapper form {
+  width: 100%;
+  height: 80%;
+}
+
+
+
+
+form input:focus-within {
+  background: rgba(212, 182, 187, 0.25);
+  color: var(--color-white);
+}
+
+form > h2 {
+  font-family: Georgia, serif;
+  font-weight: 800;
+  font-size: var(--fs-form-title);
+  color: var(--color-white);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.field {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.field label {
+  display: block;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--color-white);
+  margin-bottom: 8px;
+}
+
+.field input,
+.field textarea {
+  display: block;
+  width: 100%;
+  font-size: var(--fs-small);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.75em 1em;
+  color: var(--color-text-dark);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--color-blue-accent);
+  box-shadow: 0 0 0 3px rgba(61, 125, 201, 0.3);
+}
+
+input[type="submit"],
+input[type="reset"] {
+  display: inline-block;
+  padding: 12px 30px;
+  margin: 5px;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  background: var(--color-navy);
+  color: var(--color-white);
+  border: rgba(255, 255, 255, 0.24) solid .60px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+  background: var(--color-navy-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ----------------------------------------
+   TÉRMINOS Y CONDICIONES
+   --------------------------------------------------------------------------
+   Correcciones: 1) el modal usaba la misma animación "revealScroll" que el
+   resto del sitio, cuyo keyframe anima "transform: translateY(...)" — eso
+   PISABA el "translate(-50%, -50%)" que centra el modal, así que al
+   abrirse quedaba descentrado. Ahora usa su propio keyframe
+   "showTermsIn" que conserva el centrado durante toda la animación.
+   2) Se añade un overlay real detrás del modal (antes no existía ningún
+   fondo oscurecido salvo que se abriera como <dialog> nativo con
+   showModal(), cosa que el toggle por clase ".active" no hace).
+   3) Se agrega una franja de acento y una barra de scroll a juego con la
+   paleta para que se vea más cuidado.
+   ---------------------------------------- */
+#showTerms {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  width: 90%;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--color-white);
+  color: var(--color-text-dark);
+  padding: 2.25rem 2rem 2rem;
+  border-radius: 14px;
+  border-top: 5px solid var(--color-terracotta);
+  box-shadow: var(--shadow-lg);
+  box-sizing: border-box;
+  display: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-terracotta) rgba(0, 0, 0, 0.08);
+}
+
+#showTerms::-webkit-scrollbar {
+  width: 6px;
+}
+
+#showTerms::-webkit-scrollbar-thumb {
+  background: var(--color-terracotta);
+  border-radius: 10px;
+}
+
+/* Estado activo para mostrarlo desde JavaScript */
+#showTerms.active {
+  display: block;
+  animation: showTermsIn 0.3s ease forwards;
+}
+
+/* Overlay detrás del modal. Funciona tanto si #showTerms es un <dialog>
+   abierto con showModal() (usa ::backdrop) como si se activa a mano con
+   la clase .active (usa el ::before, ya que ::backdrop no existe en ese
+   caso). Se dejan ambas para cubrir los dos escenarios. */
+#showTerms::backdrop {
+  /* background: rgb(20, 22, 36);
+  backdrop-filter: blur(2px); */
+}
+
+#showTerms.active::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(20, 22, 36, 0.55);
+  backdrop-filter: blur(2px);
+  z-index: -1;
+}
+
+#showTerms h2,
+#showTerms h3 {
+  font-size: var(--fs-form-title);
+  color: var(--color-navy);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+#showTerms p {
+  margin: 0 0 1.25rem 0;
+  line-height: 1.65;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.aterms {
+  text-decoration: underline;
+  color: var(--color-white);
+  transition: color 0.2s ease;
+}
+
+.aterms:hover {
+  color: var(--color-terracotta);
+}
+
+/* Botón de cierre / aceptación del modal */
+#showTerms button {
+  display: block;
+  margin: 0.5rem auto 0;
+  padding: 0.75rem 2.25rem;
+  background-color: var(--color-navy);
+  color: var(--color-white);
+  border: none;
+  border-radius: 8px;
+  font-family: "Mont", sans-serif;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+#showTerms button:hover {
+  background-color: var(--color-blue-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(61, 125, 201, 0.4);
+}
+
+#showTerms button:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   10. FOOTER
+   ========================================================================== */
+footer {
+  grid-area: footer;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: var(--space-section-y) 8%;
+  color: #f3f4f6;
+  background: rgba(63, 68, 104, 0.92);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  align-items: start;
+}
+
+
+.contactp-items{
+
+
+}
+
+footer h3 {
+  margin-bottom: 20px;
+  font-size: var(--fs-footer-title);
+  font-weight: 700;
+  color: var(--color-terracotta);
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid rgba(207, 124, 86, 0.3);
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+footer p {
+  line-height: 1.7;
+  font-size: var(--fs-small);
+  color: #d1d5db;
+}
+
+
+/* seccion para organizar los contactos  */
+.contacto-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  transition: transform 0.2s ease;
+  padding: 0.15rem 0;
+}
+
+.contacto-item:hover {
+  transform: translateX(4px);
+}
+
+.contact-list,
+.address-list,
+.schedule-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.contact-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-icon.mail {
+  background: linear-gradient(135deg, #e29578, #cf6c4a);
+}
+
+.contact-icon.whatsapp {
+  background: #25d366;
+}
+
+.contact-icon.phone {
+  background: linear-gradient(135deg, #72b2f0, #2f74cf);
+}
+
+.contact-text {
+  color: #d1d5db;
+  font-size: var(--fs-small);
+}
+
+.contact-center {
+  color: #ffffff;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-align: left;
+}
+
+.contacto-item a {
+  text-decoration: none;
+  color: #f3f4f6;
+  font-size: var(--fs-small);
+  transition: color 0.2s ease;
+}
+
+.contacto-item a:hover {
+  color: var(--color-blue-accent);
+}
+
+.address-list li,
+.schedule-list li {
+  position: relative;
+  padding-left: 1.1em;
+  margin-bottom: 10px;
+  line-height: 1.6;
+  font-size: var(--fs-small);
+  color: #d1d5db;
+}
+
+.address-list li::before,
+.schedule-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--color-terracotta);
+}
+
+.address-list strong,
+.schedule-list strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.mapa-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 190px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.5em;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.copyright {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin: 1.5rem 0 0;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: var(--fs-small);
+  color: #9ca3af;
+}
+
+.retorno {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+.retorno:hover {
+  background: var(--color-navy);
+  border-color: var(--color-blue-accent);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   11. ANIMACIONES
+   ========================================================================== */
+@keyframes show {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes efecto_specialismos {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes efecto_specialismos2 {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes revealScroll {
+  from { opacity: 0; transform: translateY(40px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Exclusivo para #showTerms: mantiene el translate(-50%, -50%) que centra
+   el modal durante toda la animación de entrada (revealScroll lo pisaba
+   y descentraba el modal). */
+@keyframes showTermsIn {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.94); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Respeta la preferencia de movimiento reducido del sistema operativo */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   12. DISEÑO RESPONSIVO (MEDIA QUERIES)
+   --------------------------------------------------------------------------
+   Se añaden varios puntos de quiebre (1024px, 900px, 600px y 400px) en
+   lugar de uno solo, para cubrir tablets, móviles grandes y móviles
+   pequeños de forma progresiva. El tamaño/formato de fotos y video NO se
+   modifica; solo se ajustan tipografías (ya fluidas con clamp),
+   espaciados y los efectos de hover/animación que no funcionan bien en
+   pantallas táctiles. La galería de tarjetas (.bottom_section) pasa de
+   grid envolvente a un carrusel horizontal con scroll-snap a partir de
+   1100px, ya que las tarjetas fijas de 280x300 no caben bien en fila en
+   pantallas angostas.
+   ========================================================================== */
+.responsiveMenu,
+.resp_mobile,
+#resMenu,
+#close {
+  display: none;
+}
+
+/* ---- Tablets grandes / laptops pequeñas ---- */
+@media (max-width: 1024px) {
+  .submenu {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 2rem 6%;
+  }
+
+  header {
+    gap: 30px;
+  }
+
+  .scroll_info {
+    width: 60%;
+  }
+}
+
+/* ---- Tablets y móviles (cajón de menú responsive) ---- */
+@media (max-width: 1100px) {
+  nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  #nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo {
+    position: static;
+    transform: none;
+    height: 36px;
+  }
+
+  .logo:hover {
+    transform: scale(1.02);
+  }
+
+  .menu-principal {
+    display: none;
+  }
+
+  .resp_mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+    margin: 2em auto;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+  }
+
+  .resp_mobile a {
+    display: flex;
+    flex-direction: row;
+    width: min(86%, 340px);
+    margin: 5px auto;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+    text-decoration: none;
+    color: var(--color-navy);
+    font-weight: 500;
+    padding: 15px;
+    border-radius: 50px;
+    box-shadow: var(--shadow-sm);
+    font-size: var(--fs-body-lg);
+    transition: background-color .35s ease, color .35s ease;
+  }
+
+  .resp_mobile a:hover,
+  .resp_mobile a:focus-visible {
+    background-color: var(--color-navy);
+    color: var(--color-white);
+  }
+
+  .icn {
+    color: var(--color-navy);
+    font-size: 32px;
+    transition: color .35s ease;
+  }
+
+  /* Iconos del menú: a la izquierda, con la misma caja y color propio para
+     que se vean uniformes aunque el texto esté oculto. */
+  .resp_mobile a ion-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-left: 0;
+    color: var(--color-navy);
+  }
+
+  .resp_mobile a:hover .icn {
+    color: var(--color-terracotta);
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
+  }
+
+  /* Efecto "el texto sale de los iconos": solo con hover real (mouse). En
+     táctil (sin hover) el texto queda siempre visible. */
+  @media (hover: hover) and (pointer: fine) {
+    .resp_mobile a .menu-text {
+      display: inline-block;
+      white-space: nowrap;
+      transform: translateX(-10px) scaleX(0.25);
+      transform-origin: left center;
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+    }
+
+    .resp_mobile a:hover .menu-text,
+    .resp_mobile a:focus-visible .menu-text {
+      transform: translateX(0) scaleX(1);
+      opacity: 1;
+    }
+  }
+
+  .submenu {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: left;
+    justify-content: center;
+    height: auto;
+    padding: 20px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.35);
+    color: var(--color-text-dark);
+    overflow: auto;
+    font-size: var(--fs-small);
+    border-radius: 12px;
+    box-shadow: none;
+  }
+
+  header {
+    flex-direction: column;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  main {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 15px;
+  }
+
+  .img_section {
+    width: 100%;
+    max-width: 460px;
+    margin-bottom: 20px;
+    padding: 1.5em;
+  }
+
+  .img_cont {
+    top: 0;
+    width: 20%;
+  }
+
+  .scroll_info {
+    width: 100%;
+    align-items: center;
+  }
+
+  .button_citas {
+    width: 100%;
+  }
+
+  footer {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 30px;
+    padding: 40px 20px;
+  }
+
+  footer h3 {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .contacto-item {
+    justify-content: center;
+  }
+
+  .contacto-item:hover {
+    transform: none;
+  }
+
+  /* Botón e ícono de menú responsive */
+  #resMenu {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 998;
+    display: block;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--color-navy);
+    font-weight: 400;
+    padding: 5px;
+    transform: scale(1.15);
+    transition: color .3s ease;
+  }
+
+  #resMenu:hover {
+    color: var(--color-navy-light);
+  }
+
+  nav {
+    padding: 0 10px;
+  }
+
+  #respNav {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(120deg, var(--color-salmon) 0%, var(--color-navy) 100%);
+    overflow: auto;
+    padding: 6px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+  }
+
+  #respNav .menu-principal li a {
+    padding: 6px 3px;
+  }
+
+  #respNav.showMe {
+    transform: translateX(0);
+  }
+
+  #close {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--color-white);
+    cursor: pointer;
+    filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.5));
+    transition: color .3s ease;
+  }
+
+  #close:hover {
+    color: var(--color-terracotta);
+  }
+
+  /* La galería se convierte en un carrusel horizontal con scroll-snap.
+     Truco sin tocar el HTML: el <h2> se deja como bloque (ocupa su propia
+     línea) y las tarjetas pasan a inline-block, por lo que fluyen en una
+     sola fila que se puede desplazar con overflow-x. */
+  .bottom_section {
+    display: block;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 5%;
+    gap: 0;
+    padding: 32px 0 28px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-terracotta) transparent;
+  }
+
+  .bottom_section::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .bottom_section::-webkit-scrollbar-thumb {
+    background: var(--color-terracotta);
+    border-radius: 10px;
+  }
+
+  .bottom_section h2 {
+    display: block;
+    white-space: normal;
+    position: static;
+    width: 100%;
+    padding: 0.75em 5%;
+    margin-bottom: 4px;
+  }
+
+  /* Pista visual de que la galería se desliza, ya que ya no hay tarjetas
+     visibles de golpe como en desktop */
+  .bottom_section h2::after {
+    content: "Desliza para ver más →";
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-shadow: none;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  /* Flechas de anterior/siguiente sobre el carrusel. Son "position:
+     absolute" respecto a .bottom_section (que tiene overflow-x: auto),
+     así que quedan fijas sobre el viewport visible y NO se desplazan
+     junto con las tarjetas. */
+  .carousel-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 58%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(63, 68, 104, 0.85);
+    color: var(--color-white);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: background 0.25s ease, transform 0.2s ease;
+  }
+
+  .carousel-btn--prev {
+    left: 10px;
+  }
+
+  .carousel-btn--next {
+    right: 10px;
+  }
+
+  .carousel-btn:hover,
+  .carousel-btn:focus-visible {
+    background: var(--color-terracotta);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .carousel-btn:active {
+    transform: translateY(-50%) scale(0.92);
+  }
+
+  .bottom_section .card {
+    display: inline-block;
+    white-space: normal;
+    vertical-align: top;
+    width: 78vw;
+    max-width: 320px;
+    margin: 0 8px;
+    scroll-snap-align: center;
+  }
+
+  .bottom_section .card:first-of-type {
+    margin-left: 5%;
+  }
+
+  .bottom_section .card:last-of-type {
+    margin-right: 5%;
+  }
+
+  /* En touch, la tarjeta muestra siempre su información en vez de depender
+     de :hover (que en móvil se queda "pegado" tras el primer toque) */
+  .bottom_section .card .info {
+    opacity: 1;
+    background: rgba(15, 23, 42, .55);
+  }
+
+  .bottom_section .card img {
+    opacity: 1;
+  }
+}
+
+/* ---- Móviles medianos ---- */
+@media (max-width: 600px) {
+  .container {
+    grid-template-rows: auto auto auto auto auto;
+  }
+
+  header {
+    padding: 32px 16px;
+    gap: 16px;
+  }
+
+  header p span {
+    display: block;
+    margin-top: 4px;
+  }
+
+  main {
+    padding: 24px 12px;
+    gap: 14px;
+  }
+
+  .scroll_info {
+    padding: 0.5em;
+  }
+
+  .scroll_info p {
+    margin: 8px 0;
+  }
+
+  .bottom_section {
+    padding: 28px 0 24px;
+  }
+
+  .bottom_section .card {
+    width: 82vw;
+    max-width: 300px;
+  }
+
+  .form_wrapper {
+    padding: 1.75rem 1.25rem;
+    width: 100%;
+  }
+
+  .submenu {
+    grid-template-columns: 1fr 1fr;
+    padding: 16px;
+  }
+
+  footer {
+    padding: 32px 16px;
+  }
+
+  .mapa-footer {
+    height: 140px;
+  }
+
+  .estadisticas {
+    gap: 0.75rem;
+  }
+
+  .estadisticas .stat {
+    min-width: 92px;
+    padding: 0.6em 0.8em;
+  }
+}
+
+/* ---- Móviles pequeños ---- */
+@media (max-width: 400px) {
+  header {
+    padding: 24px 12px;
+  }
+
+  .img_header {
+    width: 220px;
+    height: 220px;
+  }
+
+  .button_citas {
+    min-width: 0;
+    padding: 12px 20px;
+  }
+
+  .bottom_section .card {
+    width: 86vw;
+    max-width: 280px;
+    margin: 0 6px;
+  }
+
+  .bottom_section .card:first-of-type {
+    margin-left: 4%;
+  }
+
+  .bottom_section .card:last-of-type {
+    margin-right: 4%;
+  }
+
+  .carousel-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 1.1rem;
+  }
+
+  .submenu {
+    grid-template-columns: 1fr;
+  }
+
+  .resp_mobile a {
+    width: 90%;
+    font-size: var(--fs-body);
+  }
+
+  .form_wrapper {
+    padding: 1.25rem 1rem;
+  }
+}
+
+/* Transición al cambiar entre modos PC / Tablet / Móvil */
+@keyframes layoutChange {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+body.bp-transition {
+  animation: layoutChange 1.5s ease-in-out;
+}

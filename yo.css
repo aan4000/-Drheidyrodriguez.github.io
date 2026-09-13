@@ -1,0 +1,354 @@
+/* ==========================================
+   Sección Biografía Profesional — Rediseño moderno
+   ========================================== */
+
+html, body, main, *, *::before, *::after {
+  font-family: "Mont", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   SECCIÓN PRINCIPAL
+   ========================================================================== */
+.bio-section {
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 2.5rem);
+}
+
+.bio-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 28px;
+  padding: clamp(1.6rem, 4vw, 3rem);
+  box-shadow: 0 30px 70px rgba(63, 68, 104, 0.18);
+  animation: faidLoad 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@media (max-width: 768px) {
+  .bio-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   IMAGEN Y MARCO
+   ========================================================================== */
+.bio-image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.bio-img-accent {
+  position: absolute;
+  top: -16px;
+  left: 14px;
+  width: 92%;
+  height: 88%;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(207, 124, 86, 0.4), rgba(63, 68, 104, 0.28));
+  filter: blur(10px);
+  z-index: 0;
+}
+
+.bio-img-frame {
+  position: relative;
+  z-index: 1;
+  border-radius: 22px;
+  border: 4px solid #ffffff;
+  box-shadow: 0 20px 45px rgba(63, 68, 104, 0.3);
+  overflow: hidden;
+}
+
+.bio-img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  background-color: #e8edf6;
+  border-radius: 18px;
+}
+
+/* Tarjeta flotante: especialidad (superior izquierda) */
+.bio-credential-card {
+  position: absolute;
+  top: 22px;
+  left: -14px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 14px;
+  padding: 0.6rem 0.95rem;
+  box-shadow: 0 12px 28px rgba(63, 68, 104, 0.2);
+}
+
+.bio-credential-card ion-icon {
+  color: var(--color-terracotta);
+  font-size: 1.7rem;
+  flex-shrink: 0;
+}
+
+.bio-credential-card strong {
+  display: block;
+  color: var(--color-navy);
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+.bio-credential-card span {
+  font-size: 0.75rem;
+  color: #5a6186;
+  font-weight: 600;
+}
+
+/* Tarjeta flotante: años de excelencia (inferior derecha) */
+.bio-experience-badge {
+  position: absolute;
+  right: -14px;
+  bottom: -20px;
+  z-index: 2;
+  background: linear-gradient(135deg, var(--color-terracotta) 0%, #e29578 100%);
+  color: #ffffff;
+  padding: 1rem 1.4rem;
+  border-radius: 16px;
+  box-shadow: 0 14px 30px rgba(207, 124, 86, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badge-number {
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.badge-text {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
+  opacity: 0.95;
+}
+
+/* ==========================================================================
+   CONTENIDO TEXTO
+   ========================================================================== */
+.bio-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(63, 68, 104, 0.08);
+  border: 1px solid rgba(63, 68, 104, 0.14);
+  color: var(--color-terracotta-dark);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+.bio-kicker::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-terracotta);
+}
+
+.bio-title {
+  font-family: "Griffiths", serif;
+  font-weight: 800;
+  font-size: clamp(2.1rem, 4.5vw, 3.1rem);
+  line-height: 1.08;
+  color: var(--color-navy);
+  margin: 0.2rem 0 0.3rem;
+  text-shadow: none;
+}
+
+.bio-role {
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  font-weight: 600;
+  color: var(--color-terracotta-dark);
+  margin-bottom: 1.3rem;
+}
+
+.bio-role .dot {
+  color: #cbd2e4;
+  margin: 0 0.25rem;
+}
+
+.bio-description {
+  color: #3a415c;
+  line-height: 1.75;
+  font-size: 1rem;
+  margin-bottom: 1.6rem;
+  font-weight: 500;
+}
+
+.bio-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.bio-highlights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: #2c3350;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.bio-highlights ion-icon {
+  color: var(--color-terracotta);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   MÉTRICAS
+   ========================================================================== */
+.bio-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  border-top: 1px solid rgba(63, 68, 104, 0.12);
+  padding-top: 1.4rem;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(63, 68, 104, 0.1);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.1;
+  background: linear-gradient(120deg, var(--color-navy) 0%, var(--color-blue-accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-item p {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #5a6186;
+  margin: 0.45rem 0 0;
+}
+
+/* Barra de porcentaje */
+.bio-progress {
+  margin-top: 1.4rem;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(63, 68, 104, 0.1);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem;
+}
+
+.progress-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.55rem;
+}
+
+.progress-label {
+  font-weight: 700;
+  color: var(--color-navy);
+  font-size: 0.9rem;
+}
+
+.progress-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-terracotta);
+}
+
+.progress-track {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(63, 68, 104, 0.12);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 98%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-terracotta) 0%, #e29578 80%, #f0b291 100%);
+  box-shadow: 0 2px 8px rgba(207, 124, 86, 0.5);
+  animation: fillBar 1.6s ease forwards;
+}
+
+@keyframes fillBar {
+  from { width: 0; }
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+  .bio-image-wrapper {
+    max-width: 320px;
+  }
+
+  .bio-credential-card {
+    left: -6px;
+  }
+
+  .bio-experience-badge {
+    right: -6px;
+  }
+
+  .bio-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bio-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes faidLoad {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

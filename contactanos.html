@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="contactanos.css">
+    <link rel="stylesheet" href="darkmode.css">
+
+    <script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=menu&icon_names=dark_mode&icon_names=light_mode" />
+
+    <script type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <script type="text/javascript">
+      emailjs.init('KrpZvcvHUbBOL96ZB')
+    </script>
+
+    <link rel="icon" type="img/png"  href="logo_Doctora.jpg">
+
+    <title>Contactame</title>
+</head>
+<body class="contact_body">
+
+    <div id="nav-container"></div>
+
+    <div class="wrapper">
+
+        <div class="form_wrapper">
+
+            <section id="showTerms">
+                <p>
+                    La información ingresada será utilizada exclusivamente para gestionar su solicitud, ya sea para agendar una cita o responder una consulta de contacto.Tratamiento de datos: Sus datos serán tratados de manera confidencial, conforme a nuestras políticas internas de protección de información, y no serán compartidos con terceros sin su autorización.Confirmación y alcance: El envío de este formulario no constituye una cita confirmada. La disponibilidad será verificada y confirmada por nuestros canales oficiales. Las consultas enviadas serán atendidas de acuerdo con nuestros tiempos de respuesta y no sustituyen una evaluación profesional.Consentimiento: Al marcar esta casilla, usted declara haber leído y aceptado estas condiciones, autorizando el uso de su información para los fines descritos.
+
+                    <button id="bterms" type="button">Aceptar</button>
+                </p>
+            </section>
+
+            <form id="form">
+                <div class="form_head">
+                    <h2>Haz contacto</h2>
+                    <p class="form-intro">Cuéntanos tu consulta y te responderemos a la brevedad por los canales de contacto que indiques.</p>
+                </div>
+
+                <div class="field">
+                    <label for="name">Nombre</label>
+                    <input class="inp" type="text" name="name" id="name" placeholder="Tu nombre">
+                </div>
+                <div class="field">
+                    <label for="email">Correo</label>
+                    <input class="inp" type="text" name="email" id="email" placeholder="ej. tu@correo.com">
+                </div>
+                <div class="field">
+                    <label for="message">Mensaje</label>
+                    <textarea class="area" type="text" name="message" id="message" cols="30" rows="3" placeholder="Escribe tu mensaje o consulta..."></textarea>
+                </div>
+
+                <div class="terms_row">
+                    <input type="checkbox" name="" id="terms">
+                    <label class="terms_label" for="terms">Acepto los <a class="aterms" href="#">términos y condiciones</a></label>
+                </div>
+
+                <div class="btn_group">
+                    <input class="in_btn" type="submit" id="button" value="Enviar">
+                    <input class="in_btn" id="reset" type="reset" value="Restablecer">
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="mapa-footer mapa-contact">
+            <p class="cont">
+                Calle Prof. Aliro Paulino #11, Ensanche Naco. Republica Dominicana. Santo Domingo, Distrito Nacional.
+            </p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.0640510450753!2d-69.92195040000003!3d18.48075770000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf89c660a92a7f%3A0x6bb37f2a49f00ec0!2sCentro%20M%C3%A9dico%20Corominas%20Pep%C3%ADn!5e0!3m2!1ses-419!2sdo!4v1784559252846!5m2!1ses-419!2sdo" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+
+    </div>
+
+    <div id="successModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-content success-card">
+            <div class="modal-icon">
+                <svg class="checkmark" viewBox="0 0 52 52">
+                    <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+            <h3 class="modal-title">¡Mensaje enviado!</h3>
+            <p class="modal-message">Su mensaje fue enviado correctamente. Le responderemos a la brevedad.</p>
+            <button id="closeSuccessModal" class="modal-btn" type="button">Entendido</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="load-nav.js"></script>
+    <script src="darkmode.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,478 @@
+/* ==========================================================================
+   PÁGINA DE CONTACTO — REDISEÑO MODERNO
+   --------------------------------------------------------------------------
+   Hoja dedicada a "contactanos.html". Se carga DESPUÉS de style.css para
+   heredar la paleta (navy / terracota / salmón) y mejorar la sección de
+   contacto sin tocar el resto del sitio.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. FONDO: se conserva la imagen original pero con un degradado más
+   cinematográfico que hace resaltar el formulario y el mapa.
+   -------------------------------------------------------------------------- */
+.contact_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: calc(var(--nav-height) + 1.5rem) clamp(1rem, 5vw, 3rem) 2.5rem;
+  background:
+    radial-gradient(1100px 500px at 12% -5%, rgba(255, 255, 255, 0.14), transparent 55%),
+    radial-gradient(900px 500px at 95% 110%, rgba(207, 124, 86, 0.18), transparent 60%),
+    linear-gradient(180deg, rgba(13, 16, 34, 0.42), rgba(13, 16, 34, 0.78)),
+    url("Formulario conto.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* --------------------------------------------------------------------------
+   2. LAYOUT: FORMULARIO (izquierda) + MAPA (derecha), centrados en pantalla
+   -------------------------------------------------------------------------- */
+.contact_body .wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.2rem, 3vw, 2.5rem);
+  width: 100%;
+  max-width: 1180px;
+}
+
+/* Tarjeta del formulario (compacta para que todo quepa centrado) */
+.contact_body .form_wrapper {
+  width: 100%;
+  max-width: 360px;
+  flex: 0 1 360px;
+  margin: 0;
+  padding: clamp(0.9rem, 1.5vw, 1.1rem);
+  border-radius: 18px;
+  background: rgba(20, 23, 46, 0.3);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 24px 55px rgba(8, 10, 30, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  animation: contactRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.contact_body .form_wrapper form {
+  width: 100%;
+  height: auto;
+}
+
+/* Encabezado del formulario */
+.contact_body .form_head {
+  text-align: center;
+  margin-bottom: 0.8rem;
+}
+
+.contact_body .form_head h2 {
+  font-family: "Mont", "Segoe UI", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.1rem, 1.4vw + 0.5rem, 1.45rem);
+  color: var(--color-white);
+  letter-spacing: -0.5px;
+  margin: 0 0 0.3rem;
+  text-transform: capitalize;
+}
+
+.contact_body .form_head h2::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 3px;
+  margin: 0.45rem auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-salmon));
+}
+
+.contact_body .form-intro {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  margin: 0.6rem auto 0;
+  max-width: 42ch;
+}
+
+/* --------------------------------------------------------------------------
+   3. CAMPOS DEL FORMULARIO
+   -------------------------------------------------------------------------- */
+.contact_body .field {
+  margin-bottom: 0.55rem;
+}
+
+.contact_body .field label {
+  font-family: "Mont", sans-serif;
+  font-weight: 600;
+  font-size: var(--fs-small);
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.2px;
+}
+
+.contact_body .field input,
+.contact_body .field textarea {
+  border-radius: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-white);
+  padding: 0.55em 0.85em;
+  font-size: var(--fs-small);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.contact_body .field input::placeholder,
+.contact_body .field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.contact_body .field input:focus,
+.contact_body .field textarea:focus {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--color-terracotta);
+  box-shadow: 0 0 0 4px rgba(207, 124, 86, 0.28);
+}
+
+/* --------------------------------------------------------------------------
+   4. FILA DE TÉRMINOS Y CONDICIONES
+   -------------------------------------------------------------------------- */
+.contact_body .terms_row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0.6rem 0 0.7rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.contact_body .terms_row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-terracotta);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.contact_body .terms_row .terms_label {
+  font-size: var(--fs-small);
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  margin: 0;
+}
+
+.contact_body .aterms {
+  color: var(--color-salmon);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.contact_body .aterms:hover {
+  color: var(--color-white);
+}
+
+/* --------------------------------------------------------------------------
+   5. BOTONES DE ACCIÓN
+   -------------------------------------------------------------------------- */
+.contact_body .btn_group {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.contact_body input.in_btn {
+  width: auto;
+  flex: 1;
+  min-width: 0;
+  padding: 0.6em 1em;
+  font-family: "Mont", sans-serif;
+  font-weight: 700;
+  font-size: var(--fs-button);
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.contact_body input.in_btn[type="submit"] {
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+  color: var(--color-white);
+  box-shadow: 0 12px 28px rgba(207, 124, 86, 0.35);
+}
+
+.contact_body input.in_btn[type="submit"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(207, 124, 86, 0.5);
+}
+
+.contact_body input.in_btn[type="submit"]:disabled {
+  filter: grayscale(0.6);
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.contact_body input.in_btn[type="reset"] {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.contact_body input.in_btn[type="reset"]:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-3px);
+}
+
+/* --------------------------------------------------------------------------
+   6. MAPA (lado derecho, junto al formulario)
+   -------------------------------------------------------------------------- */
+.contact_body .mapa-footer.mapa-contact {
+  display: block;
+  position: relative;
+  flex: 1 1 0;
+  width: 100%;
+  height: 480px;
+  margin: 0;
+  padding: 0;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(20, 23, 46, 0.5);
+  box-shadow: 0 24px 55px rgba(8, 10, 30, 0.45);
+  overflow: hidden;
+  animation: contactRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.contact_body .mapa-contact iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: saturate(0.92) contrast(1.02);
+  display: block;
+}
+
+/* Tarjeta de dirección flotante sobre el mapa */
+.contact_body .mapa-contact .cont {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  margin: 0;
+  width: auto;
+  max-width: 96%;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(13, 16, 34, 0.62);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  color: var(--color-white);
+  font-family: "Mont", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  letter-spacing: 0.2px;
+}
+
+.contact_body .mapa-contact .cont::before {
+  content: "Ubicación";
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--color-salmon);
+  margin-bottom: 0.15rem;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   7. ANIMACIONES
+   -------------------------------------------------------------------------- */
+@keyframes contactRise {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. RESPONSIVO
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .contact_body {
+    background-attachment: scroll;
+  }
+
+  .contact_body .wrapper {
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+
+  .contact_body .form_wrapper {
+    width: 100%;
+    max-width: 420px;
+    flex: 0 1 auto;
+  }
+
+  .contact_body .mapa-contact {
+    height: 320px;
+  }
+}
+
+@media (max-width: 520px) {
+  .contact_body {
+    padding-top: calc(var(--nav-height) + 1.5rem);
+  }
+
+  .contact_body .btn_group {
+    flex-direction: column;
+  }
+
+  .contact_body input.in_btn {
+    width: 100%;
+  }
+
+  .contact_body .mapa-contact {
+    height: 260px;
+    border-radius: 16px;
+  }
+
+  .contact_body .mapa-contact .cont {
+    border-radius: 16px;
+    padding: 0.6rem 1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. MODAL DE CONFIRMACIÓN CON CHECKMARK
+   -------------------------------------------------------------------------- */
+.contact_body .modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 10, 30, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1100;
+}
+
+.contact_body .modal-overlay.active {
+  display: flex;
+}
+
+.contact_body .success-card {
+  background: linear-gradient(150deg, rgba(30, 37, 71, 0.97), rgba(20, 23, 46, 0.97));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  padding: 2.2rem 2.4rem;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  animation: contactRise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.contact_body .modal-icon {
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 1rem;
+}
+
+.contact_body .checkmark {
+  width: 100%;
+  height: 100%;
+}
+
+.contact_body .checkmark-circle {
+  stroke: #2fbf71;
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: checkStroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.2s forwards;
+}
+
+.contact_body .checkmark-check {
+  stroke: #4ade80;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: checkStroke 0.35s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+}
+
+@keyframes checkStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ==========================================================================
+   8. MODAL TÉRMINOS Y CONDICIONES: FONDO BLANCO SIEMPRE
+   ========================================================================== */
+.contact_body #showTerms {
+  background: #ffffff;
+  color: #1f2436;
+  width: 90%;
+  max-width: 480px;
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-terracotta) rgba(0, 0, 0, 0.08);
+}
+
+.contact_body #showTerms p {
+  color: #333333;
+}
+
+.contact_body #showTerms h2,
+.contact_body #showTerms h3 {
+  color: var(--color-navy);
+}
+
+.contact_body .modal-title {
+  font-family: "Mont", sans-serif;
+  font-weight: 800;
+  color: #ffffff;
+  font-size: 1.35rem;
+  margin: 0 0 0.5rem;
+}
+
+.contact_body .modal-message {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  margin: 0 0 1.3rem;
+}
+
+.contact_body .modal-btn {
+  font-family: "Mont", sans-serif;
+  font-weight: 700;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  padding: 0.7em 1.9em;
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+  color: #fff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact_body .modal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(207, 124, 86, 0.4);
+}
