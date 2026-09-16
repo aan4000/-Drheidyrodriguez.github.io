@@ -123,7 +123,13 @@ main.hero .img_section .description_img {
   padding: 0;
   position: static;
   transform: none;
-  filter: none;
+  /* Gradación de color más oscura para un acabado profesional:
+     corrige saturación y contraste, bajando el brillo. */
+  filter:
+    sepia(.1)
+    saturate(1.05)
+    contrast(1.15)
+    brightness(.82);
   border-radius: 0;
   background: #f4f1fb;
   animation: none;

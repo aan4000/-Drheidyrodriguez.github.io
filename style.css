@@ -188,18 +188,19 @@ nav {
   left: 25px;
   top: 50%;
   transform: translateY(-50%);
-  height: 42px;
-  width: auto;
-  max-width: 180px;
-  object-fit: contain;
-  border-radius: 6px;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  transition: transform 0.3s ease, filter 0.3s ease;
+  height: 54px;
+  width: 54px;
+  max-width: none;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .logo:hover {
   transform: translateY(-50%) scale(1.03);
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
 .menu-principal {
@@ -219,21 +220,23 @@ nav {
   font-weight: 600;
   font-size: var(--fs-body);
   text-decoration: none;
+  /* Hover: mismo color de la barra pero más oscuro (sin azul) */
   background-image: linear-gradient(
     to left,
     rgba(7, 7, 43, 0),
     transparent 60%,
-    var(--color-blue-accent) 150%
+    #26294e 150%
   );
   background-size: 300% 100%;
   background-position: right;
-  transition: background-position 0.65s ease, color 0.3s ease;
+  transition: background-position 0.65s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .menu-principal li a:hover {
   color: var(--color-white);
-  border-radius: 5px;
+  border-radius: 12px;
   background-position: left bottom;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
 }
 
 /* Submenú Dropdown */
@@ -362,16 +365,24 @@ header {
   gap: clamp(20px, 4vw, 50px);
   padding: clamp(50px, 10vw, 120px) 5%;
   background-image:
-    linear-gradient(135deg, rgba(63, 68, 104, 0.94) 0%, rgba(115, 131, 175, 0.9) 55%, rgba(233, 237, 240, 0.92) 100%),
-    url("fondo ortopedista header.png");
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.13) 0 2px, transparent 2px 36px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.13) 0 2px, transparent 2px 36px),
+    linear-gradient(to right, rgba(40, 42, 88, 0.72) 0%, rgba(63, 68, 104, 0.38) 45%, transparent 72%),
+    radial-gradient(ellipse at 50% 40%, transparent 20%, rgba(30, 32, 71, 0.55) 92%),
+    linear-gradient(135deg, rgba(63, 68, 104, 0.86) 0%, rgba(115, 131, 175, 0.6) 55%, rgba(233, 237, 240, 0.38) 100%),
+    url("Procedimiento152026-09-13 at 7.02.37 PM.jpeg");
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-position: left 35%;
   font-weight: 900;
   color: var(--color-white);
   text-align: center;
   position: relative;
   box-shadow: 0 18px 40px rgba(20, 26, 58, 0.25);
+}
+
+/* Foto de perfil a la izquierda del texto */
+header .img_wrapper_wrap {
+  order: -1;
 }
 
 /* Resplandor sutil que se desplaza lentamente sobre el header */
@@ -395,35 +406,66 @@ header h1 {
   font-weight: 400;
   font-size: var(--fs-h1);
   line-height: 1.05;
-  color: var(--color-navy);
+  color: var(--color-white);
   filter: drop-shadow(1px 1px 2px rgba(138, 135, 135, 0.6));
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.85);
   text-align: center;
   position: relative;
 }
 
 header p {
-  font-size: var(--fs-body-lg);
-  text-align: center;
-  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.85);
-  color: var(--color-white);
+  margin: 16px auto 0;
+  max-width: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 11px 24px;
+  color: #ffffff;
   font-weight: 600;
-  color: #ec9c7a;
+  font-size: clamp(0.85rem, 0.5rem + 0.6vw, 0.98rem);
+  text-align: center;
+  letter-spacing: 0.3px;
+  background: rgba(207, 124, 86, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 999px;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 10px 24px rgba(20, 26, 58, 0.35);
+  position: relative;
+}
+
+/* Líneas laterales del subtítulo para equilibrar y captar la atención */
+header p::before,
+header p::after {
+  content: "";
+  flex: 0 0 28px;
+  height: 2px;
+  border-radius: 999px;
+}
+
+header p::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8));
+}
+
+header p::after {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), transparent);
 }
 
 header p span {
   text-align: center;
   color: inherit;
-  font-size: var(--fs-caption);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .img_header {
-  width: 310px;
-  height: 310px;
+  width: 220px;
+  height: 220px;
   object-fit: cover;
   object-position: center 29.25%;
   border-radius: 50%;
-  transform: translateX(5%);
+  transform: translateX(-4%);
   position: relative;
   background-image: linear-gradient(128deg, rgba(0, 0, 0, 0.12), rgba(207, 124, 86, 0.15), rgba(255, 255, 255, 0.26));
   filter: drop-shadow(1px 2px 10px rgba(63, 68, 104, 0.55));
@@ -435,7 +477,7 @@ header p span {
    sin distorsionar el recorte/tamaño original de la imagen */
 @media (hover: hover) and (pointer: fine) {
   .img_wrapper_wrap:hover .img_header {
-    transform: translateX(5%) scale(1.04);
+    transform: translateX(-4%) scale(1.04);
     filter: drop-shadow(1px 4px 18px rgba(63, 68, 104, 0.7));
     border-color: var(--color-terracotta);
   }
@@ -742,11 +784,7 @@ video {
 }
 
 /* Botones de anterior/siguiente del carrusel — ocultos en desktop, donde
-   la galería no se desplaza (ver sección 12 para su versión móvil).
-   Requieren dos <button> dentro de .bottom_section en el HTML, p. ej.:
-     <button class="carousel-btn carousel-btn--prev" aria-label="Anterior">‹</button>
-     <button class="carousel-btn carousel-btn--next" aria-label="Siguiente">›</button>
-   El acompañante carousel.js hace scrollBy() al hacer clic. */
+   la galería no se desplaza (ver sección 12 para su versión móvil). */
 .carousel-btn {
   display: none;
 }
@@ -781,8 +819,12 @@ video {
   object-fit: cover;
   border: 5px solid rgba(255, 255, 255, .185);
   border-radius: 12px;
-  filter: drop-shadow(1px 5px 8px rgba(5, 14, 100, 0.6));
-  opacity: .85;
+  filter:
+    grayscale(1)
+    brightness(0.42)
+    contrast(1.35)
+    drop-shadow(1px 5px 8px rgba(5, 14, 100, 0.6));
+  opacity: .9;
 
   transition:
     transform .45s ease,
@@ -792,6 +834,7 @@ video {
 .bottom_section .card .info {
   position: absolute;
   inset: 0;
+  z-index: 3;
 
   display: flex;
   justify-content: center;
@@ -802,11 +845,16 @@ video {
   text-align: center;
 
   color: var(--color-white);
-  background: rgba(15, 23, 42, .75);
+  background: rgba(15, 23, 42, .82);
   backdrop-filter: blur(4px);
 
   opacity: 0;
   transition: opacity .4s ease;
+}
+
+.bottom_section .card .info h3,
+.bottom_section .card .info p {
+  text-shadow: 0 2px 5px rgba(0, 0, 0, .75);
 }
 
 /* El efecto de expansión al pasar el mouse solo se activa en dispositivos
@@ -823,6 +871,10 @@ video {
   .bottom_section .card:hover img {
     opacity: 1;
     transform: scale(1.08);
+  }
+
+  .bottom_section .card:hover .card-icon-badge {
+    transform: translate(-50%, -50%) scale(1.12) rotate(-4deg);
   }
 
   .bottom_section .card:hover .info {
@@ -1067,21 +1119,135 @@ input[type="reset"]:hover {
    ========================================================================== */
 footer {
   grid-area: footer;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding: var(--space-section-y) 8%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: clamp(40px, 5vw, 64px) 8% 0;
   color: #f3f4f6;
-  background: rgba(63, 68, 104, 0.92);
+  /* Fondo: la parte superior va más clara y se oscurece hacia abajo. */
+  background: linear-gradient(180deg, #7a81a6 0%, #565c8a 30%, #3f4468 70%, #23244f 100%);
   backdrop-filter: blur(16px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  align-items: start;
 }
 
+/* Arco decorativo que divide el footer de un extremo a otro de la pantalla.
+   Se consigue recortando una capa terracota con clip-path en forma de
+   elipse: la curva superior del recorte es el arco que cruza todo el ancho. */
+footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(207, 124, 86, 0.45) 0%, rgba(207, 124, 86, 0.06) 100%);
+  clip-path: ellipse(90% 45% at 50% 100%);
+}
 
-.contactp-items{
+/* ---- Franja superior: marca + CTA + redes ---- */
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 26px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
 
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 
+.footer-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+}
+
+.footer-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.footer-nombre {
+  font-size: clamp(1.1rem, 0.8vw + 0.9rem, 1.4rem);
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  color: #ffffff;
+}
+
+.footer-tagline {
+  font-size: var(--fs-small);
+  color: #d1d5db;
+}
+
+.footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.footer-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--color-terracotta), #b5633f);
+  padding: 12px 22px;
+  border-radius: 50px;
+  box-shadow: 0 8px 20px rgba(207, 124, 86, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.footer-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(207, 124, 86, 0.45);
+  color: #ffffff;
+}
+
+.footer-social {
+  display: flex;
+  gap: 10px;
+}
+
+.social-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+
+.social-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.social-btn:hover {
+  background: var(--color-terracotta);
+  border-color: transparent;
+  transform: translateY(-2px);
+  color: #ffffff;
 }
 
 footer h3 {
@@ -1095,12 +1261,52 @@ footer h3 {
   display: inline-block;
 }
 
+.footer-subtitle {
+  margin-top: 20px;
+}
+
 footer p {
   line-height: 1.7;
   font-size: var(--fs-small);
   color: #d1d5db;
 }
 
+/* ---- Rejilla central ---- */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  align-items: start;
+}
+
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.link-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-small);
+  color: #d1d5db;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.link-list a::before {
+  content: "→";
+  color: var(--color-terracotta);
+  font-weight: 700;
+}
+
+.link-list a:hover {
+  color: #ffffff;
+  transform: translateX(3px);
+}
 
 /* seccion para organizar los contactos  */
 .contacto-item {
@@ -1155,6 +1361,12 @@ footer p {
 
 .contact-icon.phone {
   background: linear-gradient(135deg, #72b2f0, #2f74cf);
+}
+
+.contact-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .contact-text {
@@ -1214,24 +1426,50 @@ footer p {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 190px;
+  max-width: 1000px;
+  margin: 0 auto;
+  height: 200px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.06);
   padding: 0.5em;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
   border: 1px solid rgba(255, 255, 255, 0.12);
   overflow: hidden;
-  margin-top: 0.5rem;
+  box-sizing: border-box;
+}
+
+/* ---- Franja inferior ---- */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 18px 0 22px;
 }
 
 .copyright {
-  grid-column: 1 / -1;
-  text-align: center;
-  margin: 1.5rem 0 0;
-  padding-top: 1.2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  margin: 0;
   font-size: var(--fs-small);
   color: #9ca3af;
+}
+
+.footer-legal {
+  display: flex;
+  gap: 18px;
+  margin: 0;
+}
+
+.footer-legal a {
+  font-size: var(--fs-small);
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-legal a:hover {
+  color: var(--color-terracotta);
 }
 
 .retorno {
@@ -1353,7 +1591,8 @@ footer p {
   .logo {
     position: static;
     transform: none;
-    height: 36px;
+    height: 44px;
+    width: 44px;
   }
 
   .logo:hover {
@@ -1423,23 +1662,22 @@ footer p {
     filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
   }
 
-  /* Efecto "el texto sale de los iconos": solo con hover real (mouse). En
-     táctil (sin hover) el texto queda siempre visible. */
-  @media (hover: hover) and (pointer: fine) {
-    .resp_mobile a .menu-text {
-      display: inline-block;
-      white-space: nowrap;
-      transform: translateX(-10px) scaleX(0.25);
-      transform-origin: left center;
-      opacity: 0;
-      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
-    }
+  /* Efecto "el texto sale de los iconos": oculto por defecto y sale al
+     interactuar (hover con mouse o pulsación en táctil). */
+  .resp_mobile a .menu-text {
+    display: inline-block;
+    white-space: nowrap;
+    transform: translateX(-10px) scaleX(0.25);
+    transform-origin: left center;
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+  }
 
-    .resp_mobile a:hover .menu-text,
-    .resp_mobile a:focus-visible .menu-text {
-      transform: translateX(0) scaleX(1);
-      opacity: 1;
-    }
+  .resp_mobile a:hover .menu-text,
+  .resp_mobile a:focus-visible .menu-text,
+  .resp_mobile a:active .menu-text {
+    transform: translateX(0) scaleX(1);
+    opacity: 1;
   }
 
   .submenu {
@@ -1492,24 +1730,22 @@ footer p {
     width: 100%;
   }
 
-  footer {
-    grid-template-columns: 1fr;
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .footer-top {
+    justify-content: center;
     text-align: center;
-    gap: 30px;
-    padding: 40px 20px;
   }
 
-  footer h3 {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .contacto-item {
+  .footer-brand {
     justify-content: center;
   }
 
-  .contacto-item:hover {
-    transform: none;
+  .footer-actions {
+    justify-content: center;
   }
 
   /* Botón e ícono de menú responsive */
@@ -1637,9 +1873,9 @@ footer p {
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 58%;
+    top: 50%;
     transform: translateY(-50%);
-    z-index: 5;
+    z-index: 6;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -1691,7 +1927,33 @@ footer p {
 
   /* En touch, la tarjeta muestra siempre su información en vez de depender
      de :hover (que en móvil se queda "pegado" tras el primer toque) */
-  .bottom_section .card .info {
+.bottom_section .card .card-icon-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  transition: transform 0.45s ease;
+}
+
+.bottom_section .card .card-icon-badge ion-icon,
+.bottom_section .card .card-icon-badge svg {
+  width: 54px;
+  height: 54px;
+  color: var(--color-navy);
+}
+
+.bottom_section .card .info {
     opacity: 1;
     background: rgba(15, 23, 42, .55);
   }
@@ -1750,7 +2012,32 @@ footer p {
   }
 
   footer {
-    padding: 32px 16px;
+    padding: 34px 20px 0;
+    gap: 26px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer-brand {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer-legal {
+    justify-content: center;
   }
 
   .mapa-footer {
@@ -1825,4 +2112,257 @@ footer p {
 
 body.bp-transition {
   animation: layoutChange 1.5s ease-in-out;
+}
+
+/* ==========================================================================
+   CARRUSEL CSS PURO (radios :checked) — galería de procedimientos
+   ========================================================================== */
+.g-cc {
+  position: relative;
+  width: min(1120px, 96%);
+  margin: 0 auto;
+}
+
+.g-radio {
+  display: none;
+}
+
+.g-viewport {
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(20, 26, 58, 0.35);
+}
+
+.g-track {
+  display: flex;
+  transition: transform 1.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.g-slide {
+  flex: 0 0 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(240px, 34vw, 340px);
+  /* Padding para que la imagen quede inspeccionada dentro del carrusel */
+  padding: 20px 12px 36px;
+}
+
+/* Imagen que se ajusta al área con padding del slide */
+.g-photo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(20, 26, 58, 0.45);
+}
+
+.g-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Color original: silueta oscura en escala de grises (no se divisan caras) */
+  filter: grayscale(1) brightness(0.28) contrast(1.4);
+
+/* Difuminado rojo mínimo sobre la silueta negra */
+.g-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(160deg, rgba(207, 124, 86, 0.12), rgba(150, 52, 62, 0.16));
+  transition: background 0.4s ease;
+}
+
+/* Al hacer hover el rojo se intensifica apenas un poco */
+.g-slide:hover .g-photo::after {
+  background: linear-gradient(160deg, rgba(207, 124, 86, 0.2), rgba(150, 52, 62, 0.26));
+}
+  transition: transform 0.6s ease, filter 0.5s ease;
+}
+
+/* Nombre del procedimiento: aparece al hacer hover, centrado en la imagen */
+.g-slide figcaption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(28, 18, 30, 0.55);
+  backdrop-filter: blur(8px);
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.1s;
+  pointer-events: none;
+}
+
+.g-slide:hover figcaption {
+  opacity: 1;
+}
+
+/* En pantallas táctiles no hay hover: el nombre siempre visible */
+@media (hover: none) {
+  .g-slide figcaption {
+    opacity: 1;
+    font-size: 0.78rem;
+    padding: 6px 14px;
+  }
+}
+
+.g-arrow {
+  position: absolute;
+  top: 44%;
+  transform: translateY(-50%);
+  z-index: 6;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(63, 68, 104, 0.85);
+  color: var(--color-white);
+  font-size: 1.5rem;
+  line-height: 1;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.g-prev {
+  left: 12px;
+}
+
+.g-next {
+  right: 12px;
+}
+
+.g-arrow:hover {
+  background: var(--color-terracotta);
+}
+
+#g-1:checked ~ .g-viewport .g-track { transform: translateX(0%); }
+#g-2:checked ~ .g-viewport .g-track { transform: translateX(-100%); }
+#g-3:checked ~ .g-viewport .g-track { transform: translateX(-200%); }
+#g-4:checked ~ .g-viewport .g-track { transform: translateX(-300%); }
+#g-5:checked ~ .g-viewport .g-track { transform: translateX(-400%); }
+#g-6:checked ~ .g-viewport .g-track { transform: translateX(-500%); }
+#g-7:checked ~ .g-viewport .g-track { transform: translateX(-600%); }
+#g-8:checked ~ .g-viewport .g-track { transform: translateX(-700%); }
+#g-9:checked ~ .g-viewport .g-track { transform: translateX(-800%); }
+#g-10:checked ~ .g-viewport .g-track { transform: translateX(-900%); }
+#g-11:checked ~ .g-viewport .g-track { transform: translateX(-1000%); }
+#g-12:checked ~ .g-viewport .g-track { transform: translateX(-1100%); }
+#g-13:checked ~ .g-viewport .g-track { transform: translateX(-1200%); }
+#g-14:checked ~ .g-viewport .g-track { transform: translateX(-1300%); }
+#g-15:checked ~ .g-viewport .g-track { transform: translateX(-1400%); }
+#g-16:checked ~ .g-viewport .g-track { transform: translateX(-1500%); }
+
+#g-1:checked ~ .g-prev[data-s="1"],
+#g-1:checked ~ .g-next[data-s="1"] { display: flex; }
+#g-2:checked ~ .g-prev[data-s="2"],
+#g-2:checked ~ .g-next[data-s="2"] { display: flex; }
+#g-3:checked ~ .g-prev[data-s="3"],
+#g-3:checked ~ .g-next[data-s="3"] { display: flex; }
+#g-4:checked ~ .g-prev[data-s="4"],
+#g-4:checked ~ .g-next[data-s="4"] { display: flex; }
+#g-5:checked ~ .g-prev[data-s="5"],
+#g-5:checked ~ .g-next[data-s="5"] { display: flex; }
+#g-6:checked ~ .g-prev[data-s="6"],
+#g-6:checked ~ .g-next[data-s="6"] { display: flex; }
+#g-7:checked ~ .g-prev[data-s="7"],
+#g-7:checked ~ .g-next[data-s="7"] { display: flex; }
+#g-8:checked ~ .g-prev[data-s="8"],
+#g-8:checked ~ .g-next[data-s="8"] { display: flex; }
+#g-9:checked ~ .g-prev[data-s="9"],
+#g-9:checked ~ .g-next[data-s="9"] { display: flex; }
+#g-10:checked ~ .g-prev[data-s="10"],
+#g-10:checked ~ .g-next[data-s="10"] { display: flex; }
+#g-11:checked ~ .g-prev[data-s="11"],
+#g-11:checked ~ .g-next[data-s="11"] { display: flex; }
+#g-12:checked ~ .g-prev[data-s="12"],
+#g-12:checked ~ .g-next[data-s="12"] { display: flex; }
+#g-13:checked ~ .g-prev[data-s="13"],
+#g-13:checked ~ .g-next[data-s="13"] { display: flex; }
+#g-14:checked ~ .g-prev[data-s="14"],
+#g-14:checked ~ .g-next[data-s="14"] { display: flex; }
+#g-15:checked ~ .g-prev[data-s="15"],
+#g-15:checked ~ .g-next[data-s="15"] { display: flex; }
+#g-16:checked ~ .g-prev[data-s="16"],
+#g-16:checked ~ .g-next[data-s="16"] { display: flex; }
+
+.g-dots {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 5% 2px;
+}
+
+.g-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.g-dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+#g-1:checked ~ .g-dots .g-dot:nth-child(1),
+#g-2:checked ~ .g-dots .g-dot:nth-child(2),
+#g-3:checked ~ .g-dots .g-dot:nth-child(3),
+#g-4:checked ~ .g-dots .g-dot:nth-child(4),
+#g-5:checked ~ .g-dots .g-dot:nth-child(5),
+#g-6:checked ~ .g-dots .g-dot:nth-child(6),
+#g-7:checked ~ .g-dots .g-dot:nth-child(7),
+#g-8:checked ~ .g-dots .g-dot:nth-child(8),
+#g-9:checked ~ .g-dots .g-dot:nth-child(9),
+#g-10:checked ~ .g-dots .g-dot:nth-child(10),
+#g-11:checked ~ .g-dots .g-dot:nth-child(11),
+#g-12:checked ~ .g-dots .g-dot:nth-child(12),
+#g-13:checked ~ .g-dots .g-dot:nth-child(13),
+#g-14:checked ~ .g-dots .g-dot:nth-child(14),
+#g-15:checked ~ .g-dots .g-dot:nth-child(15),
+#g-16:checked ~ .g-dots .g-dot:nth-child(16) {
+  background: var(--color-terracotta);
+  transform: scale(1.3);
+}
+
+/* fin carrusel css */
+
+/* El contenedor .bottom_section ya no es un carrusel horizontal con
+   scroll-snap (eso aplicaba al formato antiguo de tarjetas); el nuevo
+   carrusel CSS lo maneja todo desde .g-cc. */
+@media (max-width: 1024px) {
+  .bottom_section {
+    display: block;
+    white-space: normal;
+    overflow: visible;
+    scroll-snap-type: none;
+    scroll-padding-left: 0;
+    gap: 0;
+    padding: var(--space-section-y) 5%;
+  }
+
+  .bottom_section h2::after {
+    content: none;
+  }
+
+  .carousel-btn {
+    display: none;
+  }
 }

@@ -48,7 +48,7 @@ body {
 .bio-image-wrapper {
   position: relative;
   width: 100%;
-  max-width: 400px;
+  max-width: 320px;
   margin: 0 auto;
 }
 
@@ -75,28 +75,37 @@ body {
 
 .bio-img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 2 / 3;
   object-fit: cover;
   object-position: center;
   display: block;
   background-color: #e8edf6;
   border-radius: 18px;
+  /* Silueta: version oscura */
+  filter:
+    grayscale(1)
+    brightness(0.18)
+    contrast(1.4);
 }
 
-/* Tarjeta flotante: especialidad (superior izquierda) */
+/* Tarjeta: especialista superpuesta abajo-derecha de la foto */
 .bio-credential-card {
   position: absolute;
-  top: 22px;
-  left: -14px;
+  bottom: 14px;
+  right: 14px;
   z-index: 2;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
+  width: max-content;
+  max-width: calc(100% - 28px);
+  margin: 0;
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 14px;
   padding: 0.6rem 0.95rem;
-  box-shadow: 0 12px 28px rgba(63, 68, 104, 0.2);
+  box-shadow: 0 12px 28px rgba(63, 68, 104, 0.25);
 }
 
 .bio-credential-card ion-icon {
@@ -116,36 +125,6 @@ body {
   font-size: 0.75rem;
   color: #5a6186;
   font-weight: 600;
-}
-
-/* Tarjeta flotante: años de excelencia (inferior derecha) */
-.bio-experience-badge {
-  position: absolute;
-  right: -14px;
-  bottom: -20px;
-  z-index: 2;
-  background: linear-gradient(135deg, var(--color-terracotta) 0%, #e29578 100%);
-  color: #ffffff;
-  padding: 1rem 1.4rem;
-  border-radius: 16px;
-  box-shadow: 0 14px 30px rgba(207, 124, 86, 0.45);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.badge-number {
-  font-size: 1.9rem;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.badge-text {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: 0.25rem;
-  opacity: 0.95;
 }
 
 /* ==========================================================================
@@ -323,11 +302,10 @@ body {
   }
 
   .bio-credential-card {
-    left: -6px;
-  }
-
-  .bio-experience-badge {
-    right: -6px;
+    bottom: 10px;
+    right: 10px;
+    max-width: calc(100% - 20px);
+    padding: 0.5rem 0.8rem;
   }
 
   .bio-stats {

@@ -1,23 +1,28 @@
-// carousel.js — Acompañante de las flechas del carrusel de la galería
-// En desktop (>=900px) las flechas están ocultas y la galería se ve completa.
-// En móvil (<=900px) .bottom_section se convierte en un carrusel horizontal
-// con scroll-snap, y estas flechas desplazan el scroll (scrollBy) una tarjeta.
-(function () {
-  const section = document.querySelector(".bottom_section");
-  if (!section) return;
+// carousel.js — Acompañante del "carrusel" de la galería en móvil
+// .bottom_section es el contenedor con overflow-x: auto y scroll-snap.
+// Las flechas "mueven" el scroll y aparecen siempre en ambos lados.
 
-  const prevBtn = section.querySelector(".carousel-btn--prev");
-  const nextBtn = section.querySelector(".carousel-btn--next");
-  if (!prevBtn || !nextBtn) return;
+(function() {
+  const container = document.querySelector('.bottom_section');
+  const prevBtn = document.querySelector('.carousel-btn--prev');
+  const nextBtn = document.querySelector('.carousel-btn--next');
+  if (!container || !prevBtn || !nextBtn) return;
 
-  const CARD_GAP = 16;
+  const cards = Array.from(container.querySelectorAll('.card'));
+  if (!cards.length) return;
 
-  function scrollByCards(dir) {
-    const card = section.querySelector(".bottom_section .card");
-    const amount = card ? card.offsetWidth + CARD_GAP : window.innerWidth;
-    section.scrollBy({ left: dir * amount, behavior: "smooth" });
+  const clickCard = cards[0];
+
+  function step() {
+    const w = clickCard.getBoundingClientRect().width;
+    return w + 16; // 8px de margen a cada lado
   }
 
-  prevBtn.addEventListener("click", () => scrollByCards(-1));
-  nextBtn.addEventListener("click", () => scrollByCards(1));
+  prevBtn.addEventListener('click', () => {
+    container.scrollBy({ left: -step(), behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    container.scrollBy({ left: step(), behavior: 'smooth' });
+  });
 })();

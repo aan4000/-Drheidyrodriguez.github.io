@@ -45,7 +45,11 @@
 body {
     margin: 0;
     padding: 20px;
-    background: radial-gradient(circle at top, #EABAA5 0%, #4499EE 50%, #000000 100%);
+    /* Mismo degradado de la página principal (salmón → navy) */
+    background:
+      linear-gradient(90deg, var(--color-salmon) 0px, var(--color-salmon) 80px, var(--color-navy-soft) 80%, var(--color-navy-soft) 100%),
+      var(--color-navy);
+    background-attachment: fixed;
     font-family: var(--font-body);
 }
 

@@ -6,7 +6,7 @@ const NAV_HTML = `<!-- El botón móvil  -->
 </button>
 
 <nav id="respNav">
-    <img class="logo" src="logo_Doctora.jpg" alt="Logo Dra. Heydy Rodriguez">
+    <img class="logo" src="logoOrtopeda.png" alt="Logo Dra. Heydy Rodriguez">
 
     <ul class="menu-principal">
         <li><a href="index.html">Página Principal</a></li>

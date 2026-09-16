@@ -86,10 +86,9 @@ html.dark .icon-light { display: block; }
 /* ==========================================================================
    HEADER
    ========================================================================== */
+/* El header oscuro NO define su propia imagen de fondo: hereda la del modo
+   claro (la foto actualizada del header) para que nunca muestre otra. */
 html.dark header {
-  background-image:
-    linear-gradient(90deg, rgba(14, 18, 44, 0.94), rgba(24, 31, 66, 0.88)),
-    url("fondo ortopedista header.png");
   border-bottom-color: #10152e;
   border-top-color: rgba(233, 172, 143, 0.75);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
@@ -97,17 +96,17 @@ html.dark header {
 
 html.dark header h1 {
   color: var(--color-white);
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.85);
 }
 
 html.dark header p {
-  color: #ec9c7a;
-  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.8);
+  color: #ecd6bf;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 html.dark header .special p {
-  background: rgba(12, 17, 41, 0.62);
-  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(10, 14, 32, 0.7);
+  border-color: rgba(255, 255, 255, 0.2);
   color: #e7ebfa;
   text-shadow: none;
 }
@@ -198,8 +197,15 @@ html.dark .bottom_section .section_title {
    FOOTER
    ========================================================================== */
 html.dark footer {
-  background: #0c1129;
+  background: linear-gradient(180deg, #1b2347 0%, #10152e 35%, #0a0e20 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+/* La ola del footer se mantiene IGUAL que en modo claro (se hereda de
+   style.css, sin override en darkmode). */
+
+html.dark .footer-cta,
+html.dark .social-btn {
+  color: #ffffff;
 }
 
 html.dark footer h3 {
