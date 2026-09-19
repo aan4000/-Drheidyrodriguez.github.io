@@ -11,7 +11,7 @@
     radial-gradient(circle at 35% 28%, rgba(233, 172, 143, 0.5), transparent 62%),
     radial-gradient(circle at 70% 80%, rgba(61, 125, 201, 0.22), transparent 58%),
     linear-gradient(160deg, rgba(255, 255, 255, 0.35), rgba(63, 68, 104, 0.14));
-  animation: doctorFloat 6s ease-in-out infinite;
+  animation: doctorFloat 6s ease-in-out infinite, heroPhotoIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
 }
 
 /* ---- Anillo decorativo punteado exterior (rotación lenta) ---- */
@@ -57,7 +57,7 @@
 
 .doc-chip ion-icon {
   color: #e29578;
-  font-size: 1.4rem;
+  font-size: 1.9rem;
   flex-shrink: 0;
 }
 
@@ -73,25 +73,24 @@
 header .special p {
   display: inline-block;
   margin: 0.6rem auto 0;
-  padding: 0.55em 1.2em;
-  border-radius: 999px;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0.28),
-    rgba(148, 187, 233, 0.16) 55%,
-    rgba(255, 255, 255, 0.18)
-  );
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px) saturate(140%);
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
-  color: var(--color-navy);
-  text-shadow: none;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.4px;
+  padding: 0.45em 1em;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  color: #fffdf4;
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 900;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
   text-align: center;
-  box-shadow: 0 8px 22px rgba(63, 68, 104, 0.16);
+  text-shadow:
+    0 -2px 3px rgba(38, 44, 74, 0.75),
+    0 1px 1px rgba(255, 255, 255, 0.45),
+    0 2px 2px rgba(38, 44, 74, 0.35),
+    0 0 1px rgba(255, 255, 255, 0.25);
+  box-shadow: none;
 }
 
 header .special p::after {
@@ -160,5 +159,118 @@ header .special p::after {
 
   .doc-chip span {
     font-size: 0.65rem;
+  }
+}
+
+/* ==========================================================================
+   REDISEÑO VANGUARDIA — hero de portada (index.html)
+   ========================================================================== */
+
+/* Entrada del bloque de texto */
+header .special {
+  position: relative;
+  z-index: 2;
+  animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Halo luminoso detrás del texto para que el nombre navy se lea sobre el fondo oscuro */
+header .special::before {
+  content: "";
+  position: absolute;
+  inset: -45% -16% -35% -16%;
+  background: radial-gradient(ellipse 58% 55% at 50% 42%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.16) 55%, transparent 76%);
+  filter: blur(24px);
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Bloque del nombre — mismo color del nav (navy) */
+header .special h1 {
+  color: var(--color-navy);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+/* Bloque del nombre */
+header h1 .header-accent {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: inherit;
+  color: inherit;
+  background: none;
+  -webkit-text-fill-color: currentcolor;
+  text-shadow: none;
+  filter: none;
+}
+
+/* Subtítulo grabado en la imagen de fondo ("deburilado"):
+   relleno translúcido que deja asomar la fotografía del header,
+   bisel interior oscuro arriba y filo de luz abajo (simulan un
+   receso tallado), con trazo fino de grabado y tracking amplio.
+   Va en menor peso que el nombre para no robarle protagonismo. */
+header .special p.hero-sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  margin: 1rem auto 0;
+  max-width: 640px;
+  padding: 0.5em 1.5em;
+  color: rgba(244, 246, 255, 0.55);
+  font-size: clamp(0.95rem, 1.6vw, 1.18rem);
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  line-height: 2;
+  text-indent: 0.4em;
+  text-transform: uppercase;
+  text-align: center;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.3),
+    0 -1px 2px rgba(8, 10, 30, 0.95),
+    0 6px 22px rgba(8, 10, 30, 0.55);
+  animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+/* Líneas de remate grabadas a los lados del texto */
+header .special p.hero-sub::before,
+header .special p.hero-sub::after {
+  content: "";
+  flex: 1 1 56px;
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+}
+
+/* ---- Keyframes del hero ---- */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroPhotoIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header .special,
+  header .special p.hero-sub,
+  .img_wrapper_wrap {
+    animation: none;
+  }
+}
+
+@media (max-width: 520px) {
+  header .special p.hero-sub {
+    letter-spacing: 0.16em;
+    text-indent: 0.16em;
+    font-size: 0.76rem;
+    gap: 0.6rem;
+  }
+
+  header .special p.hero-sub::before,
+  header .special p.hero-sub::after {
+    flex-basis: 26px;
   }
 }

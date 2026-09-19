@@ -16,11 +16,32 @@ main.hero .reveal.is-visible {
   transform: translateY(0);
 }
 
+/* ---- Carnet: entra deslizándose desde la izquierda (transition translate) ---- */
+main.hero .img_section.reveal {
+  opacity: 0;
+  transform: translateX(-140px);
+  transition:
+    transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.8s ease;
+}
+
+main.hero .img_section.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   main.hero .reveal {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  main.hero::before,
+  main.hero::after,
+  .hero-content .button_citas,
+  main.hero .img_section::before {
+    animation: none;
   }
 }
 
@@ -33,7 +54,47 @@ main.hero {
   justify-content: flex-start;
   align-content: center;
   gap: clamp(40px, 7vw, 90px);
-  background: linear-gradient(90deg, var(--color-salmon) 80px, var(--color-navy-soft) 80%);
+  padding: clamp(70px, 9vw, 150px) 6%;
+  background: linear-gradient(90deg, var(--color-salmon) 80px, rgba(255, 255, 255, 0.55) 80%);
+}
+
+/* Blobs de luz ambientales (vanguardia) */
+main.hero::before,
+main.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
+  animation: heroBlob 16s ease-in-out infinite;
+}
+
+main.hero::before {
+  width: 360px;
+  height: 360px;
+  background: rgba(226, 96, 58, 0.3);
+  top: -70px;
+  right: 6%;
+}
+
+main.hero::after {
+  width: 320px;
+  height: 320px;
+  background: rgba(63, 68, 104, 0.22);
+  bottom: -50px;
+  left: 4%;
+  animation-delay: -8s;
+}
+
+/* Contenido por encima de los blobs */
+main.hero .hero-content,
+main.hero .scroll_info,
+main.hero .img_section,
+main.hero .hero-video-card {
+  position: relative;
+  z-index: 1;
 }
 
 /* ---- Carnet / badge médico ---- */
@@ -79,16 +140,16 @@ main.hero .img_section::before {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
   background: linear-gradient(135deg, var(--color-terracotta) 0%, #e29578 100%);
   box-shadow: 0 6px 14px rgba(207, 124, 86, 0.45);
   flex-shrink: 0;
 }
 
 .carnet-head-icon ion-icon {
-  font-size: 1.3rem;
+  font-size: 1.9rem;
 }
 
 .carnet-head-text {
@@ -192,9 +253,9 @@ main.hero .scroll_info {
 }
 
 main.hero .scroll_info h2 {
-  color: var(--color-white);
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.55);
-  font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+  color: var(--color-navy);
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.35);
+  font-size: clamp(1.8rem, 3.8vw, 2.7rem);
   line-height: 1.15;
   border: none;
   margin-top: 0.15rem;
@@ -203,8 +264,28 @@ main.hero .scroll_info h2 {
 
 main.hero .scroll_info h2 span {
   display: block;
-  font-size: 1em;
+  white-space: nowrap;
+  font-size: 1.15em;
+  line-height: 1.1;
+  font-weight: 900;
+  letter-spacing: -0.02em;
   color: var(--color-terracotta);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.35);
+  position: relative;
+  padding-bottom: 0.14em;
+}
+
+/* Subrayado decorativo bajo la frase */
+main.hero .scroll_info h2 span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-terracotta), #f08a55);
+  box-shadow: 0 2px 8px rgba(226, 96, 58, 0.4);
 }
 
 main.hero .text-desc {
@@ -235,12 +316,46 @@ main.hero .text-desc {
   border-radius: 999px;
   font-size: var(--fs-small);
   font-weight: 600;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-chips li:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 12px 24px rgba(63, 68, 104, 0.18);
+  }
 }
 
 .hero-chips ion-icon {
   color: var(--color-terracotta);
   font-size: 1.05rem;
   flex-shrink: 0;
+}
+
+/* ---- Carnet: flotación 3D + brillo al pasar el mouse ---- */
+@media (hover: hover) and (pointer: fine) {
+  main.hero .img_section.reveal:hover {
+    transform: translateY(-8px) rotate(-1.5deg);
+    box-shadow: 0 36px 76px rgba(63, 68, 104, 0.42);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  }
+}
+
+/* ---- CTA: anillo de pulso ---- */
+.hero-content .button_citas {
+  animation: ctaPulseShadow 3.2s ease-in-out infinite;
+}
+
+@keyframes ctaPulseShadow {
+  0%, 100% { box-shadow: 0 8px 25px rgba(207, 124, 86, 0.45), 0 0 0 0 rgba(226, 96, 58, 0.4); }
+  50% { box-shadow: 0 8px 25px rgba(207, 124, 86, 0.45), 0 0 0 16px rgba(226, 96, 58, 0); }
+}
+
+/* ---- Blobs ---- */
+@keyframes heroBlob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(26px, 20px) scale(1.12); }
 }
 
 /* ---- Video (fila propia, debajo de todo) — limpio, siempre visible ---- */

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PÁGINA DE CONTACTO — REDISEÑO MODERNO
+   PÁGINA DE CONTACTO  —  REDISEÑO MODERNO
    --------------------------------------------------------------------------
    Hoja dedicada a "contactanos.html". Se carga DESPUÉS de style.css para
    heredar la paleta (navy / terracota / salmón) y mejorar la sección de
@@ -16,8 +16,8 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  gap: clamp(1rem, 3vw, 2rem);
-  padding: calc(var(--nav-height) + 1.5rem) clamp(1rem, 5vw, 3rem) 2.5rem;
+  gap: clamp(1rem, 2.4vw, 1.6rem);
+  padding: calc(var(--nav-height) + 1rem) clamp(1rem, 5vw, 3rem) 2rem;
   background:
     radial-gradient(1100px 500px at 12% -5%, rgba(255, 255, 255, 0.14), transparent 55%),
     radial-gradient(900px 500px at 95% 110%, rgba(207, 124, 86, 0.18), transparent 60%),
@@ -37,9 +37,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: clamp(1.2rem, 3vw, 2.5rem);
+  gap: clamp(1rem, 2.4vw, 2rem);
   width: 100%;
-  max-width: 1180px;
+  max-width: 1080px;
 }
 
 /* Tarjeta del formulario (compacta para que todo quepa centrado) */
@@ -48,14 +48,14 @@
   max-width: 360px;
   flex: 0 1 360px;
   margin: 0;
-  padding: clamp(0.9rem, 1.5vw, 1.1rem);
+  padding: clamp(0.9rem, 1.4vw, 1rem);
   border-radius: 18px;
   background: rgba(20, 23, 46, 0.3);
   backdrop-filter: blur(18px) saturate(150%);
   -webkit-backdrop-filter: blur(18px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.22);
   box-shadow: 0 24px 55px rgba(8, 10, 30, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  animation: contactRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: formFromLeft 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .contact_body .form_wrapper form {
@@ -231,12 +231,25 @@
 /* --------------------------------------------------------------------------
    6. MAPA (lado derecho, junto al formulario)
    -------------------------------------------------------------------------- */
+.contact_body .contact-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  flex: 1 1 0;
+  width: 100%;
+  min-width: 0;
+  animation: asideFromRight 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+.contact_body .contact-aside .mapa-footer {
+  flex: 0 0 auto;
+}
+
 .contact_body .mapa-footer.mapa-contact {
   display: block;
   position: relative;
-  flex: 1 1 0;
   width: 100%;
-  height: 480px;
+  height: 300px;
   margin: 0;
   padding: 0;
   border-radius: 20px;
@@ -244,7 +257,6 @@
   background: rgba(20, 23, 46, 0.5);
   box-shadow: 0 24px 55px rgba(8, 10, 30, 0.45);
   overflow: hidden;
-  animation: contactRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
 
 .contact_body .mapa-contact iframe {
@@ -255,41 +267,103 @@
   display: block;
 }
 
-/* Tarjeta de dirección flotante sobre el mapa */
-.contact_body .mapa-contact .cont {
-  position: absolute;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  margin: 0;
-  width: auto;
-  max-width: 96%;
-  padding: 0.6rem 1.2rem;
-  border-radius: 999px;
-  background: rgba(13, 16, 34, 0.62);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-  color: var(--color-white);
-  font-family: "Mont", sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
-  line-height: 1.5;
-  text-align: center;
-  letter-spacing: 0.2px;
+/* Tarjeta de consultorios y hospitales (direcciones) */
+.contact_body .locations-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 1.15rem 1.25rem 1rem;
+  box-shadow: 0 40px 90px rgba(38, 44, 94, 0.16), inset 0 1px 0 #ffffff;
 }
 
-.contact_body .mapa-contact .cont::before {
-  content: "Ubicación";
+.contact_body .loc-title {
+  font-family: var(--font-ui);
+  font-weight: 800;
+  font-size: 1.02rem;
+  color: var(--color-navy);
+  letter-spacing: -0.2px;
+  margin: 0 0 0.9rem;
+}
+
+.contact_body .loc-title::after {
+  content: "";
   display: block;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  color: var(--color-salmon);
-  margin-bottom: 0.15rem;
+  width: 42px;
+  height: 3px;
+  margin-top: 0.4rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-salmon));
+}
+
+.contact_body .locations-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.contact_body .location-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.contact_body .loc-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: rgba(207, 124, 86, 0.14);
+  border: 1px solid rgba(207, 124, 86, 0.25);
+  color: var(--color-terracotta);
+}
+
+.contact_body .loc-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  stroke: none;
+}
+
+.contact_body .loc-icon svg circle {
+  fill: #ffffff;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.contact_body .loc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.contact_body .loc-name {
+  font-family: var(--font-ui);
   font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-navy);
+  line-height: 1.35;
+}
+
+.contact_body .loc-address {
+  font-size: 0.8rem;
+  color: rgba(63, 68, 104, 0.78);
+  line-height: 1.5;
+}
+
+.contact_body .loc-schedule {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-terracotta);
 }
 
 /* --------------------------------------------------------------------------
@@ -303,6 +377,30 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* El formulario entra desde la izquierda, el panel desde la derecha,
+   encontrándose en el centro de la sección. */
+@keyframes formFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-120px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes asideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(120px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
   }
 }
 
@@ -325,14 +423,19 @@
     flex: 0 1 auto;
   }
 
+  .contact_body .contact-aside {
+    flex: 0 1 auto;
+    width: 100%;
+  }
+
   .contact_body .mapa-contact {
-    height: 320px;
+    height: 280px;
   }
 }
 
 @media (max-width: 520px) {
   .contact_body {
-    padding-top: calc(var(--nav-height) + 1.5rem);
+    padding-top: calc(var(--nav-height) + 1rem);
   }
 
   .contact_body .btn_group {
@@ -344,13 +447,13 @@
   }
 
   .contact_body .mapa-contact {
-    height: 260px;
+    height: 240px;
     border-radius: 16px;
   }
 
-  .contact_body .mapa-contact .cont {
-    border-radius: 16px;
-    padding: 0.6rem 1rem;
+  .contact_body .locations-card {
+    padding: 0.95rem 0.95rem 0.9rem;
+    border-radius: 18px;
   }
 }
 
@@ -424,25 +527,94 @@
 
 /* ==========================================================================
    8. MODAL TÉRMINOS Y CONDICIONES: FONDO BLANCO SIEMPRE
+   Al marcar la casilla se abre este overlay; el botón "Aceptar"
+   habilita el envío del formulario.
    ========================================================================== */
-.contact_body #showTerms {
-  background: #ffffff;
-  color: #1f2436;
-  width: 90%;
-  max-width: 480px;
-  max-height: 80vh;
+.contact_body .showterms-modal {
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1.25rem;
   overflow-y: auto;
+}
+
+.contact_body .showterms-modal .terms-panel {
+  background: #ffffff;
+  color: #111827;
+  width: 60%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 18px;
+  padding: clamp(0.9rem, 1.4vw, 1rem);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  text-align: left;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+  border: 1px solid #e8eaf2;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-terracotta) rgba(0, 0, 0, 0.08);
+  scrollbar-color: rgba(63, 68, 104, 0.3) transparent;
+  animation: termsPop 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
-.contact_body #showTerms p {
-  color: #333333;
+@keyframes termsPop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-.contact_body #showTerms h2,
-.contact_body #showTerms h3 {
-  color: var(--color-navy);
+.contact_body .showterms-modal .terms-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contact_body .showterms-modal .terms-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.contact_body .showterms-modal .terms-panel::-webkit-scrollbar-thumb {
+  background: rgba(63, 68, 104, 0.3);
+  border-radius: 999px;
+}
+
+.contact_body .showterms-modal .terms-panel p {
+  color: #222222;
+  flex: 1 1 auto;
+  margin: 0 0 1.3rem;
+}
+
+.contact_body .showterms-modal .terms-panel h3 {
+  color: #000000;
+  font-family: "Mont", sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.2px;
+  margin: 0 0 0.6rem;
+}
+
+.contact_body .showterms-modal #bterms {
+  font-family: "Mont", sans-serif;
+  font-weight: 700;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  display: block;
+  padding: 0.7em 1.9em;
+  margin: 1.2rem auto 0;
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+  color: #fff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact_body .showterms-modal #bterms:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(207, 124, 86, 0.4);
 }
 
 .contact_body .modal-title {
@@ -475,4 +647,205 @@
 .contact_body .modal-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 24px rgba(207, 124, 86, 0.4);
+}
+
+/* ==========================================================================
+   9. REDISEÑO MODERNO 2026  —  acorde con el diseño del sitio (tema claro)
+   El fondo original (Formulario conto.jpg) se eliminó de los assets; se
+   reemplaza por un degradado claro acorde al sitio. Tarjeta de vidrio
+   blanco, subrayado terracota al enfocar y entradas escalonadas.
+   ========================================================================== */
+.contact_body {
+  font-family: var(--font-ui);
+  background:
+    radial-gradient(1200px 540px at 12% -6%, rgba(207, 124, 86, 0.17), transparent 55%),
+    radial-gradient(1000px 560px at 98% 112%, rgba(63, 68, 104, 0.2), transparent 60%),
+    radial-gradient(900px 620px at 70% 18%, rgba(233, 198, 179, 0.28), transparent 60%),
+    linear-gradient(160deg, #fbfbfd 0%, #eef0f5 50%, #e9ebf2 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.contact_body .wrapper {
+  align-items: center;
+}
+
+/* ---- Tarjeta del formulario: vidrio blanco ---- */
+.contact_body .form_wrapper {
+  max-width: 380px;
+  flex: 0 1 380px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 1);
+  box-shadow:
+    0 40px 90px rgba(38, 44, 94, 0.2),
+    inset 0 1px 0 #ffffff;
+  animation: formFromLeft 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.contact_body .form_head {
+  margin-bottom: 1.1rem;
+}
+
+.contact_body .form_head h2 {
+  color: var(--color-navy);
+  font-family: var(--font-ui);
+  text-shadow: none;
+}
+
+.contact_body .form_head h2::after {
+  width: 64px;
+}
+
+.contact_body .form-intro {
+  color: rgba(63, 68, 104, 0.76);
+}
+
+/* ---- Etiquetas micro-uppercase navy ---- */
+.contact_body .field {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.contact_body .field label {
+  color: var(--color-navy);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+/* Subrayado terracota que crece al enfocar */
+.contact_body .field::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-salmon));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+}
+
+.contact_body .field:focus-within::after {
+  transform: scaleX(1);
+}
+
+.contact_body .field input,
+.contact_body .field textarea {
+  background: #ffffff;
+  border: 1px solid rgba(63, 68, 104, 0.2);
+  border-radius: 12px;
+  color: var(--color-navy);
+  box-shadow:
+    0 10px 26px rgba(38, 44, 94, 0.1),
+    inset 0 2px 6px rgba(255, 255, 255, 0.9);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.contact_body .field textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.contact_body .field input:focus,
+.contact_body .field textarea:focus {
+  outline: none;
+  transform: translateY(-2px);
+  border-color: rgba(207, 124, 86, 0.5);
+  box-shadow:
+    0 0 0 4px rgba(207, 124, 86, 0.22),
+    0 16px 30px rgba(38, 44, 94, 0.14);
+}
+
+.contact_body .field input::placeholder,
+.contact_body .field textarea::placeholder {
+  color: rgba(63, 68, 104, 0.5);
+  text-transform: none;
+}
+
+/* ---- Fila de términos en claro ---- */
+.contact_body .terms_row {
+  background: rgba(207, 124, 86, 0.08);
+  border: 1px dashed rgba(207, 124, 86, 0.5);
+  margin: 0.9rem 0 1rem;
+}
+
+.contact_body .terms_row .terms_label {
+  color: #3f4468;
+}
+
+/* ---- Botones ---- */
+.contact_body input.in_btn {
+  font-family: var(--font-ui);
+  border-radius: 999px;
+  padding: 0.75em 1em;
+}
+
+.contact_body input.in_btn[type="submit"] {
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+  box-shadow: 0 18px 40px rgba(207, 124, 86, 0.38);
+}
+
+.contact_body input.in_btn[type="submit"]:hover {
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 24px 48px rgba(207, 124, 86, 0.5);
+}
+
+.contact_body input.in_btn[type="submit"]:disabled {
+  filter: grayscale(0.6);
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.contact_body input.in_btn[type="reset"] {
+  background: rgba(63, 68, 104, 0.08);
+  color: var(--color-navy);
+  border: 1px solid rgba(63, 68, 104, 0.25);
+}
+
+/* ---- Mapa en tarjeta clara ---- */
+.contact_body .mapa-contact {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 1);
+  border-radius: 24px;
+  box-shadow: 0 40px 90px rgba(38, 44, 94, 0.2);
+}
+
+/* ---- Entradas escalonadas ---- */
+.contact_body form .field {
+  animation: fieldUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.contact_body form .field:nth-of-type(1) { animation-delay: 0.1s; }
+.contact_body form .field:nth-of-type(2) { animation-delay: 0.18s; }
+.contact_body form .field:nth-of-type(3) { animation-delay: 0.26s; }
+.contact_body form .field:nth-of-type(4) { animation-delay: 0.34s; }
+.contact_body form .field:nth-of-type(5) { animation-delay: 0.42s; }
+
+.contact_body .terms_row { animation: fieldUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
+.contact_body .btn_group { animation: fieldUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.58s both; }
+
+@keyframes fieldUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact_body .form_wrapper,
+  .contact_body .contact-aside,
+  .contact_body .mapa-contact,
+  .contact_body form .field,
+  .contact_body .terms_row,
+  .contact_body .btn_group {
+    animation: none !important;
+  }
 }

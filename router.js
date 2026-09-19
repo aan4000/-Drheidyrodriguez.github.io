@@ -50,6 +50,7 @@
       })
       .then(function () {
         if (push) history.pushState({}, "", url);
+        if (window.setActiveNav) window.setActiveNav();
         window.scrollTo({ top: 0, left: 0, behavior: "auto" });
       })
       .catch(function (err) {

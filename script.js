@@ -48,43 +48,109 @@ if (formContacto && btnContacto) {
         // Mostramos la confirmación con el checkmark
         mostrarModal(successModal);
       })
-      .catch((err) => {
+      .catch((error) => {
         btnContacto.value = 'Enviar mensaje';
-        alert('Ocurrió un error al enviar el mensaje. Intente nuevamente.');
-        console.error(err);
+        console.error('Error al enviar:', error);
+        alert('Hubo un error al enviar el mensaje. Intenta de nuevo.');
       });
   });
 }
 
-if (closeSuccessModal) {
-  closeSuccessModal.addEventListener("click", () => {
+if (closeSuccessModal && successModal) {
+  closeSuccessModal.addEventListener('click', () => {
     cerrarModal(successModal);
   });
+}
 
-  successModal.addEventListener("click", (e) => {
-    if (e.target === successModal) cerrarModal(successModal);
+// ============ CITAS ============
+const btnCitas = document.getElementById('buttonCitas');
+const formCitas = document.getElementById('formCitas');
+const camposCitas = document.querySelectorAll('.inp-citas, .area-citas, .consultorios-citas');
+const successModalCitas = document.getElementById('successModalCitas');
+const closeSuccessModalCitas = document.getElementById('closeSuccessModalCitas');
+const errorModalCitas = document.getElementById('errorModalCitas');
+const closeErrorModalCitas = document.getElementById('closeErrorModalCitas');
+
+if (formCitas && btnCitas) {
+  formCitas.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const hayCampoVacio = Array.from(camposCitas).some(campo => !campo.value.trim());
+
+    if (hayCampoVacio) {
+      alert("Debes completar toda tu información ⚠");
+      return;
+    }
+
+    btnCitas.value = 'Enviando...';
+
+    const serviceID = 'default_service';
+    const templateID = 'template_dfvdezt';
+
+    emailjs.sendForm(serviceID, templateID, this)
+      .then(() => {
+        btnCitas.value = 'Agendar Cita';
+        camposCitas.forEach((campo) => {
+          campo.value = "";
+        });
+        mostrarModal(successModalCitas);
+      })
+      .catch((error) => {
+        btnCitas.value = 'Agendar Cita';
+        console.error('Error al enviar:', error);
+        mostrarModal(errorModalCitas);
+      });
   });
 }
 
-// !!!!!!!!!TERMS AND CONDITIONS *///
-
-if (terms && showTerms) {
-  terms.addEventListener("change", () => {
-    showTerms.classList.toggle("active");
+if (closeSuccessModalCitas && successModalCitas) {
+  closeSuccessModalCitas.addEventListener('click', () => {
+    cerrarModal(successModalCitas);
   });
 }
 
-const in_btn = document.querySelector(".in_btn");
+if (closeErrorModalCitas && errorModalCitas) {
+  closeErrorModalCitas.addEventListener('click', () => {
+    cerrarModal(errorModalCitas);
+  });
+}
 
+const in_btn = document.getElementById('button');
 if (in_btn) {
   in_btn.disabled = true;
   in_btn.style.opacity = "55%";
 }
 
-if (bterms && in_btn && showTerms) {
+// Términos y condiciones: al marcar la casilla se abre el modal;
+// el botón "Aceptar" cierra el modal y habilita el envío.
+if (terms && bterms && in_btn && showTerms) {
+  terms.addEventListener("change", () => {
+    if (terms.checked) {
+      showTerms.classList.add("active");
+    } else {
+      showTerms.classList.remove("active");
+      in_btn.disabled = true;
+      in_btn.style.opacity = "55%";
+    }
+  });
+
+  // Si la casilla ya está marcada, volver a hacer clic reabre el modal.
+  terms.addEventListener("click", () => {
+    if (terms.checked) {
+      showTerms.classList.add("active");
+    }
+  });
+
   bterms.addEventListener("click", () => {
+    showTerms.classList.remove("active");
     in_btn.style.opacity = "1";
-    showTerms.style.display = "none";
     in_btn.disabled = false;
+  });
+
+  // Cerrar al pulsar fuera del panel (sin habilitar el envío)
+  showTerms.addEventListener("click", (event) => {
+    if (event.target === showTerms) {
+      showTerms.classList.remove("active");
+    }
   });
 }

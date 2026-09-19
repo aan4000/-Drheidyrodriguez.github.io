@@ -65,17 +65,36 @@ if (closeErrorModal) {
   closeErrorModal.addEventListener('click', () => cerrarModal(errorModal));
 }
 
-terms.addEventListener("change", () => {
-  showTerms.classList.toggle("active");
-});
+if (terms && showTerms) {
+  terms.addEventListener("change", () => {
+    if (terms.checked) {
+      showTerms.classList.add("active");
+    } else {
+      showTerms.classList.remove("active");
+      if (btnCitas) {
+        btnCitas.disabled = true;
+        btnCitas.style.opacity = "55%";
+      }
+    }
+  });
+}
 
-const in_btn = document.querySelector(".in_btn");
+if (btnCitas) {
+  btnCitas.disabled = true;
+  btnCitas.style.opacity = "55%";
+}
 
-btnCitas.disabled = true;
-btnCitas.style.opacity = "55%";
+if (bterms && showTerms && btnCitas) {
+  bterms.addEventListener("click", () => {
+    showTerms.classList.remove("active");
+    btnCitas.style.opacity = "1";
+    btnCitas.disabled = false;
+  });
 
-bterms.addEventListener("click", () => {
-  btnCitas.style.opacity = "1";
-  showTerms.style.display = "none";
-  btnCitas.disabled = false;
-});
+  // Cerrar al pulsar fuera de la tarjeta (sin habilitar el envío)
+  showTerms.addEventListener("click", (event) => {
+    if (event.target === showTerms) {
+      showTerms.classList.remove("active");
+    }
+  });
+}

@@ -1,196 +1,403 @@
 /* ==========================================================================
-   DARK MODE GLOBAL — Ortopeda
-   Se activa con la clase "dark" en <html> (manejada por darkmode.js).
-   Al ir DESPUÉS de style.css / citas.css, estas reglas ganan en cascada.
+   DARK MODE — overrides para estilo.css
    ========================================================================== */
 
-html {
-  /* Evita un destello claro al cargar: aplica el tema guardado lo antes posible
-     (default: claro; el JS lo ajusta tras el primer render). */
-  color-scheme: light;
-}
 html.dark {
-  color-scheme: dark;
+  --color-white: #0f111a;
+  --color-text-dark: #f3f4f6;
+  --color-text-muted: #9ca3af;
+  --color-text-soft: #9ca3af;
+  --color-navy: #2d304f;
+  --color-navy-light: #3d426f;
+  --color-navy-soft: rgba(45, 48, 79, 0.7);
+  --color-salmon: #e9c6b3;
+  --color-terracotta: #e2603a;
+  --color-terracotta-dark: #c14a28;
+  --color-blue-accent: #60a5fa;
+  --shadow-color: 222, 25%, 18%;
 }
 
-/* ---- Fondo general ---- */
+/* Fondo general */
 html.dark body {
-  background: linear-gradient(120deg, #141a3a 0%, #1d2547 60%, #252d58 100%);
-  background-attachment: fixed;
-  color: #e7ebfa;
+  background:
+    radial-gradient(1200px 540px at 12% -6%, rgba(207, 124, 86, 0.08), transparent 55%),
+    radial-gradient(1000px 560px at 98% 112%, rgba(45, 48, 79, 0.12), transparent 60%),
+    linear-gradient(160deg, #0f111a 0%, #1a1d2e 55%, #15182a 100%);
+}
+
+/* Transición suave de tema en toda la página */
+html.dark,
+html.dark body,
+html.dark main,
+html.dark section,
+html.dark footer,
+html.dark nav {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+html.dark ::selection {
+  background: rgba(226, 96, 58, 0.6);
+  color: #ffffff;
+}
+
+html.dark * {
+  scrollbar-color: var(--color-terracotta) #101320;
+  scrollbar-width: thin;
 }
 
 /* ==========================================================================
-   NAVEGACIÓN
+   NAV / HEADER
    ========================================================================== */
 html.dark nav {
-  background: #10152e;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  background: linear-gradient(90deg, rgba(15, 17, 26, 0.92) 0%, rgba(15, 17, 26, 0.78) 50%, rgba(15, 17, 26, 0.92) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Botón de cambio de tema */
-#themeToggle {
-  position: absolute;
-  right: 22px;
-  top: 50%;
-  transform: translateY(-50%);
+html.dark nav.scrolled {
+  background: linear-gradient(90deg, rgba(12, 14, 24, 0.98) 0%, rgba(12, 14, 24, 0.94) 50%, rgba(12, 14, 24, 0.98) 100%);
+}
+
+html.dark nav::after {
+  opacity: 0.85;
+}
+
+html.dark .nav-brand-text .nav-nombre {
+  color: #ffffff;
+}
+
+html.dark .nav-brand-text .nav-tagline {
+  color: var(--color-salmon);
+}
+
+html.dark .menu-principal a {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+html.dark .menu-principal a:hover {
+  color: var(--color-terracotta);
+  background: rgba(226, 96, 58, 0.1);
+}
+
+html.dark .submenu {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+}
+
+html.dark .submenu a,
+html.dark .submenu span,
+html.dark .submenu h2,
+html.dark .submenu li,
+html.dark .submenu p {
+  color: #111827;
+}
+
+html.dark .submenu a:hover,
+html.dark .submenu span:hover {
+  color: var(--color-terracotta);
+  background: rgba(226, 96, 58, 0.08);
+}
+
+html.dark .submenu-titulo {
+  color: #374151;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+html.dark .submenu-icos {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+html.dark .submenu-icos svg {
+  opacity: 0.75;
+}
+
+html.dark #resMenu {
+  color: #ffffff;
+}
+
+html.dark #resMenu:hover {
+  color: var(--color-salmon);
+}
+
+html.dark #close {
+  color: #ffffff;
+}
+
+/* En móvil el drawer (#respNav) NO se oscurece: conserva su gradiente
+   salmón → navy y sus botones en colores claros, aunque la página esté
+   en dark mode. */
+@media (max-width: 1100px) {
+  html.dark #respNav {
+    background: linear-gradient(120deg, var(--color-salmon) 0%, var(--color-navy) 100%);
+    border-bottom: none;
+  }
+
+  html.dark #respNav .nav-brand-text .nav-nombre {
+    color: var(--color-navy);
+  }
+
+  html.dark #respNav .nav-brand-text .nav-tagline {
+    color: rgba(63, 68, 104, 0.75);
+  }
+
+  html.dark #respNav .menu-principal a,
+  html.dark #respNav .resp_mobile a {
+    color: var(--color-navy);
+  }
+
+  html.dark #respNav .resp_mobile a:hover,
+  html.dark #respNav .resp_mobile a:focus-visible {
+    background-color: rgba(255, 255, 255, 0.45);
+    color: var(--color-navy);
+  }
+
+  html.dark #respNav .responsive_wrapper {
+    background: transparent;
+  }
+}
+
+/* Drawer móvil: NO recibe dark mode — se mantiene claro (salmón → navy)
+   Sus botones conservan los colores del tema claro. */
+
+/* ==========================================================================
+   THEME TOGGLE BUTTON - BASE
+   ========================================================================== */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  position: fixed;
+  top: 15px;
+  right: 16px;
+  z-index: 1001;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(63, 68, 104, 0.2);
+  color: #111111;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  z-index: 5;
+  transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  overflow: hidden;
 }
 
-#themeToggle:hover {
-  background: var(--color-terracotta);
-  transform: translateY(-50%) scale(1.08);
-  box-shadow: 0 6px 18px rgba(207, 124, 86, 0.4);
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-terracotta);
+  box-shadow: 0 8px 24px rgba(226, 96, 58, 0.35);
 }
 
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+/* Iconos */
 .theme-icon {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.icon-dark { display: block; }
-.icon-light { display: none; }
+.theme-icon.icon-moon {
+  display: block;
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
 
-html.dark .icon-dark { display: none; }
-html.dark .icon-light { display: block; }
-
-@media (max-width: 1100px) {
-  #themeToggle {
-    position: absolute;
-    top: 18px;
-    right: 74px;
-    transform: none;
-  }
-
-  #themeToggle:hover {
-    transform: scale(1.08);
-  }
-
-  #respNav {
-    height: 100dvh;
-  }
+.theme-icon.icon-sun {
+  display: none;
+  transform: rotate(90deg) scale(0);
+  opacity: 0;
 }
 
 /* ==========================================================================
-   HEADER
+   THEME TOGGLE - DARK MODE OVERRIDES
    ========================================================================== */
-/* El header oscuro NO define su propia imagen de fondo: hereda la del modo
-   claro (la foto actualizada del header) para que nunca muestre otra. */
-html.dark header {
-  border-bottom-color: #10152e;
-  border-top-color: rgba(233, 172, 143, 0.75);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+html.dark .theme-toggle {
+  background: #2d304f;
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
 }
 
-html.dark header h1 {
-  color: var(--color-white);
+html.dark .theme-toggle:hover {
+  border-color: var(--color-terracotta);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+html.dark .theme-icon.icon-moon {
+  display: none;
+  transform: rotate(-90deg) scale(0);
+  opacity: 0;
+}
+
+html.dark .theme-icon.icon-sun {
+  display: block;
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+  color: #ffffff;
+}
+
+/* Evita que la "X" del menú móvil se superponga al botón de tema */
+@media (max-width: 1100px) {
+  #close {
+    right: 64px;
+  }
+
+  html.dark #close {
+    right: 64px;
+  }
+
+  /* Al desplegarse la barra móvil, el botón de tema se oculta */
+  #respNav.showMe ~ #themeToggle {
+    display: none;
+  }
+}
+html.dark main {
+  background: linear-gradient(90deg, var(--color-salmon) 80px, var(--color-navy-soft) 80%);
+}
+
+html.dark .special h1,
+html.dark .special h1 .header-accent {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.85);
 }
 
-html.dark header p {
-  color: #ecd6bf;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-}
-
-html.dark header .special p {
-  background: rgba(10, 14, 32, 0.7);
+html.dark .special p {
+  background: rgba(207, 124, 86, 0.2);
   border-color: rgba(255, 255, 255, 0.2);
-  color: #e7ebfa;
-  text-shadow: none;
-}
-
-/* ==========================================================================
-   HERO (main de inicio)
-   ========================================================================== */
-html.dark main.hero {
-  background: linear-gradient(90deg, #3f4468 80px, rgba(12, 17, 41, 0.9) 80%);
-}
-
-html.dark main {
-  background: linear-gradient(90deg, rgba(63, 68, 104, 0.55) 80px, rgba(12, 17, 41, 0.85) 80%);
-}
-
-html.dark main.hero .scroll_info h2,
-html.dark .scroll_info h2 {
   color: #ffffff;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
 }
 
-html.dark main.hero .text-desc,
-html.dark .scroll_info p {
-  color: #c9d2ef;
-  border-bottom-color: rgba(255, 255, 255, 0.22);
+html.dark .special p::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6));
 }
 
-html.dark main.hero .img_section,
+html.dark .special p::after {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.6), transparent);
+}
+
+html.dark .img_header {
+  border-color: rgba(255, 255, 255, 0.3);
+  filter: drop-shadow(1px 2px 10px rgba(0, 0, 0, 0.7));
+}
+
+html.dark .doc-chip {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
 html.dark .img_section {
-  background: #1d2547;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .img_cont {
   border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+html.dark .description_img {
+  filter: drop-shadow(1px 2px 10px rgba(0, 0, 0, 0.7));
 }
 
 html.dark .carnet-head {
-  background: linear-gradient(120deg, #10152e 0%, #2b3262 100%);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-html.dark main.hero .img_section .description_img,
+html.dark .carnet-head-text span {
+  color: var(--color-salmon);
+}
+
+html.dark .carnet-head-text strong {
+  color: #ffffff;
+}
+
 html.dark .carnet-foot {
-  background: #151b3d;
-}
-
-html.dark .carnet-foot {
-  border-top-color: rgba(255, 255, 255, 0.18);
-}
-
-html.dark .carnet-foot > span {
-  color: #dfe5f5;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-salmon);
 }
 
 html.dark .carnet-barcode {
-  background: repeating-linear-gradient(
-    90deg,
-    #e7ebfa 0 2px,
-    transparent 2px 5px,
-    #e7ebfa 5px 6px,
-    transparent 6px 9px,
-    #e7ebfa 9px 12px,
-    transparent 12px 14px
-  );
+  background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) 2px, transparent 2px, transparent 6px);
+}
+
+html.dark .scroll_info h2 {
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+html.dark .scroll_info p {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 html.dark .hero-chips li {
-  background: rgba(30, 37, 71, 0.75);
-  border-color: rgba(255, 255, 255, 0.16);
-  color: #e7ebfa;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
 }
 
-html.dark .hero-video-card {
-  background: rgba(30, 37, 71, 0.7);
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
+html.dark .hero-chips li ion-icon {
+  color: var(--color-terracotta);
+}
+
+html.dark .button_citas {
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+  color: #ffffff;
+}
+
+html.dark .button_citas:hover {
+  background: linear-gradient(135deg, var(--color-terracotta-dark), var(--color-terracotta));
+}
+
+html.dark .marquee-item {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+html.dark .marquee-item .sep {
+  color: var(--color-terracotta);
 }
 
 /* ==========================================================================
-   GALERÍA (.bottom_section) Y TARJETAS
+   GALERÍA
    ========================================================================== */
-html.dark .bottom_section {
-  background: linear-gradient(90deg, #171d40 80px, #101636 80%);
+html.dark .bottom_section h2 {
+  color: #ffffff;
 }
 
-html.dark .bottom_section .section_title {
+html.dark .g-slide figcaption {
+  background: rgba(15, 17, 26, 0.9);
   color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .g-arrow {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+html.dark .g-arrow:hover {
+  background: var(--color-terracotta);
+  border-color: var(--color-terracotta);
+}
+
+html.dark .g-dot {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+html.dark .g-radio:checked + .g-viewport .g-dot {
+  background: var(--color-terracotta);
+}
+
+html.dark .g-radio:checked + .g-viewport .g-arrow {
+  background: var(--color-terracotta);
 }
 
 /* ==========================================================================
@@ -200,8 +407,6 @@ html.dark footer {
   background: linear-gradient(180deg, #1b2347 0%, #10152e 35%, #0a0e20 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
-/* La ola del footer se mantiene IGUAL que en modo claro (se hereda de
-   style.css, sin override en darkmode). */
 
 html.dark .footer-cta,
 html.dark .social-btn {
@@ -223,207 +428,144 @@ html.dark footer a:hover {
   color: var(--color-terracotta);
 }
 
-/* ==========================================================================
-   PÁGINA DE CITAS
-   ========================================================================== */
-html.dark .citas-card,
-html.dark .formulario_citas form,
-html.dark .citas-grid form {
-  background: rgba(36, 44, 84, 0.62);
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.4);
-}
-
-html.dark .citas-card h1,
-html.dark .citas-card h2 {
-  color: #ffffff;
-  border-bottom-color: rgba(255, 255, 255, 0.16);
-}
-
-html.dark .citas-card p,
-html.dark .citas-card label,
-html.dark .citas-card li {
-  color: #c9d2ef;
-}
-
-html.dark .citas-card input:not([type="checkbox"]),
-html.dark .citas-card textarea {
-  background: rgba(12, 17, 41, 0.6);
-  color: #e7ebfa;
-}
-
-html.dark .formulario_citas form h2 {
-  color: #ffffff;
-  border-bottom-color: rgba(255, 255, 255, 0.16);
-  text-shadow: none;
-}
-
-html.dark .formulario_citas form label {
-  color: #e7ebfa;
-}
-
-html.dark .formulario_citas form input:not([type="checkbox"]),
-html.dark .formulario_citas form textarea {
-  color: #e7ebfa;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-html.dark .formulario_citas form input:focus,
-html.dark .formulario_citas form input:focus-within,
-html.dark .formulario_citas form textarea:focus {
-  background: rgba(255, 255, 255, 0.14);
-  color: #ffffff;
-}
-
-html.dark .citas-card input::placeholder,
-html.dark .citas-card textarea::placeholder {
-  color: #7d87b0;
-}
-
-html.dark .citas-card summary {
-  color: #ffffff;
-}
-
-html.dark .time-group input[type="time"],
-html.dark .field.fecha input[type="date"] {
-  background: rgba(12, 17, 41, 0.6);
-  color: #e7ebfa;
-}
-
-html.dark .time-group select {
-  background: #10152e;
-  color: #ffffff;
-}
-
-html.dark .citas-card details {
-  background: rgba(12, 17, 41, 0.5);
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-html.dark .citas-kicker {
+html.dark .link-list a::before {
   color: var(--color-terracotta);
 }
 
+html.dark .contact-icon svg {
+  stroke: #ffffff;
+}
+
+html.dark .address-list li,
+html.dark .schedule-list li {
+  color: #c9d2ef;
+}
+
+html.dark .address-list strong,
+html.dark .schedule-list strong {
+  color: #ffffff;
+}
+
+html.dark .address-list li::before,
+html.dark .schedule-list li::before {
+  background: var(--color-terracotta);
+}
+
+html.dark .mapa-footer {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+html.dark .copyright {
+  color: #6b7280;
+}
+
+html.dark .footer-legal a {
+  color: #6b7280;
+}
+
+html.dark .footer-legal a:hover {
+  color: var(--color-terracotta);
+}
+
+html.dark .retorno {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+html.dark .retorno:hover {
+  background: var(--color-navy);
+  border-color: var(--color-blue-accent);
+}
+
 /* ==========================================================================
-   PÁGINA DE CONTACTO
+   FORMULARIOS
    ========================================================================== */
-html.dark .contact_section,
 html.dark .form_wrapper {
-  background: rgba(30, 37, 71, 0.55);
-  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(15, 17, 26, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-html.dark .contact_form label {
-  color: #e7ebfa;
-}
-
-html.dark .contact_form input:not([type="checkbox"]),
-html.dark .contact_form textarea {
-  background: rgba(12, 17, 41, 0.55);
-  color: #e7ebfa;
-  border-color: rgba(255, 255, 255, 0.18);
-}
-
-html.dark .contact_form input::placeholder,
-html.dark .contact_form textarea::placeholder {
-  color: #7d87b0;
-}
-
-/* ==========================================================================
-   ACERCA DE / YO  (secciones con fondo claro)
-   ========================================================================== */
-html.dark .about_section,
-html.dark .about_body,
-html.dark .yo_section,
-html.dark .yo_body {
-  background: rgba(30, 37, 71, 0.55);
-  color: #c9d2ef;
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-html.dark .about_section h2,
-html.dark .about_body h2,
-html.dark .yo_section h2,
-html.dark .yo_body h2 {
+html.dark .form_head h2 {
   color: #ffffff;
 }
 
-/* ==========================================================================
-   ACERCA DE MÍ (yo.html — biografía)
-   ========================================================================== */
-html.dark .bio-container {
-  background: rgba(30, 37, 71, 0.55);
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+html.dark .form-intro {
+  color: rgba(255, 255, 255, 0.7);
 }
 
-html.dark .bio-img-frame {
-  border-color: rgba(255, 255, 255, 0.18);
+html.dark .field label {
+  color: rgba(255, 255, 255, 0.9);
 }
 
-html.dark .bio-title {
+html.dark .field input,
+html.dark .field textarea {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
   color: #ffffff;
 }
 
-html.dark .bio-role {
-  color: #e29578;
+html.dark .field input::placeholder,
+html.dark .field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
 }
 
-html.dark .bio-description {
-  color: #c9d2ef;
+html.dark .field input:focus,
+html.dark .field textarea:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-terracotta);
+  box-shadow: 0 0 0 4px rgba(207, 124, 86, 0.28);
 }
 
-html.dark .bio-highlights li {
-  color: #dfe5f5;
+html.dark .terms_row {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-html.dark .bio-kicker {
+html.dark .terms_label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+html.dark .aterms {
+  color: var(--color-salmon);
+}
+
+html.dark .aterms:hover {
+  color: #ffffff;
+}
+
+html.dark .in_btn[type="submit"] {
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+}
+
+html.dark .in_btn[type="reset"] {
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.14);
-  color: #e29578;
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
-html.dark .bio-credential-card {
-  background: #1d2547;
-  border-color: rgba(255, 255, 255, 0.14);
+html.dark .in_btn[type="reset"]:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
-html.dark .bio-credential-card strong {
-  color: #ffffff;
+html.dark .mapa-contact {
+  background: rgba(15, 17, 26, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-html.dark .bio-credential-card span {
-  color: #9aa3c0;
+html.dark .mapa-contact .cont {
+  background: rgba(15, 17, 26, 0.7);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
-html.dark .stat-item,
-html.dark .bio-progress {
-  background: rgba(12, 17, 41, 0.5);
-  border-color: rgba(255, 255, 255, 0.12);
+html.dark .modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
 }
 
-html.dark .stat-item p {
-  color: #9aa3c0;
-}
-
-html.dark .progress-label {
-  color: #ffffff;
-}
-
-html.dark .progress-track {
-  background: rgba(255, 255, 255, 0.14);
-}
-
-html.dark .bio-img-accent {
-  background: linear-gradient(135deg, rgba(207, 124, 86, 0.4), rgba(80, 90, 145, 0.35));
-}
-
-/* ==========================================================================
-   MODALES (éxito / error / términos)
-   ========================================================================== */
-html.dark .modal-content {
-  background: #1d2547;
-  color: #e7ebfa;
+html.dark .success-card {
+  background: linear-gradient(150deg, rgba(15, 17, 26, 0.97), rgba(10, 12, 20, 0.97));
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 html.dark .modal-title {
@@ -431,24 +573,541 @@ html.dark .modal-title {
 }
 
 html.dark .modal-message {
-  color: #c9d2ef;
+  color: rgba(255, 255, 255, 0.78);
 }
 
-html.dark .terms-card {
-  background: #1d2547;
-  color: #e7ebfa;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+html.dark .modal-btn {
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
 }
 
-html.dark .terms-card h3 {
+/* Aviso de privacidad de la página de CITAS: en modo oscuro el fondo
+   se atenúa pero la tarjeta se mantiene BLANCA con texto negro. */
+html.dark #showTerms.terms-hidden {
+  background: rgba(8, 10, 30, 0.6);
+}
+
+html.dark #showTerms.terms-hidden .terms-card {
+  background: #ffffff;
+  color: #111827;
+  border-color: #e8eaf2;
+}
+
+html.dark #showTerms.terms-hidden .terms-card p {
+  color: #222222;
+}
+
+html.dark #showTerms.terms-hidden .terms-card h3 {
+  color: #000000;
+}
+
+html.dark #showTerms.terms-hidden .terms-card button {
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+}
+
+/* Contáctame: el modal de términos permanece BLANCO en modo oscuro.
+   El fondo del overlay de contacto es el dim propio de .modal-overlay. */
+html.dark .contact_body .showterms-modal {
+  background: rgba(8, 10, 30, 0.65);
+}
+
+html.dark .contact_body .showterms-modal .terms-panel {
+  background: #ffffff;
+  color: #111827;
+  border-color: #e8eaf2;
+}
+
+html.dark .contact_body .showterms-modal .terms-panel p {
+  color: #222222;
+}
+
+html.dark .contact_body .showterms-modal .terms-panel h3 {
+  color: #000000;
+}
+
+/* ==========================================================================
+   PÁGINA CITAS
+   ========================================================================== */
+html.dark .formulario_citas form {
+  background: rgba(15, 17, 26, 0.72);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+html.dark .formulario_citas form h2,
+html.dark .horarios h2 {
+  color: #ffffff;
+  text-shadow: none;
+}
+
+html.dark .form-subtitle {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+html.dark .formulario_citas label,
+html.dark .terms-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+html.dark .formulario_citas input,
+html.dark .formulario_citas textarea,
+html.dark .formulario_citas select {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .formulario_citas input::placeholder,
+html.dark .formulario_citas textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+html.dark .formulario_citas input:focus,
+html.dark .formulario_citas textarea:focus,
+html.dark .formulario_citas select:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-terracotta);
+  box-shadow: 0 0 0 4px rgba(207, 124, 86, 0.28);
+}
+
+html.dark .time-group {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .time-group input[type="time"] {
+  border-right-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  box-shadow: none;
+}
+
+html.dark .time-group select {
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
   color: #ffffff;
 }
 
-html.dark .terms-card p {
-  color: #c9d2ef;
+html.dark .horario-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
 }
 
-html.dark .terms-card a,
-html.dark .aterms {
+html.dark .horario-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html.dark .horario-info h3 {
+  color: #ffffff;
+}
+
+html.dark .horario-sub {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+html.dark .horario-dias {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+html.dark .horario-badge {
+  background: rgba(226, 96, 58, 0.18);
+  border-color: rgba(226, 96, 58, 0.45);
+  color: var(--color-salmon);
+}
+
+html.dark .horario-badge-pending {
+  background: rgba(226, 96, 58, 0.22);
+  border-color: rgba(226, 96, 58, 0.5);
+  color: var(--color-salmon);
+}
+
+html.dark .icono_cita {
+  background: linear-gradient(135deg, var(--color-terracotta), #e29578);
+}
+
+html.dark .citas-tip {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+html.dark .citas-tip ion-icon {
   color: var(--color-terracotta);
+}
+
+html.dark .aterms {
+  color: var(--color-salmon);
+}
+
+html.dark .modal-content {
+  background: #1a1c35;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+html.dark .modal-title {
+  color: #ffffff;
+}
+
+html.dark .modal-message {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ==========================================================================
+   PÁGINA TRAYECTORIA (yo.html)
+   ========================================================================== */
+html.dark .bio-hero {
+  background: transparent;
+}
+
+html.dark .bio-title {
+  color: #ffffff;
+}
+
+html.dark .bio-intro {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+html.dark .bio-strong {
+  color: #ffffff;
+}
+
+html.dark .bio-lead {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+html.dark .bio-overline {
+  color: var(--color-terracotta);
+}
+
+html.dark .bio-overline-bar {
+  background: var(--color-terracotta);
+}
+
+html.dark .bio-photo::after {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+html.dark .bio-philosophy {
+  background-color: #1a1c35;
+}
+
+html.dark .sec-title {
+  color: var(--color-terracotta);
+}
+
+html.dark .sec-quote {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+html.dark .sec-body {
+  color: var(--color-salmon);
+}
+
+html.dark .phil-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .phil-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html.dark .phil-card ion-icon {
+  color: var(--color-terracotta);
+}
+
+html.dark .phil-card h3 {
+  color: #ffffff;
+}
+
+html.dark .phil-card p {
+  color: var(--color-salmon);
+}
+
+html.dark .timeline-section {
+  background-color: #0f111a;
+  border-top-color: var(--color-salmon);
+}
+
+html.dark .sect-heading {
+  color: #ffffff;
+}
+
+html.dark .timeline-item {
+  border-left-color: #3d426f;
+}
+
+html.dark .timeline-item:hover {
+  border-left-color: var(--color-terracotta);
+}
+
+html.dark .timeline-item::before {
+  background: var(--color-terracotta);
+  box-shadow: 0 0 0 4px rgba(226, 96, 58, 0.2);
+}
+
+html.dark .tl-badge {
+  background: rgba(226, 96, 58, 0.1);
+  color: var(--color-terracotta);
+}
+
+html.dark .tl-title {
+  color: #ffffff;
+}
+
+html.dark .tl-sub {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+html.dark .cta-section {
+  background-color: #0f111a;
+}
+
+html.dark .cta-wrap h2 {
+  color: #ffffff;
+}
+
+html.dark .cta-wrap p {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+html.dark .cta-btn {
+  background-color: var(--color-navy);
+}
+
+html.dark .cta-btn:hover {
+  background-color: var(--color-terracotta);
+}
+
+/* ==========================================================================
+   MODALES
+   ========================================================================== */
+html.dark .modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+html.dark .modal-content {
+  background: #1a1c35;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+html.dark .modal-title {
+  color: #ffffff;
+}
+
+html.dark .modal-message {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+html.dark .modal-btn {
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+}
+
+/* ==========================================================================
+   ESTADÍSTICAS
+   ========================================================================== */
+html.dark .estadisticas .stat {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .estadisticas .stat:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .estadisticas .stat-numero {
+  color: #ffffff;
+}
+
+html.dark .estadisticas .stat-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+html.dark .estadisticas.estadisticas--claro .stat {
+  background: rgba(45, 48, 79, 0.06);
+  border-color: rgba(45, 48, 79, 0.15);
+}
+
+html.dark .estadisticas.estadisticas--claro .stat-numero,
+html.dark .estadisticas.estadisticas--claro .stat-label {
+  color: var(--color-text-dark);
+}
+
+/* ==========================================================================
+   PÁGINA POLÍTICAS (about.html)
+   ========================================================================== */
+html.dark body.about-page,
+html.dark body {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+html.dark .hero-banner-horizontal {
+  background: rgba(45, 48, 79, 0.55) !important;
+  border-color: rgba(255, 255, 255, 0.14);
+  border-left-color: var(--color-terracotta);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+html.dark .status-badge {
+  background: rgba(183, 110, 121, 0.16);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #f3c1bd;
+}
+
+html.dark .status-badge ion-icon {
+  color: #e9a6a0;
+}
+
+html.dark .glitch-title {
+  color: #f5e7d8;
+}
+
+html.dark .subtitle {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+html.dark .card-cyber {
+  background: rgba(30, 33, 58, 0.78) !important;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+html.dark .card-cyber:hover {
+  background: rgba(36, 40, 68, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+html.dark .card-header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .hud-tag {
+  color: #e9a6a0;
+}
+
+html.dark .card-icon {
+  color: #e9a6a0;
+}
+
+html.dark .card-cyber h2 {
+  color: #ffffff;
+}
+
+html.dark .card-body p {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+html.dark .values-list li {
+  color: rgba(255, 255, 255, 0.74);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+html.dark .values-list li strong {
+  color: #f3c1bd;
+}
+
+/* ==========================================================================
+   ACCESIBILIDAD
+   ========================================================================== */
+html.dark a:focus-visible,
+html.dark button:focus-visible,
+html.dark input:focus-visible,
+html.dark textarea:focus-visible {
+  outline-color: var(--color-blue-accent);
+}
+
+/* ==========================================================================
+   CONTACTO (contactanos.html) EN MODO OSCURO
+   Tarjetas de vidrio oscuro con texto claro: el formulario se distingue
+   claramente sobre el fondo oscuro.
+   ========================================================================== */
+html.dark .contact_body {
+  background:
+    radial-gradient(1100px 540px at 12% -6%, rgba(226, 96, 58, 0.16), transparent 55%),
+    radial-gradient(1000px 560px at 98% 112%, rgba(60, 66, 111, 0.3), transparent 60%),
+    radial-gradient(900px 620px at 70% 18%, rgba(233, 198, 179, 0.07), transparent 60%),
+    linear-gradient(160deg, #0c0e1a 0%, #141729 55%, #10131f 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+html.dark .contact_body .form_wrapper,
+html.dark .contact_body .locations-card,
+html.dark .contact_body .mapa-footer.mapa-contact {
+  background: rgba(26, 30, 56, 0.86);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 44px 100px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+html.dark .contact_body .form_head h2,
+html.dark .contact_body .loc-title,
+html.dark .contact_body .loc-name,
+html.dark .contact_body .form-intro {
+  color: #ffffff;
+}
+
+html.dark .contact_body .form-intro {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+html.dark .contact_body .loc-address {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+html.dark .contact_body .field label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+html.dark .contact_body .field input,
+html.dark .contact_body .field textarea {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+  box-shadow: none;
+}
+
+html.dark .contact_body .field input::placeholder,
+html.dark .contact_body .field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+html.dark .contact_body .field input:focus,
+html.dark .contact_body .field textarea:focus {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--color-terracotta);
+  box-shadow: 0 0 0 4px rgba(226, 96, 58, 0.3);
+}
+
+html.dark .contact_body .terms_row {
+  background: rgba(226, 96, 58, 0.12);
+  border-color: rgba(226, 96, 58, 0.4);
+}
+
+html.dark .contact_body .terms_row .terms_label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+html.dark .contact_body .loc-icon {
+  background: rgba(226, 96, 58, 0.18);
+  border-color: rgba(226, 96, 58, 0.42);
+  color: #f08a55;
+}
+
+html.dark .contact_body .loc-icon svg circle {
+  fill: none;
+}
+
+html.dark .contact_body input.in_btn[type="reset"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+html.dark .contact_body input.in_btn[type="reset"]:hover {
+  background: rgba(255, 255, 255, 0.18);
 }

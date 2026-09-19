@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -14,10 +14,10 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1,-50..200&icon_names=menu&icon_names=dark_mode&icon_names=light_mode" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css?v=27">
-    <link rel="stylesheet" href="hero.css">
-    <link rel="stylesheet" href="doctor.css">
-    <link rel="stylesheet" href="darkmode.css">
+    <link rel="stylesheet" href="style.css?v=44">
+    <link rel="stylesheet" href="hero.css?v=10">
+    <link rel="stylesheet" href="doctor.css?v=12">
+    <link rel="stylesheet" href="darkmode.css?v=17">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,27 +26,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap"
         rel="stylesheet">
 
-        <script src="reveal.js" defer></script>
+        <script src="reveal.js?v=3" defer></script>
 </head>
 
 <body>
 
    
-
-        
-
+   
+         
 <div class="container">
 
     <!-- Botón del menú (solo uno) -->  
     <!-- ================= HEADER ================= -->
     <header>
         <div class="special">
-            <h1>Dra. Heydy Rodriguez</h1>
-            <p>
-                <span>Atención experta para devolverte la movilidad y la calidad de vida.</span>
+            <h1>Dra. Heydy <span class="header-accent">Rodriguez</span></h1>
+            <p class="hero-sub">
+                <span>Cuidamos de ti para que vuelvas a moverte con confianza.</span>
             </p>
-
-
         </div>
 
         <div class="img_wrapper_wrap">
@@ -54,7 +51,7 @@
           <img class="img_header" src="1000505478.jpg" alt="Fotografía de la Dra. Heydy Rodriguez"  loading="eager">
 
           <div class="doc-chip">
-            <ion-icon name="medkit-outline"></ion-icon>
+            <ion-icon name="ribbon-outline"></ion-icon>
             <span>Ortopedia · Traumatología<br>Medicina Deportiva</span>
           </div>
 
@@ -65,79 +62,239 @@
     <!-- ================= NAV ================= -->
 
 
-      <div id="nav-container"></div>         
+      <div id="nav-container">
+<!-- El botón móvil  -->
+<button id="resMenu" type="button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+</button>
 
+<nav id="respNav">
+    <div class="nav-brand">
+        <img class="logo" src="logoOrtopeda.png" alt="Logo Dra. Heydy Rodriguez">
+        <div class="nav-brand-text">
+            <span class="nav-nombre">Dra. Heydy Rodriguez</span>
+            <span class="nav-tagline">Ortopedia · Traumatología · Medicina Deportiva</span>
+        </div>
+    </div>
 
+    <ul class="menu-principal">
+        <li><a href="index.html">Inicio</a></li>
 
-        <!-- ================= MAIN ================= -->
-
-        <main class="hero">
-
-            <div class="img_section reveal">
-
-                <div class="carnet-head">
-                    <span class="carnet-head-icon"><ion-icon name="medkit-outline"></ion-icon></span>
-                    <div class="carnet-head-text">
-                        <span>Carnet / Badge</span>
-                        <strong>Ortopedia</strong>
-                    </div>
-                </div>
-
-                <img
-                    class="description_img"
-                    src="imagendelcarnet.30.jfif"
-                    alt="Imagen ilustrativa de ortopedia" loading="lazy" >
-
-                <div class="carnet-foot">
-                    <span>ORT · TRM · DEP</span>
-                    <div class="carnet-barcode" aria-hidden="true"></div>
-                </div>
-
+        <li class="tiene-submenu">
+            <a href="#">Especialidades <span class="chevron">&#9662;</span></a>
+<ul class="submenu detalles">
+            <div class="submenu-icos" aria-hidden="true">
+                <svg viewBox="0 -960 960 960" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="m538-120 36-348q-45-11-83.5-33T420-555l-13-13-109 108 89 89v251h-60v-224l-65-57 11 94-139 180-48-37 125-161-50-128q-9-23-7-43t13-31l134-132q11-11 23-16t26-5q14 0 27.5 5.5T400-660l65 64q33 32 74 53t88 23h92q15 0 25 10t12 25l30 286q15 5 25 18.5t10 30.5q0 21-15 35.5T770-100q-21 0-36-14.5T719-150q0-15 7-26.5t19-18.5l-7-75H595l-15 150h-42Zm-28-560q-29 0-49.5-20.5T440-750q0-29 20.5-49.5T510-820q29 0 49.5 20.5T580-750q0 29-20.5 49.5T510-680Zm89 370h135l-17-170H616l-17 170Z"/></svg>
+                <svg viewBox="0 -960 960 960" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M430.5-755.5Q409-777 409-807t21.5-51.5Q452-880 482-880t51.5 21.5Q555-837 555-807t-21.5 51.5Q512-734 482-734t-51.5-21.5ZM696-80v-209H482q-30 0-51-21t-21-51v-247q0-30 21-51t51-21q23 0 39 9t38 35q42 49 92 82t109 35v60q-51 0-105-25t-104-67v183h133q30 0 51 21t21 51v216h-60Zm-300 0q-83 0-139.5-56.5T200-276q0-68 49.5-125.5T380-468v61q-54 5-86.5 44.5T261-276q0 58 38.5 97t96.5 39q47 0 87-32.5t44-86.5h61q-8 80-66 129.5T396-80Z"/></svg>
+                <svg viewBox="0 -960 960 960" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="m490-80-20-398-149-52H40v-60h243l275-197 39 46-149 107 97 34 340-200 35 42-346 251-24 427h-60ZM240.08-647q-30.08 0-51.58-21.42t-21.5-51.5q0-30.08 21.42-51.58t51.5-21.5q30.08 0 51.58 21.42t21.5 51.5q0 30.08-21.42 51.58t-51.5 21.5Z"/></svg>
             </div>
+            <li>Consulta especializada en Ortopedia y Traumatología.</li>
+                <li>Evaluación y tratamiento de fracturas y lesiones traumáticas.</li>
+                <li>Atención de lesiones deportivas.</li>
+                <li>Diagnóstico y manejo del dolor musculoesquelético.</li>
+                <li>Tratamiento de tendinitis, bursitis y lesiones de tendones y ligamentos.</li>
+                <li>Manejo de artrosis y enfermedades degenerativas.</li>
+                <li>Evaluación de lesiones de hombro, codo, muñeca y mano.</li>
+                <li>Evaluación de lesiones de cadera, rodilla, tobillo y pie.</li>
+                <li>Infiltraciones articulares y de tejidos blandos.</li>
+                <li>Valoración preoperatoria y seguimiento postoperatorio.</li>
+            </ul>
+        </li>
 
-            <div class="hero-content reveal">
+        <li><a href="yo.html">Trayectoria</a></li>
+        <!-- <li><a href="about.html">Políticas</a></li> -->
+        <li><a href="contactanos.html">Contáctame</a></li>
+    </ul>
 
-                <div class="scroll_info">
+    <button id="close" aria-label="Cerrar menú">X</button>
 
-                    <h2 class="text-desc">
-                        <span> Tu movilidad merece atención </span><br>Reserva tu cita y empieza a sentirte mejor.
-                    </h2>
+    <!-- MENU RESPONSIVE -->
+    <div class="responsive_wrapper">
+        <ul class="resp_mobile">
+            <li>
+                <a href="index.html">
+                    <ion-icon class="icn" name="home"></ion-icon>
+                    <span class="menu-text">Inicio</span>
+                </a>
+            </li>
 
-                    <p class="text-desc">
-                        Atención ortopédica basada en evidencia, especializada en lesiones deportivas y dolor musculoesquelético para que vuelvas a moverte sin limitaciones.
-                    </p>
+            <li>
+                    
+                    <a href="yo.html">
+                        <ion-icon class="icn" name="briefcase"></ion-icon>
+                        <span class="menu-text">Trayectoria</span>
+                    </a>              
+                                
+                </li>
 
-                    <ul class="hero-chips">
-                        <li><ion-icon name="checkmark-circle"></ion-icon> Atención personalizada</li>
-                        <li><ion-icon name="search-outline"></ion-icon> Diagnóstico especializado</li>
-                        <li><ion-icon name="heart-outline"></ion-icon> Seguimiento postoperatorio</li>
-                    </ul>
 
-                    <a class="button_citas" href="citas.html">Haz tu Cita »</a>
+            <!-- <li>
+                <a href="about.html">
+                    <ion-icon  class="icn"  name="medkit"></ion-icon>
+                    <span class="menu-text">Politicas</span>
+                </a>
+            </li> -->
+           
 
+            <li>
+                <a href="contactanos.html">
+                    <ion-icon  class="icn"     name="mail-open"></ion-icon>
+                    <span class="menu-text">Contáctame</span>
+                </a>
+            </li>
+
+
+            <li class="tiene-submenu ">
+            <a href="#">
+                <ion-icon name="medical"></ion-icon>                
+                <span class="menu-text">Especialidades <span class="chevron">&#9662;</span></span>
+            
+            </a>
+            <ul class="submenu  detalles">
+                
+                <div class="submenu-icos" aria-hidden="true">
+                    <svg viewBox="0 -960 960 960" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="m538-120 36-348q-45-11-83.5-33T420-555l-13-13-109 108 89 89v251h-60v-224l-65-57 11 94-139 180-48-37 125-161-50-128q-9-23-7-43t13-31l134-132q11-11 23-16t26-5q14 0 27.5 5.5T400-660l65 64q33 32 74 53t88 23h92q15 0 25 10t12 25l30 286q15 5 25 18.5t10 30.5q0 21-15 35.5T770-100q-21 0-36-14.5T719-150q0-15 7-26.5t19-18.5l-7-75H595l-15 150h-42Zm-28-560q-29 0-49.5-20.5T440-750q0-29 20.5-49.5T510-820q29 0 49.5 20.5T580-750q0 29-20.5 49.5T510-680Zm89 370h135l-17-170H616l-17 170Z"/></svg>
+                    <svg viewBox="0 -960 960 960" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M430.5-755.5Q409-777 409-807t21.5-51.5Q452-880 482-880t51.5 21.5Q555-837 555-807t-21.5 51.5Q512-734 482-734t-51.5-21.5ZM696-80v-209H482q-30 0-51-21t-21-51v-247q0-30 21-51t51-21q23 0 39 9t38 35q42 49 92 82t109 35v60q-51 0-105-25t-104-67v183h133q30 0 51 21t21 51v216h-60Zm-300 0q-83 0-139.5-56.5T200-276q0-68 49.5-125.5T380-468v61q-54 5-86.5 44.5T261-276q0 58 38.5 97t96.5 39q47 0 87-32.5t44-86.5h61q-8 80-66 129.5T396-80Z"/></svg>
+                    <svg viewBox="0 -960 960 960" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="m490-80-20-398-149-52H40v-60h243l275-197 39 46-149 107 97 34 340-200 35 42-346 251-24 427h-60ZM240.08-647q-30.08 0-51.58-21.42t-21.5-51.5q0-30.08 21.42-51.58t51.5-21.5q30.08 0 51.58 21.42t21.5 51.5q0 30.08-21.42 51.58t-51.5 21.5Z"/></svg>
+                    <svg viewBox="0 -960 960 960" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M493-490v-400q0-13 8.68-21.5 8.67-8.5 21.5-8.5 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v400h-60Zm-167 0v-360q0-13 8.68-21.5 8.67-8.5 21.5-8.5 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v360h-60ZM495.06-40q-139.94 0-237.5-97T160-374v-396q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v396q0 114.87 79.8 194.43Q379.59-100 494.8-100 610-100 691-180.5 772-261 780-376v-154h-10q-21.25 0-35.62 14.37Q720-501.25 720-480v150H610q-38 0-64 26t-26 64v30h-60v-30q0-63 43.5-106.5T610-390h50v-420q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v232q11-6 24-9t26-3h70v214q-8 141-106.5 238.5T495.06-40ZM530-345Z"/></svg>
                 </div>
+            <p>
+                <li>Consulta especializada en Ortopedia y Traumatología.</li>
+                <li>Evaluación y tratamiento de fracturas y lesiones traumáticas.</li>
+                <li>Atención de lesiones deportivas.</li>
+                <li>Diagnóstico y manejo del dolor musculoesquelético.</li>
+                <li>Tratamiento de tendinitis, bursitis y lesiones de tendones y ligamentos.</li>
+                <li>Manejo de artrosis y enfermedades degenerativas.</li>
+                <li>Evaluación de lesiones de hombro, codo, muñeca y mano.</li>
+                <li>Evaluación de lesiones de cadera, rodilla, tobillo y pie.</li>
+                <li>Infiltraciones articulares y de tejidos blandos.</li>
+                <li>Valoración preoperatoria y seguimiento postoperatorio.</li>
+            </p>
+                </ul>
+            </li>
 
-            </div>
+            
+            
+        </ul>
+    </div>
+</nav>
 
-            <!-- ============================================================
-                 VIDEO HERO OCULTO (comentado, no eliminado):
-            <div class="hero-video-card reveal">
-                <video controls>
-                    <source src="videoOrtopeda.mp4" type="video/mp4">
-                </video>
-                <img class="video-brand" src="logo_Doctora.jpg" alt="Logo de la doctora" aria-hidden="true">
-            </div>
-            ================================================================ -->
+<!-- Botón de modo claro/oscuro: siempre visible en la esquina superior derecha -->
+<button id="themeToggle" type="button" aria-label="Cambiar modo claro/oscuro" class="theme-toggle" title="Alternar tema">
+    <!-- Luna: se muestra en modo claro -->
+    <svg class="theme-icon icon-moon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+    <!-- Sol: se muestra en modo oscuro -->
+    <svg class="theme-icon icon-sun" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"></circle>
+        <line x1="12" y1="2" x2="12" y2="4"></line>
+        <line x1="12" y1="20" x2="12" y2="22"></line>
+        <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"></line>
+        <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"></line>
+        <line x1="2" y1="12" x2="4" y2="12"></line>
+        <line x1="20" y1="12" x2="22" y2="12"></line>
+        <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"></line>
+        <line x1="17.66" y1="6.34" x2="19.07" y2="4.93"></line>
+    </svg>
+</button>
+</div>         
 
-        </main>
 
-        <!-- ================= GALERÍA ================= -->
+         <!-- ================= MAIN ================= -->
 
-       <section class="bottom_section">
+         <main class="hero">
+
+             <div class="img_section reveal">
+
+                 <div class="carnet-head">
+                     <span class="carnet-head-icon"><ion-icon name="walk-outline"></ion-icon></span>
+                     <div class="carnet-head-text">
+                         <span>Carnet / Badge</span>
+                         <strong>Ortopedia</strong>
+                     </div>
+                 </div>
+
+                 <img
+                     class="description_img"
+                     src="imagendelcarnet.30.jfif"
+                     alt="Imagen ilustrativa de ortopedia" loading="lazy" >
+
+                 <div class="carnet-foot">
+                     <span>ORT · TRM · DEP</span>
+                     <div class="carnet-barcode" aria-hidden="true"></div>
+                 </div>
+
+             </div>
+
+             <div class="hero-content reveal">
+
+                 <div class="scroll_info">
+
+                     <h2 class="text-desc">
+                         <span>Tu movilidad merece atención</span> Reserva tu cita y empieza a sentirte mejor.
+                     </h2>
+
+                     <p class="text-desc">
+                         Atención ortopédica basada en evidencia, especializada en lesiones deportivas y dolor musculoesquelético para que vuelvas a moverte sin limitaciones.
+                     </p>
+
+                     <ul class="hero-chips">
+                         <li><ion-icon name="checkmark-circle"></ion-icon> Atención personalizada</li>
+                         <li><ion-icon name="search-outline"></ion-icon> Diagnóstico especializado</li>
+                         <li><ion-icon name="heart-outline"></ion-icon> Seguimiento postoperatorio</li>
+                     </ul>
+
+                     <a class="button_citas" href="citas.html">Haz tu Cita »</a>
+
+                 </div>
+
+             </div>
+
+             <!-- ============================================================
+                  VIDEO HERO OCULTO (comentado, no eliminado):
+             <div class="hero-video-card reveal">
+                 <video controls>
+                     <source src="videoOrtopeda.mp4" type="video/mp4">
+                 </video>
+                 <img class="video-brand" src="logo_Doctora.jpg" alt="Logo de la doctora" aria-hidden="true">
+             </div>
+             ================================================================ -->
+
+         </main>
+
+         <!-- ================= MARQUESINA ================= -->
+
+         <div class="marquee" aria-hidden="true">
+             <div class="marquee-track">
+                 <div class="marquee-group">
+                     <span class="marquee-item">Ortopedia<span class="sep">|</span></span>
+                     <span class="marquee-item">Traumatología<span class="sep">|</span></span>
+                     <span class="marquee-item">Medicina Deportiva<span class="sep">|</span></span>
+                     <span class="marquee-item">Cirugía Articular<span class="sep">|</span></span>
+                     <span class="marquee-item">Artroscopia<span class="sep">|</span></span>
+                     <span class="marquee-item">Dolor Musculoesquelético<span class="sep">|</span></span>
+                     <span class="marquee-item">Rehabilitación<span class="sep">|</span></span>
+                 </div>
+                 <div class="marquee-group">
+                     <span class="marquee-item">Ortopedia<span class="sep">|</span></span>
+                     <span class="marquee-item">Traumatología<span class="sep">|</span></span>
+                     <span class="marquee-item">Medicina Deportiva<span class="sep">|</span></span>
+                     <span class="marquee-item">Cirugía Articular<span class="sep">|</span></span>
+                     <span class="marquee-item">Artroscopia<span class="sep">|</span></span>
+                     <span class="marquee-item">Dolor Musculoesquelético<span class="sep">|</span></span>
+                     <span class="marquee-item">Rehabilitación<span class="sep">|</span></span>
+                 </div>
+             </div>
+         </div>
+
+         <!-- ================= GALERÍA ================= -->
+
+        <section class="bottom_section">
   <h2>Galería</h2>
 
   <div class="g-cc">
-    <input type="radio" name="galeria" id="g-1" class="g-radio" checked>
+<input type="radio" name="galeria" id="g-1" class="g-radio" checked>
     <input type="radio" name="galeria" id="g-2" class="g-radio">
     <input type="radio" name="galeria" id="g-3" class="g-radio">
     <input type="radio" name="galeria" id="g-4" class="g-radio">
@@ -151,8 +308,6 @@
     <input type="radio" name="galeria" id="g-12" class="g-radio">
     <input type="radio" name="galeria" id="g-13" class="g-radio">
     <input type="radio" name="galeria" id="g-14" class="g-radio">
-    <input type="radio" name="galeria" id="g-15" class="g-radio">
-    <input type="radio" name="galeria" id="g-16" class="g-radio">
 
     <div class="g-viewport">
       <div class="g-track">
@@ -161,7 +316,6 @@
         <figure class="g-slide"><div class="g-photo"><img src="procedimiento2 2026-09-13 at 12.42.13 AM.jpeg" alt="Valoración preoperatoria" loading="lazy"></div><figcaption>Valoración preoperatoria</figcaption></figure>
         <figure class="g-slide"><div class="g-photo"><img src="procedimiento3 2026-09-13 at 12.42.13 AM.jpeg" alt="Cirugía de hombro" loading="lazy"></div><figcaption>Cirugía de hombro</figcaption></figure>
         <figure class="g-slide"><div class="g-photo"><img src="procedimiento4 2026-09-13 at 12.42.13 AM.jpeg" alt="Cirugía de rodilla" loading="lazy"></div><figcaption>Cirugía de rodilla</figcaption></figure>
-        <figure class="g-slide"><div class="g-photo"><img src="Procedimiento5 2026-09-13 at 12.42.13 AM.jpeg" alt="Artroscopia" loading="lazy"></div><figcaption>Artroscopia</figcaption></figure>
         <figure class="g-slide"><div class="g-photo"><img src="Procedimiento72026-09-13 at 12.42.13 AM.jpeg" alt="Lesión deportiva" loading="lazy"></div><figcaption>Lesión deportiva</figcaption></figure>
         <figure class="g-slide"><div class="g-photo"><img src="Procedimiento8-09-13 at 12.42.51 AM.jpeg" alt="Fractura y traumatología" loading="lazy"></div><figcaption>Fractura y traumatología</figcaption></figure>
         <figure class="g-slide"><div class="g-photo"><img src="Procedimiento92026-09-13 at 12.42.51 AM.jpeg" alt="Infiltración articular" loading="lazy"></div><figcaption>Infiltración articular</figcaption></figure>
@@ -170,12 +324,11 @@
         <figure class="g-slide"><div class="g-photo"><img src="procedimiento12-2026-09-13 at 12.42.51 AM.jpeg" alt="Seguimiento postoperatorio" loading="lazy"></div><figcaption>Seguimiento postoperatorio</figcaption></figure>
         <figure class="g-slide"><div class="g-photo"><img src="procedimiento13 2026-09-13 at 12.42.51 AM.jpeg" alt="Pie y tobillo" loading="lazy"></div><figcaption>Pie y tobillo</figcaption></figure>
         <figure class="g-slide"><div class="g-photo"><img src="Procedimiento142026-09-13 at 12.42.51 AM.jpeg" alt="Reconstrucción articular" loading="lazy"></div><figcaption>Reconstrucción articular</figcaption></figure>
-        <figure class="g-slide"><div class="g-photo"><img src="Procedimiento152026-09-13 at 7.02.37 PM.jpeg" alt="Codo y muñeca" loading="lazy"></div><figcaption>Codo y muñeca</figcaption></figure>
         <figure class="g-slide"><div class="g-photo"><img src="procedimiento18 2026-09-13 at 7.02.38 PM.jpeg" alt="Pierna y rodilla" loading="lazy"></div><figcaption>Pierna y rodilla</figcaption></figure>
       </div>
     </div>
 
-    <label class="g-arrow g-prev" for="g-16" data-s="1">&#8249;</label>
+    <label class="g-arrow g-prev" for="g-14" data-s="1">&#8249;</label>
     <label class="g-arrow g-next" for="g-2" data-s="1">&#8250;</label>
     <label class="g-arrow g-prev" for="g-1" data-s="2">&#8249;</label>
     <label class="g-arrow g-next" for="g-3" data-s="2">&#8250;</label>
@@ -202,11 +355,7 @@
     <label class="g-arrow g-prev" for="g-12" data-s="13">&#8249;</label>
     <label class="g-arrow g-next" for="g-14" data-s="13">&#8250;</label>
     <label class="g-arrow g-prev" for="g-13" data-s="14">&#8249;</label>
-    <label class="g-arrow g-next" for="g-15" data-s="14">&#8250;</label>
-    <label class="g-arrow g-prev" for="g-14" data-s="15">&#8249;</label>
-    <label class="g-arrow g-next" for="g-16" data-s="15">&#8250;</label>
-    <label class="g-arrow g-prev" for="g-15" data-s="16">&#8249;</label>
-    <label class="g-arrow g-next" for="g-1" data-s="16">&#8250;</label>
+    <label class="g-arrow g-next" for="g-1" data-s="14">&#8250;</label>
 
     <div class="g-dots">
       <label class="g-dot" for="g-1"></label>
@@ -223,8 +372,6 @@
       <label class="g-dot" for="g-12"></label>
       <label class="g-dot" for="g-13"></label>
       <label class="g-dot" for="g-14"></label>
-      <label class="g-dot" for="g-15"></label>
-      <label class="g-dot" for="g-16"></label>
     </div>
   </div>
 
@@ -233,18 +380,10 @@
 
         <footer>
 
-            <!-- Franja superior: marca + CTA + redes -->
+            <!-- Franja superior: CTA + redes -->
             <div class="footer-top">
 
-                <div class="footer-brand">
-                    <img class="footer-logo" src="logoOrtopeda.png?v=1" alt="Logo Dra. Heydy Rodriguez">
-                    <div class="footer-brand-text">
-                        <span class="footer-nombre">Dra. Heydy Rodríguez</span>
-                        <span class="footer-tagline">Ortopedia · Traumatología · Medicina Deportiva</span>
-                    </div>
-                </div>
-
-                <div class="footer-actions">
+                <div class="footer-actions fx-right">
                     <a class="footer-cta" href="citas.html">Agenda tu cita</a>
                     <div class="footer-social">
                         <a class="social-btn" aria-label="WhatsApp" href="https://wa.me/18293738765" target="_blank" rel="noopener">
@@ -264,17 +403,17 @@
             <!-- Rejilla central -->
             <div class="footer-grid">
 
-                <div class="footer-col footer-enlaces">
+                <div class="footer-col footer-enlaces fx-left">
                     <h3>Accesos rápidos</h3>
                     <ul class="link-list">
                         <li><a href="index.html">Página principal</a></li>
                         <li><a href="yo.html">Acerca de mí</a></li>
-                        <li><a href="about.html">Políticas</a></li>
+                        <!-- <li><a href="about.html">Políticas</a></li> -->
                         <li><a href="contactanos.html">Contáctame</a></li>
                     </ul>
                 </div>
 
-                <div class="footer-col footer-contact">
+                <div class="footer-col footer-contact fx-right">
                     <h3>Contactos</h3>
                     <ul class="contact-list">
                         <li class="contacto-item">
@@ -314,49 +453,51 @@
                     </ul>
                 </div>
 
-                <div class="footer-col footer-ubicacion">
+                <div class="footer-col footer-ubicacion fx-left">
                     <h3>Consultorios</h3>
                     <ul class="address-list">
                         <li><strong>Clisid:</strong> Av. República de Colombia 80.</li>
-                        <li><strong>Gastrocard Center:</strong> La Ovando.</li>
+                        <li><strong>Gastrocard Center:</strong> Av. Nicolás de Ovando, esq. Calle Rafael J. Castillo y Calle Interior #356, Cristo Rey, D.N.</li>
                         <li><strong>Centro Médico Corominas Pepín:</strong> Calle Prof. Aliro Paulino #11, Ensanche Naco, Santo Domingo, D.N., República Dominicana.</li>
-                        <li><strong>Centro de Especialidades Médicas San Antonio de Guerra:</strong> Calle Carlos Manuel Pumarol #68, San Antonio de Guerra, Santo Domingo Este.</li>
+                        <li><strong>Centro de Especialidades Médicas San Antonio de Guerra:</strong> Calle Carlos Manuel Pumarol #68, San Antonio de Guerra, Santo Domingo Este. <em>Disponible pronto</em></li>
                     </ul>
 
                     <h3 class="footer-subtitle">Horarios</h3>
                     <ul class="schedule-list">
                         <li><strong>Clisid:</strong> Sábados y Domingos · 8:00 AM – 12:00 PM</li>
-                        <li><strong>Gastrocard Center:</strong> Lunes, Miércoles y Viernes · 9:00 AM – 12:00 PM</li>
+                        <li><strong>Gastrocard Center:</strong> Martes y Jueves · 9:00 AM – 12:00 PM</li>
+                        <li><strong>Centro Médico Corominas Pepín:</strong> Viernes · 9:00 AM – 12:00 PM</li>
+                        <li><strong>Centro de Especialidades Médicas San Antonio de Guerra:</strong> Disponible pronto</li>
                     </ul>
                 </div>
 
             </div>
 
             <!-- Mapa centrado -->
-            <div class="mapa-footer">
+            <div class="mapa-footer fx-zoom">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.0640510450753!2d-69.92195040000003!3d18.48075770000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf89c660a92a7f%3A0x6bb37f2a49f00ec0!2sCentro%20M%C3%A9dico%20Corominas%20Pep%C3%ADn!5e0!3m2!1ses-419!2sdo!4v1784559252846!5m2!1ses-419!2sdo" width="100%" height="100%" style="border:0;"  allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
 
             <!-- Franja inferior -->
-            <div class="footer-bottom">
+            <div class="footer-bottom fx-right">
                 <p class="copyright">&copy; 2026 Dra. Heydy Rodriguez &mdash; Todos los derechos reservados.</p>
                 <p class="footer-legal">
-                    <a href="about.html">Políticas</a>
+                    <!-- <a href="about.html">Políticas</a> -->
                     <a href="contactanos.html">Contacto</a>
                     <a href="index.html">Inicio</a>
                 </p>
             </div>
 
         </footer>
-            
-      
-
+             
+       
+ 
     </div>
     <script src="script.js"></script>
-    <script src="load-nav.js?v=5"></script>
+    <script src="load-nav.js?v=14"></script>
     <script src="carousel.js"></script>
     <script src="darkmode.js"></script>
-    <script src="router.js"></script>
+    <script src="router.js?v=3"></script>
 
 </body>
 

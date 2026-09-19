@@ -1,572 +1,577 @@
 /* ==========================================================================
-   1. VARIABLES & ESTILOS BASE
+   PÁGINA DE CITAS — rediseño moderno (vidrio claro, acento terracota)
    ========================================================================== */
+
 :root {
-    --color-bg-main: #f5f7fb;
-    --color-primary: #2648a5;
-    --color-primary-dark: #133b85;
-    --color-text: #ffffff;
-    --color-card-bg:  #3f44688a;
-    --radius: 10px;
-    --transition: 0.3s ease;
-    --shadow: 0 4px 12px rgba(0,0,0,0.15);
-    --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --shadow-card: 0 18px 40px rgba(38, 44, 94, 0.14);
+  --shadow-hover: 0 26px 50px rgba(38, 44, 94, 0.2);
+  --glass: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.95);
 }
 
-
-
-@font-face {
-    font-family: 'Griffiths';
-    src: local('Griffiths Regular'), local('Griffiths-Regular'),
-        url('Griffiths-Regular.woff2') format('woff2'),
-        url('Griffiths-Regular.woff') format('woff'),
-        url('Griffiths-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-  }
-
-  
-  @font-face {
-    font-family: 'Mont';
-    src: local('Mont Bold'), local('Mont-Bold'),
-        url('Mont-Bold.woff2') format('woff2'),
-        url('Mont-Bold.woff') format('woff'),
-        url('Mont-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-  }
-
-
-  html, body,main,*,*::before{
-
-    font-family: "mont";
-  }
+html,
+body,
+main,
+*,
+*::before {
+  font-family: var(--font-ui, "Mont", sans-serif);
+}
 
 body {
-    margin: 0;
-    padding: 20px;
-    /* Mismo degradado de la página principal (salmón → navy) */
-    background:
-      linear-gradient(90deg, var(--color-salmon) 0px, var(--color-salmon) 80px, var(--color-navy-soft) 80%, var(--color-navy-soft) 100%),
-      var(--color-navy);
-    background-attachment: fixed;
-    font-family: var(--font-body);
+  margin: 0;
+  padding: 20px;
+  background:
+    radial-gradient(1200px 540px at 12% -6%, rgba(207, 124, 86, 0.14), transparent 55%),
+    radial-gradient(1000px 560px at 98% 112%, rgba(63, 68, 104, 0.16), transparent 60%),
+    linear-gradient(160deg, #f8f8f8 0%, #eef0f5 55%, #e9ebf2 100%);
+  background-attachment: fixed;
 }
 
 /* ==========================================================================
    2. CONTENEDOR PRINCIPAL
    ========================================================================== */
 .formulario_citas {
-    position: relative; /* CRUCIAL: Marco de referencia para la posición absoluta de los términos */
-    display: flex;
-    justify-content: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1040px;
+  min-height: calc(100vh - 96px);
+  margin: 40px auto;
+  padding: 1.5rem;
+}
+
+@media (min-width: 901px) {
+  .formulario_citas {
     align-items: center;
-    gap: 1.75rem;
-    width: 100%;
-    max-width: 1020px;
-    min-height: calc(100vh - 96px);
-    margin: 40px auto;
-    padding: 1.5rem;
-    border-radius: 1rem;
+  }
 }
 
 /* ==========================================================================
-   3. SECCIÓN FORMULARIO DE CITAS
+   3. TARJETA DEL FORMULARIO
    ========================================================================== */
-.campos {
-    flex: 1;
+.formulario_citas form {
+  flex: 0 1 480px;
+  width: 100%;
+  margin: 0;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.8rem 1.9rem;
+  box-shadow:
+    var(--shadow-card),
+    inset 0 1px 0 #ffffff;
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  animation: citasInLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-form {
-    flex: 0 1 470px;
-    width: 100%;
-    margin: 0;
-    background: linear-gradient(150deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.16) 55%, rgba(255, 255, 255, 0.26) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    border-radius: 18px;
-    padding: 1.6rem 1.5rem 1.7rem;
-    box-shadow: 0 18px 40px rgba(20, 26, 58, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.45);
-    backdrop-filter: blur(10px) saturate(140%);
-    -webkit-backdrop-filter: blur(10px) saturate(140%);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-    position: relative;
+.formulario_citas form .field {
+  position: relative;
+  margin-bottom: 1rem;
 }
 
-.field {
-    margin-bottom: 0.65rem;
+/* ---- Encabezado ---- */
+.formulario_citas form h2 {
+  font-family: "Mont", var(--font-ui), sans-serif;
+  color: var(--color-navy);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.5px;
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  text-align: center;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
+  border-bottom: none;
 }
 
-/* ---- Alineación lado a lado en escritorio (mismo diseño/colores) ---- */
-form .field:first-of-type {
-    display: block;
+.formulario_citas form h2::after {
+  content: "";
+  display: block;
+  width: 84px;
+  height: 3px;
+  margin: 0.55rem auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-salmon));
 }
 
+.form-subtitle {
+  text-align: center;
+  color: var(--color-navy-soft);
+  font-size: 0.9rem;
+  margin: 0 0 1.4rem;
+}
+
+/* ---- Filas lado a lado ---- */
 .campo_linea,
 .hora_fecha {
-    display: flex;
-    gap: 1rem;
-    align-items: stretch;
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
 }
 
 .campo_linea > .field,
 .hora_fecha > .field {
-    flex: 1 1 calc(50% - 0.5rem);
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+  flex: 1 1 calc(50% - 0.5rem);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Igualar alto de inputs para que nombre y correo calcen perfecto */
-form .field:first-of-type input[type="text"],
-form .field:first-of-type input[type="email"],
-form .field:first-of-type input[type="date"],
-form .field:first-of-type input[type="time"] {
-    height: 40px;
+/* ---- Etiquetas ---- */
+.formulario_citas label {
+  color: var(--color-navy);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
 }
 
-form .field:first-of-type label {
-    line-height: 1.3;
-    white-space: nowrap;
-    min-height: 24px;
-    display: flex;
-    align-items: flex-end;
+/* Las etiquetas de filas lado a lado ocupan SIEMPRE la misma altura
+   (2 líneas) para que los inputs queden perfectamente alineados. */
+.formulario_citas form .field > label {
+  min-height: 2.6em;
+  display: flex;
+  align-items: flex-start;
 }
 
-form .field:first-of-type h2 {
-    font-family: "Mont", sans-serif;
-    color: #ffffff;
-    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.45);
-    letter-spacing: 0.5px;
-    font-size: 1.6rem;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-    border-bottom: none;
-    position: relative;
-    text-align: center;
-}
-form .field:first-of-type h2::after {
-    content: "";
-    display: block;
-    width: 64px;
-    height: 3px;
-    margin: 0.5rem auto 0;
-    border-radius: 99px;
-    background: linear-gradient(90deg, #e29578, #f0b7a0);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+/* ---- Subrayado terracota que crece al enfocar ---- */
+.formulario_citas .field::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-salmon));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
 }
 
-/* Fecha y hora se integran a la misma fila de nombre/correo */
-.campo_linea {
-    margin-bottom: 0.5rem;
+/* El contenedor del título no dibuja subrayado de foco */
+.formulario_citas form > .field:first-child::after {
+  display: none;
 }
 
-/* Campo de hora unificado: hora + AM/PM dentro del mismo control */
+.formulario_citas .field:focus-within::after {
+  transform: scaleX(1);
+}
+
+/* ---- Campos ---- */
+.formulario_citas input[type="text"],
+.formulario_citas input[type="email"],
+.formulario_citas input[type="date"],
+.formulario_citas input[type="time"],
+.formulario_citas textarea,
+.formulario_citas select {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-navy);
+  width: 100%;
+  padding: 0.72em 0.9em;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  box-shadow:
+    0 10px 26px rgba(38, 44, 94, 0.08),
+    inset 0 2px 6px rgba(255, 255, 255, 0.9);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.formulario_citas input:focus,
+.formulario_citas textarea:focus,
+.formulario_citas select:focus {
+  outline: none;
+  transform: translateY(-2px);
+  border-color: rgba(207, 124, 86, 0.5);
+  box-shadow:
+    0 0 0 4px rgba(207, 124, 86, 0.22),
+    0 16px 30px rgba(38, 44, 94, 0.14);
+}
+
+.formulario_citas input::placeholder,
+.formulario_citas textarea::placeholder {
+  color: rgba(63, 68, 104, 0.5);
+}
+
+.formulario_citas textarea {
+  min-height: 108px;
+  resize: vertical;
+}
+
+/* ---- Hora + AM/PM integrados ---- */
 .time-group {
-    display: flex;
-    align-items: stretch;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #3f4468;
-    box-shadow: 0 1px 3px rgba(20, 26, 58, 0.15);
+  display: flex;
+  align-items: stretch;
+  background: #ffffff;
+  border: 1px solid rgba(63, 68, 104, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(38, 44, 94, 0.08);
 }
 
 .time-group input[type="time"] {
-    flex: 1;
-    min-width: 0;
-    width: auto;
-    border: none;
-    border-radius: 0;
-    border-right: 1px solid rgba(255, 255, 255, 0.18);
-    background: #ffffff;
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  border: none;
+  border-radius: 0;
+  border-right: 1px solid rgba(63, 68, 104, 0.12);
+  box-shadow: none;
 }
 
 .time-group select {
-    flex: 0 0 60px;
-    border: none;
-    border-radius: 0;
-    background: #3f4468;
-    color: #ffffff;
-    font-size: 0.95rem;
-    font-weight: 600;
-    padding: 0 0.3em;
-    text-align: center;
-    cursor: pointer;
+  flex: 0 0 62px;
+  border: none;
+  border-radius: 0;
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0 0.4em;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: none;
 }
 
 .time-group select:focus {
-    outline: none;
+  transform: none;
 }
 
-label {
-    font-size: 0.95rem;
-    color: #000000;
-    display: block;
-    margin-bottom: 0.3rem;
-}
-
-input[type="text"],
-input[type="date"],
-input[type="time"],
-input[type="email"],
-textarea {
-    width: 100%;
-    padding: 0.65em 0.85em;
-    border-radius: var(--radius);
-    border: none;
-    font-size: 0.95rem;
-    color: #000000;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 1px 3px rgba(20, 26, 58, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    transition: box-shadow 0.3s ease, background 0.3s ease, transform 0.3s ease;
-}
-
-input[type="text"]:focus,
-input[type="date"]:focus,
-input[type="time"]:focus,
-input[type="email"]:focus,
-textarea:focus,
-textarea:focus-within {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(38, 72, 165, 0.3), 0 6px 16px rgba(38, 72, 165, 0.18);
-    transform: translateY(-1px);
-}
-
-textarea {
-    min-height: 110px;
-    resize: vertical;
-}
-
-form input:nth-child(2n+2):focus-within {
-
-    background: rgba(255, 255, 255, 0.5);
-    color: #000000;
-}
-
-form textarea:focus{
-    
-    background: rgba(255, 255, 255, 0.5);
-    color: #000000;
- }
-
-
-h2 {
-    color: var(--color-text);
-    text-align: center;
-    font-size: 2rem;
-    border-bottom: 1px solid rgba(0,0,0,0.4);
-    text-shadow: 1px 1px 2px black;
-    margin-bottom: 1.5rem;
-}
-
-/* Botón Formulario */
+/* ---- Botón principal ---- */
 .btn_citas {
-    display: block;
-    margin: 1.2rem auto 0;
-    padding: 12px 28px;
-    border-radius: 12px;
-    width: 50%;
-    max-width: 240px;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    background: linear-gradient(135deg, #3f4468, #2648a5);
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(38, 72, 165, 0.35);
-    transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  display: block;
+  width: 100%;
+  margin: 1.2rem auto 0;
+  padding: 14px 30px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+  border: none;
+  color: #fff;
+  font-family: var(--font-ui);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  box-shadow: 0 18px 40px rgba(207, 124, 86, 0.38);
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.3s ease, opacity 0.3s ease;
 }
 
 .btn_citas:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 26px rgba(38, 72, 165, 0.45);
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 24px 48px rgba(207, 124, 86, 0.5);
 }
 
 .btn_citas:active {
-    transform: translateY(0);
-    box-shadow: 0 6px 14px rgba(38, 72, 165, 0.3);
+  transform: translateY(0) scale(0.98);
 }
 
-
-select{
-    border: none;
-    padding: .50em;
-    border-radius: 5px;
-    transition: all .60s ease;
-    color: #e08b67;
-    font-size: clamp(21px,20px);
-    color: #494E70;
-    accent-color: green;
-
+/* ---- Términos ---- */
+.terms-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+  color: var(--color-navy);
+  margin-top: 1rem;
+  cursor: pointer;
 }
 
-
-select option{
-
-   
-    padding: .25em;
-    font-family: "Mont";    
-    font-weight: 400;
-    font-size:18px;
-    border-radius: 5px;
-    color: #494E70;
-    text-shadow: 1px 1px 2px black;
+.terms-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-terracotta);
+  cursor: pointer;
 }
 
+.aterms {
+  color: var(--color-terracotta-dark);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px dashed currentColor;
+}
 
+.aterms:hover {
+  color: var(--color-terracotta);
+}
 
 /* ==========================================================================
-   4. MODAL TÉRMINOS Y CONDICIONES (OVERLAY)
+   4. AVISO DE PRIVACIDAD (OVERLAY, a nivel de body)
+   Fondo atenuado + tarjeta BLANCA con texto negro y título en negrita.
    ========================================================================== */
 #showTerms {
-    position: absolute;
-    transform: translate(-50%, -50%); /* Centra el modal exactamente en el medio */
-    z-index: 100; /* Asegura que quede por encima del formulario y los horarios */
-    top: 50%;
-    left: 50%;
-    width: 90%;
-    max-width: 480px;
-    padding: 2rem;
-    border-radius: 12px;
-    background: #ffffff;
-    color: #333333;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    box-sizing: border-box;
-    display: none; /* Oculto inicialmente (actívalo agregando la clase .active con JS) */
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(8, 10, 30, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1000;
+  overflow-y: auto;
 }
 
-/* Estado activo para mostrarlo desde JS */
 #showTerms.active {
-    display: block;
-    animation: fade 0.3s ease;
+  display: grid;
+  animation: fade 0.3s ease;
 }
 
-#showTerms p {
-    margin: 0 0 1.5rem 0;
-    line-height: 1.6;
-    font-size: 0.95rem;
-    color: #333333;
+@keyframes termsPop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-#showTerms button {
-    display: block;
-    margin: 0 auto;
-    padding: 0.6rem 1.8rem;
-    background-color: var(--color-primary);
-    color: #ffffff;
-    border: none;
-    border-radius: var(--radius);
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color var(--transition);
+#showTerms .terms-card {
+  width: 60%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: auto;
+  padding: 2rem 1.8rem 1.9rem;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #e8eaf2;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+  animation: termsPop 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
-#showTerms button:hover {
-    background-color: var(--color-primary-dark);
+#showTerms .terms-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+#showTerms .terms-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#showTerms .terms-card::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 999px;
+}
+
+/* Título del aviso: negro y en negrita */
+#showTerms .terms-card h3 {
+  color: #000000;
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 0.2px;
+  margin: 0 0 0.6rem;
+}
+
+#showTerms .terms-card p {
+  flex: 1 1 auto;
+  margin: 0 0 1.3rem;
+  line-height: 1.65;
+  font-size: 0.92rem;
+  color: #222222;
+}
+
+#showTerms .terms-card button {
+  display: block;
+  margin: 1.2rem auto 0;
+  padding: 0.7rem 2rem;
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#showTerms .terms-card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(207, 124, 86, 0.4);
+}
+
+/* En modo oscuro el aviso de citas se mantiene BLANCO con texto negro */
+html.dark #showTerms.terms-hidden {
+  background: rgba(8, 10, 30, 0.6);
+}
+
+html.dark #showTerms.terms-hidden .terms-card {
+  background: #ffffff;
+  color: #111827;
+  border-color: #e8eaf2;
+}
+
+html.dark #showTerms.terms-hidden .terms-card p {
+  color: #222222;
+}
+
+html.dark #showTerms.terms-hidden .terms-card h3 {
+  color: #000000;
 }
 
 /* ==========================================================================
-   5. SECCIÓN HORARIOS & ACORDEÓN
+   5. HORARIOS
    ========================================================================== */
 .horarios {
-    flex: 0 1 auto;
-    max-width: 460px;
-    padding: 1rem;
+  flex: 0 1 auto;
+  width: 100%;
+  max-width: 440px;
+  animation: citasInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
 }
 
-details {
-    margin: 1rem 0;
-    background: var(--color-card-bg);
-    max-width: 420px;
-    margin-inline: auto;
-    padding: 0.7rem;
-    border-radius: 8px;
-    transition: var(--transition);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+.horarios h2 {
+  color: var(--color-navy);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+  border-bottom: none;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 1.4rem;
+  position: relative;
 }
 
-/* Eliminar ícono nativo del summary */
-summary::-webkit-details-marker {
-    display: none;
+.horarios h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  margin: 0.5rem auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-salmon));
 }
 
-summary {
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    position: relative;
-    padding-right: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--color-text);
+.horario-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 1.05rem 1.1rem;
+  margin-bottom: 0.9rem;
+  box-shadow: 0 14px 30px rgba(38, 44, 94, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Ícono personalizado + / - */
-summary::before {
-    content: "+";
-    position: absolute;
-    right: 0;
-    font-weight: 600;
-    font-size: 1.2rem;
-    transition: transform var(--transition), color var(--transition);
+.horario-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
 }
 
-details[open] summary::before {
-    content: "–";
-    color: #fff;
-    transform: rotate(180deg);
+.icono_cita {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-terracotta) 0%, #e29578 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(207, 124, 86, 0.35);
 }
 
-.accordion-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0.5rem 0;
+.icono_cita ion-icon {
+  font-size: 1.35rem;
 }
 
-.accordion-content p {
-    margin: 0;
-    font-size: 1.25rem;
-    color: #fff;
+.horario-info {
+  flex: 1;
+  min-width: 0;
 }
 
-.icon_cita {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+.horario-info h3 {
+  margin: 0 0 0.15rem;
+  font-size: 1.02rem;
+  color: var(--color-navy);
+  line-height: 1.25;
 }
 
-img {
-    width: 70px;
-    max-width: 100%;
-    border-radius: 10px;
-    opacity: 0.75;
+.horario-sub {
+  margin: 0 0 0.2rem;
+  font-size: 0.8rem;
+  color: var(--color-text-soft);
 }
 
-/* ANIMACIONES */
-
-@keyframes entrada {
-
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
+.horario-dias {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.25rem 0;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
 }
 
-
-
-
-details p {
-    padding: 0.5rem 0;
-    animation: fade 0.3s ease;
+.horario-dias ion-icon {
+  color: var(--color-terracotta);
+  font-size: 1rem;
+  flex-shrink: 0;
 }
 
-@keyframes fade {
-    from { 
-        opacity: 0; 
-        transform: translateY(-5px); 
-    }
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-    }
+.horario-badge {
+  display: inline-block;
+  margin-top: 0.35rem;
+  padding: 0.28rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(226, 96, 58, 0.12);
+  border: 1px solid rgba(226, 96, 58, 0.3);
+  color: var(--color-terracotta-dark);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
-.aterms{
-    text-decoration: none;
-    color: rgb(255, 255, 255);
+.horario-badge-pending {
+  background: rgba(226, 96, 58, 0.1);
+  border-color: rgba(226, 96, 58, 0.35);
+  color: var(--color-terracotta);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
+
+/* ---- Nota ---- */
+.citas-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(63, 68, 104, 0.12);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  margin-top: 1.1rem;
+}
+
+.citas-tip ion-icon {
+  color: var(--color-terracotta);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
 /* ==========================================================================
-   6. RESPONSIVE DESIGN (DISPOSITIVOS MÓVILES)
+   6. MODALES DE CONFIRMACIÓN
    ========================================================================== */
-@media screen and (max-width: 768px) {
-    body {
-        padding: 1.5rem;
-    }
-
-    .formulario_citas {
-        flex-direction: column;
-        gap: 2rem;
-        padding: 1.5rem;
-    }
-
-    .campos,
-    .horarios {
-        width: 100%;
-        padding: 0;
-    }
-
-    form .field:first-of-type {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .campo_linea,
-    .hora_fecha {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .campo_linea > .field,
-    .hora_fecha > .field {
-        flex: 1 1 100%;
-        width: 100%;
-        margin-right: 0;
-    }
-
-    .campo_linea {
-        margin-bottom: 0;
-    }
-
-    h2 {
-        font-size: 1.6rem;
-    }
-
-    .btn_citas {
-        width: 100%;
-    }
-
-    details {
-        max-width: 100%;
-    }
-
-    .accordion-content {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #showTerms {
-        width: 95%;
-        padding: 1.5rem;
-    }
-}
-
-
-.modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-.modal-overlay.active {
-    display: flex;
-}
-
-/* ===== Overlay de modales ===== */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -584,24 +589,22 @@ details p {
   opacity: 1;
 }
 
-/* ===== Caja del modal ===== */
 .modal-content {
-  background: #fff;
-  border-radius: 12px;
+  background: #ffffff;
+  border-radius: 18px;
   padding: 32px 28px;
   max-width: 380px;
   width: 90%;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transform: translateY(-20px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  transform: translateY(-20px) scale(0.97);
   transition: transform 0.25s ease;
 }
 
 .modal-overlay.active .modal-content {
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
-/* ===== Icono ===== */
 .modal-icon {
   width: 70px;
   height: 70px;
@@ -613,7 +616,6 @@ details p {
   height: 100%;
 }
 
-/* ===== Éxito (check verde) ===== */
 .checkmark-circle {
   stroke: #4bb543;
   stroke-width: 2;
@@ -631,7 +633,6 @@ details p {
   animation: dibujarCheck 0.3s ease forwards 0.4s;
 }
 
-/* ===== Error (X roja) ===== */
 .errormark-circle {
   stroke: #e63946;
   stroke-width: 2;
@@ -657,11 +658,10 @@ details p {
   to { stroke-dashoffset: 0; }
 }
 
-/* ===== Texto ===== */
 .modal-title {
   font-size: 1.3rem;
   margin-bottom: 8px;
-  color: #222;
+  color: var(--color-text-dark);
 }
 
 .modal-title.error-title {
@@ -670,24 +670,25 @@ details p {
 
 .modal-message {
   font-size: 0.95rem;
-  color: #555;
+  color: var(--color-text-muted);
   margin-bottom: 20px;
 }
 
-/* ===== Botón ===== */
 .modal-btn {
   background: #4bb543;
   color: #fff;
   border: none;
-  padding: 10px 24px;
-  border-radius: 8px;
+  padding: 10px 26px;
+  border-radius: 999px;
   font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .modal-btn:hover {
   background: #3f9c39;
+  transform: translateY(-1px);
 }
 
 .modal-btn.error-btn {
@@ -699,56 +700,71 @@ details p {
 }
 
 /* ==========================================================================
-   7. ADICIONES — RECOMENDACIONES Y TIP (mantenidas del rediseño)
+   7. ANIMACIONES
    ========================================================================== */
-.recommendations ul {
-    margin: 0;
-    padding-left: 0;
-    list-style: none;
-    display: grid;
-    gap: 0.45rem;
+@keyframes citasInLeft {
+  from { opacity: 0; transform: translateX(-46px) scale(0.98); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
 }
 
-.recommendations li {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #fff;
+@keyframes citasInRight {
+  from { opacity: 0; transform: translateX(46px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
-.recommendations li::before {
-    content: "✓";
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: rgba(207, 124, 86, 0.25);
-    color: #e29578;
-    font-size: 0.8rem;
-    font-weight: 700;
-    flex-shrink: 0;
+@keyframes fade {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.citas-tip {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.85rem 1rem;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 0.95rem;
-    margin-top: 1.2rem;
+/* ==========================================================================
+   8. RESPONSIVE
+   ========================================================================== */
+@media screen and (max-width: 900px) {
+  body {
+    padding: 0 1rem;
+  }
+
+  .formulario_citas {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1.5rem 0.5rem;
+    margin: 24px auto;
+  }
+
+  .formulario_citas form,
+  .horarios {
+    max-width: 560px;
+    width: 100%;
+  }
+
+  .campo_linea,
+  .hora_fecha {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .campo_linea > .field,
+  .hora_fecha > .field {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .formulario_citas form h2 {
+    font-size: 1.5rem;
+  }
 }
 
-.citas-tip ion-icon {
-    color: #e29578;
-    font-size: 1.3rem;
-    flex-shrink: 0;
-    margin-top: 2px;
+/* ==========================================================================
+   9. ACCESIBILIDAD
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .formulario_citas form,
+  .formulario_citas .horarios,
+  .formulario_citas .field,
+  .formulario_citas .horario-card,
+  .modal-content {
+    animation: none !important;
+    transition: none !important;
+  }
 }
